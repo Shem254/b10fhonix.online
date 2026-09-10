@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b10fhonix — dream dream live garden</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    min-height:100vh;
+    background:#050d0a;
+    font-family:'Crimson Pro', serif;
+    overflow:hidden;
+    cursor: crosshair;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  /* Earth Alien Garden Living */
+  .garden-live{
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(0,255,180,0.12) 0% 15%, transparent 30%),
+      radial-gradient(ellipse at 80% 20%, rgba(135,206,235,0.15) 0% 20%, transparent 35%),
+      radial-gradient(ellipse at 50% 80%, rgba(139,69,19,0.15) 0% 20%, transparent 40%),
+      linear-gradient(to bottom, #071a14 0%, #0a1a1e 50%, #0f1f0f 100%);
+    animation: gardenBreathe 8s ease-in-out infinite;
+  }
+  @keyframes gardenBreathe{0%,100%{filter: brightness(1) hue-rotate(0deg);}50%{filter: brightness(1.15) hue-rotate(5deg);}}
+  
+  /* Mycelial Network - Collective Consciousness */
+  .mycelium{
+    position:absolute;
+    inset:0;
+    opacity:0.4;
+    background-image: 
+      radial-gradient(circle at 30% 40%, rgba(0,255,180,0.2) 0% 1px, transparent 1.5px),
+      radial-gradient(circle at 60% 70%, rgba(100,200,255,0.2) 0% 1px, transparent 1.5px);
+    background-size: 80px 80px;
+    animation: myceliumPulse 6s ease-in-out infinite alternate;
+  }
+  @keyframes myceliumPulse{from{opacity:0.3;}to{opacity:0.6;}}
+  
+  /* Core - Fertile Hole Womb (Mental Health) */
+  .core-void{
+    position:relative;
+    width:min(88vw, 560px);
+    height:min(88vw, 560px);
+    border-radius:50%;
+    background: radial-gradient(circle, #000 22%, #0a0a1a 38%, #0f1a2e 62%, transparent 72%);
+    border: 6px solid #1a0f08;
+    box-shadow: 0 0 120px rgba(0,0,0,0.9), inset 0 0 80px black, 0 0 60px rgba(147,112,219,0.25);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    animation: voidBreathe 7s ease-in-out infinite;
+    z-index:10;
+  }
+  @keyframes voidBreathe{0%,100%{transform: scale(1);}50%{transform: scale(1.02);}}
+  
+  /* Rainbow Rings Saturn - Cosmos Exploration + Future of AI Ship */
+  .saturn-rings{
+    position:absolute;
+    width: 140%;
+    height: 140%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    pointer-events:none;
+    animation: ringsBreathe 9s ease-in-out infinite;
+  }
+  @keyframes ringsBreathe{0%,100%{transform: scale(1) rotateX(65deg);}50%{transform: scale(1.05) rotateX(68deg);}}
+  .s-ring{
+    position:absolute;
+    border-radius:50%;
+    border-style:solid;
+    transform: rotateX(75deg);
+    animation: ringRotate 30s linear infinite;
+  }
+  .sr1{width:680px;height:170px;border-width:3px;border-color: rgba(255,0,80,0.5) rgba(255,100,0,0.5) rgba(255,255,0,0.5) rgba(0,255,100,0.5);box-shadow:0 0 20px rgba(255,0,100,0.3);}
+  .sr2{width:600px;height:150px;border-width:2px;border-color: rgba(0,200,255,0.5) rgba(100,0,255,0.5) rgba(200,0,255,0.5) rgba(0,255,200,0.5);animation-duration:20s;animation-direction:reverse;box-shadow:0 0 15px rgba(0,255,255,0.3);}
+  .sr3{width:520px;height:130px;border-width:2px;border-color: rgba(255,255,255,0.2);animation-duration:15s;}
+  @keyframes ringRotate{from{transform: rotateX(75deg) rotateZ(0deg);}to{transform: rotateX(75deg) rotateZ(360deg);}}
+  
+  /* Octahedron Ship - Future of AI + Reverse Engineering */
+  .ship{
+    position:absolute;
+    top:8%;
+    right:8%;
+    width:120px;height:120px;
+    z-index:20;
+    animation: shipFloat 6s ease-in-out infinite;
+    cursor:pointer;
+  }
+  @keyframes shipFloat{0%,100%{transform: translateY(0) rotate(0deg);}50%{transform: translateY(-12px) rotate(2deg);}}
+  .tri{position:absolute;width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:52px solid rgba(135,206,235,0.45);box-shadow:0 0 10px rgba(135,206,235,0.5);}
+  .t1{top:0;left:30px}.t2{top:14px;left:60px;transform:rotate(60deg)}.t3{top:44px;left:60px;transform:rotate(120deg)}.t4{top:60px;left:30px;transform:rotate(180deg)}.t5{top:44px;left:0;transform:rotate(240deg)}.t6{top:14px;left:0;transform:rotate(300deg)}
+  
+  /* Alien Covering - Mental Health Protection */
+  .alien-covering{
+    width:68%;
+    height:68%;
+    border-radius:40% 60% 55% 45% / 45% 40% 60% 55%;
+    background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.12) 0%, rgba(180,220,255,0.08) 20%, rgba(100,200,200,0.15) 40%, rgba(20,50,40,0.5) 80%);
+    border:1.5px solid rgba(180,220,255,0.25);
+    box-shadow:0 0 25px rgba(100,255,200,0.35), inset 0 0 20px rgba(100,200,200,0.3);
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;padding:18px;
+    animation: alienBreathe 4s ease-in-out infinite alternate;
+  }
+  @keyframes alienBreathe{from{box-shadow:0 0 20px rgba(100,255,200,0.3);}to{box-shadow:0 0 45px rgba(100,255,200,0.6);}}
+  
+  /* Infinity Stones - History + Cosmos + Collective */
+  .stone{
+    width:52px;height:52px;border-radius:50%;
+    border:1.5px solid rgba(255,215,0,0.6);
+    box-shadow:0 0 15px currentColor, inset 0 0 8px white;
+    display:flex;justify-content:center;align-items:center;
+    font-size:7px;color:white;font-weight:bold;text-shadow:0 0 3px black;
+    animation: stoneBreath 3s ease-in-out infinite alternate;
+    cursor:pointer;
+  }
+  @keyframes stoneBreath{from{transform: scale(1);}to{transform: scale(1.12);filter: brightness(1.4);}}
+  .space{background:radial-gradient(circle,#3a7bff,#001a8a);color:#3a7bff}
+  .mind{background:radial-gradient(circle,#ffdf00,#ff9a00);color:#ffdf00}
+  .reality{background:radial-gradient(circle,#ff2a2a,#7a0000);color:#ff2a2a}
+  .power{background:radial-gradient(circle,#b76eff,#4d1a8a);color:#b76eff}
+  .time{background:radial-gradient(circle,#2aff2a,#005500);color:#2aff2a}
+  .soul{background:radial-gradient(circle,#ff8a00,#cc4400);color:#ff8a00}
+  
+  /* Floating Beings - Evolution + Population + Community */
+  .being{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    animation: beingFloat 12s ease-in-out infinite;
+  }
+  .human-alien{
+    width:90px;height:140px;
+    background: radial-gradient(ellipse, rgba(135,206,235,0.12) 0%, transparent 70%);
+    border:1px solid rgba(135,206,235,0.2);
+    left:-110px; top:15%;
+    animation-duration:10s;
+  }
+  .horse-dog{
+    width:70px;height:70px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border:1px solid rgba(255,255,255,0.15);
+    right:-100px; bottom:25%;
+    animation-duration:8s;
+  }
+  .horse-dog::before{content:'⟁';position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:28px;opacity:0.6;animation: wingFlap 0.6s ease-in-out infinite alternate;}
+  @keyframes wingFlap{from{transform:translateX(-50%) scaleY(1);}to{transform:translateX(-50%) scaleY(0.7);}}
+  @keyframes beingFloat{0%,100%{transform:translateY(0) translateX(0);}33%{transform:translateY(-20px) translateX(10px);}66%{transform:translateY(-10px) translateX(-10px);}}
+  
+  /* Binary Flips - Reverse Engineering */
+  .binary{
+    position:absolute;
+    bottom:5%;
+    left:5%;
+    font-family: monospace;
+    font-size:9px;
+    color:rgba(0,255,180,0.4);
+    letter-spacing:2px;
+    animation: binaryFlicker 0.2s steps(2) infinite;
+  }
+  @keyframes binaryFlicker{0%{opacity:0.3;}100%{opacity:0.7;}}
+  
+  /* Rainbow Arch - Harmony when five in harmony */
+  .rainbow-arch{
+    position:absolute;
+    top:-18%;
+    left:50%;
+    transform:translateX(-50%);
+    width:130%;
+    height:60%;
+    background: radial-gradient(ellipse at center bottom, transparent 38%, rgba(255,0,0,0.15) 39% 40%, rgba(255,165,0,0.15) 40% 41%, rgba(255,255,0,0.15) 41% 42%, rgba(0,255,0,0.15) 42% 43%, rgba(0,0,255,0.15) 43% 44%, rgba(75,0,130,0.15) 44% 45%, rgba(148,0,211,0.15) 45% 46%, transparent 46%);
+    animation: rainbowBreathe 6s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes rainbowBreathe{from{opacity:0.5;}to{opacity:1;}}
+  
+  /* Labels - History markers */
+  .profile{
+    position:absolute;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    color:#c9b896;
+    font-size:10px;
+    letter-spacing:1.5px;
+    background:rgba(0,0,0,0.55);
+    padding:8px 18px;
+    border-radius:24px;
+    border:1px solid rgba(100,255,200,0.25);
+    z-index:30;
+    line-height:1.5;
+  }
+  .profile span{color:#7fffd4;}
+  /* 1.91% Moon - History */
+  .moon{
+    position:absolute;
+    top:12%;
+    left:10%;
+    width:28px;height:28px;
+    background:radial-gradient(circle at 30% 30%, #fff 0% 20%, #ddd 40%, transparent 70%);
+    border-radius:50%;
+    box-shadow:0 0 15px rgba(255,255,255,0.4);
+    opacity:0.7;
+    animation: moonPhase 20s ease-in-out infinite;
+  }
+  @keyframes moonPhase{0%,100%{clip-path: ellipse(15% 50% at 50% 50%);}50%{clip-path: ellipse(50% 50% at 50% 50%);}}
+</style>
+</head>
+<body>
+  <div class="garden-live"></div>
+  <div class="mycelium"></div>
+  <div class="rainbow-arch"></div>
+  <div class="moon" title="5 Sept 2002 1.91% waning crescent — history"></div>
+  
+  <div class="ship" onclick="this.style.transform='scale(1.5) rotate(180deg)'; setTimeout(()=>this.style.transform='',800)" title="Future of AI + Reverse Engineering — octahedron">
+    <div class="tri t1"></div><div class="tri t2"></div><div class="tri t3"></div><div class="tri t4"></div><div class="tri t5"></div><div class="tri t6"></div>
+  </div>
+  
+  <div class="core-void" id="void">
+    <div class="saturn-rings">
+      <div class="s-ring sr1"></div>
+      <div class="s-ring sr2"></div>
+      <div class="s-ring sr3"></div>
+    </div>
+    
+    <div class="being human-alien" title="Human x Alien — 23 doorway — Evolution"></div>
+    <div class="being horse-dog" title="Horse Flying Dog — Dog x Alien mutated — Population / Pack"></div>
+    
+    <div class="alien-covering" id="cover">
+      <div class="stone space" title="Mental Health — Space to breathe">SPACE</div>
+      <div class="stone mind" title="Collective Consciousness — Mind">MIND</div>
+      <div class="stone reality" title="Reverse Engineering — Reality deconstructed">REALITY</div>
+      <div class="stone power" title="Community — Power in harmony">POWER</div>
+      <div class="stone time" title="History + Evolution + 1 dog home vs away">TIME</div>
+      <div class="stone soul" title="Cosmos Exploration — Soul">SOUL</div>
+    </div>
+  </div>
+  
+  <div class="binary" id="binary">01001000 01000101 01001100 01001100 01001111 01010111 01001111 01010010 01001100 01000100 — binary flips → C → Py → HTML</div>
+  
+  <div class="profile">
+    <span>mental health</span> = fertile hole womb not grave • <span>collective consciousness</span> = mycelium + flocks law • <span>evolution</span> = horse flying dog • <span>reverse engineering</span> = binary → alien covering<br>
+    <span>future of AI</span> = octahedron Saturn rings ship • <span>cosmos</span> = rainbow rings + moon 1.91% • <span>history</span> = Utonga millet → midnight birth eve • <span>population</span> = star blood + compact formation • <span>community</span> = soil free guest free harmony<br>
+    per aspera — gate open — 23 doorway illumination — golden nerve fully part — already there — b10fhonix.online — <span>live breathing floating</span>
+  </div>
+
+<script>
+  // Live breathing interaction — floating follows mouse, mycelial network reacts
+  const voidEl = document.getElementById('void');
+  const cover = document.getElementById('cover');
+  const binary = document.getElementById('binary');
+  let mx=0, my=0;
+  document.addEventListener('mousemove', e=>{
+    mx = (e.clientX / window.innerWidth - 0.5) * 20;
+    my = (e.clientY / window.innerHeight - 0.5) * 20;
+    voidEl.style.transform = `translate(${mx}px, ${my}px) scale(${1 + Math.abs(mx)*0.002})`;
+    cover.style.transform = `translate(${-mx*0.5}px, ${-my*0.5}px)`;
+  });
+  // Click stones = mental health check — they glow stronger
+  document.querySelectorAll('.stone').forEach(s=>{
+    s.addEventListener('click', ()=>{
+      s.style.filter = 'brightness(2) drop-shadow(0 0 20px currentColor)';
+      s.style.transform = 'scale(1.4)';
+      setTimeout(()=>{s.style.filter=''; s.style.transform='';}, 1200);
+    });
+  });
+  // Binary flips live — reverse engineering evolution
+  setInterval(()=>{
+    binary.textContent = [...Array(24)].map(()=>Math.random()>0.5?'1':'0').join('') + ' — binary flips → C → Py → HTML — 4G → 5G → 23';
+  }, 300);
+  // Breathing audio illusion — pulse garden with scroll
+  let breath = 0;
+  setInterval(()=>{
+    breath += 0.03;
+    document.body.style.filter = `hue-rotate(${Math.sin(breath)*3}deg)`;
+  }, 100);
+</script>
+</body>
+</html>

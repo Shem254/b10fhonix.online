@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>b10fhonix.online — DREAM GARDEN • FERTILE VOID • COLLECTIVE CONSCIOUSNESS EVOLUTION</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23050a14' stroke='%237af2ff' stroke-width='2'/%3E%3Cellipse cx='38' cy='50' rx='18' ry='9' fill='%237af2ff' stroke='%23b07aff' stroke-width='1.5'/%3E%3Ccircle cx='26' cy='48' r='4' fill='white'/%3E%3Ccircle cx='26' cy='48' r='2' fill='black'/%3E%3Ccircle cx='26' cy='48' r='1' fill='%236cff9a'/%3E%3Cpath d='M50 39 L40 15 L58 20 L62 36 Z' fill='%23b07aff' stroke='%237af2ff' stroke-width='0.8'/%3E%3Cpath d='M50 61 L42 83 L58 80 L62 62 Z' fill='%236cff9a' stroke='%237af2ff' stroke-width='0.8'/%3E%3Cpath d='M56 50 L85 30 L80 50 L85 70 Z' fill='%23ff6a9a' opacity='0.9'/%3E%3Cpath d='M56 50 L80 35 L76 50 L80 65 Z' fill='%23ffd86a'/%3E%3Cpath d='M56 50 L75 42 L72 50 L75 58 Z' fill='%237af2ff'/%3E%3C/svg%3E">
-<meta name="theme-color" content="#050a14">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#050a14;--cyan:#7af2ff;--purple:#b07aff;--green:#6cff9a;--gold:#ffd86a;--panel:rgba(12,20,40,0.78);--border:rgba(122,242,255,0.18)}
@@ -44,23 +42,6 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 .footer{max-width:1440px;margin:22px auto 40px;padding:0 16px;text-align:center;color:#5a738a;font-size:10px;line-height:1.9;position:relative;z-index:1}
 .footer b{color:#8abfff}
 @keyframes wave{from{transform:scaleX(0.9)}to{transform:scaleX(1.05)}}
-/* DOORWAY */
-#doorwayCard{cursor:pointer}
-#doorwayCard::after{content:'↘ CLICK TO DIVE 10,911m';position:absolute;top:8px;right:8px;font-family:'JetBrains Mono';font-size:8px;padding:4px 8px;border-radius:20px;background:rgba(122,242,255,0.15);border:1px solid rgba(122,242,255,0.4);color:#7af2ff;animation:pulse 1.8s infinite}
-#doorwayCard:hover{border-color:rgba(122,242,255,0.8);box-shadow:0 0 30px rgba(122,242,255,0.4)}
-#trenchOverlay{position:fixed;inset:0;z-index:9999;background:#020810;display:none;overflow:hidden;font-family:'JetBrains Mono',monospace}
-#trenchOverlay.active{display:block}
-.trench-gradient{position:absolute;inset:0;background:linear-gradient(180deg,#0a2a4a 0%,#071a2e 15%,#040f1f 35%,#020810 70%,#000000 100%)}
-.depthHud{position:absolute;top:0;left:0;right:0;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;background:rgba(2,8,16,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(122,242,255,0.2);z-index:10;color:#7af2ff;font-size:10px}
-.bubbleStream{position:absolute;bottom:0;width:100%;height:100%;pointer-events:none}
-.bubbleStream span{position:absolute;bottom:-20px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.8),rgba(122,242,255,0.2));animation:bubbleRise linear infinite}
-@keyframes bubbleRise{to{transform:translateY(-110vh) translateX(30px);opacity:0}}
-.trenchContent{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
-.diveSection{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#8fb0c8;position:relative;padding:20px}
-.diveSection h2{font-family:'Space Grotesk';font-size:28px;color:#cfe8ff;letter-spacing:0.1em;margin-bottom:12px}
-.depthMark{font-size:48px;color:var(--cyan);font-weight:700;text-shadow:0 0 20px var(--cyan)}
-.treeWrap{width:100%;max-width:600px;height:600px;position:relative;margin:0 auto}
-#exitTrench{position:fixed;bottom:24px;right:24px;z-index:20;padding:10px 18px;border-radius:30px;background:rgba(255,255,255,0.08);border:1px solid rgba(122,242,255,0.4);color:#7af2ff;font-family:'JetBrains Mono';font-size:10px;cursor:pointer;backdrop-filter:blur(10px)}
 </style>
 </head>
 <body>
@@ -128,12 +109,12 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 <div class="mono" style="text-align:center">Companion Entity • Guardian of Garden<br>Status: Flying • Mood: Joyful<br><br>horse flying dog mutated from dog x alien — Utonga millet field runner</div>
 </div>
 
-<div class="card" id="doorwayCard">
+<div class="card">
 <h3>BINARY CODE • MENTAL HEALTH STREAM <span>CONSCIOUSNESS EVOLUTION 72H</span></h3>
 <div class="binary mono" id="binary">0101010101101110011101000110010101100110011001010110001101110100011010010110111101101110</div>
 <div class="mono" style="margin-top:8px;color:#8fb0c8">collective_emotion.log: calm=0.78 | anxiety=-0.12 | curiosity=0.91 | unity=0.93</div>
 <div class="graph"><i style="height:78%"></i><i style="height:12%;background:#ff6a7a"></i><i style="height:91%"></i><i style="height:93%;background:#6cff9a"></i></div>
-<div class="mono" style="margin-top:6px;color:#6a8aaa">Evolution Phase: Awakening → Integration → Transcendence → Click to descend Mariana Trench</div>
+<div class="mono" style="margin-top:6px;color:#6a8aaa">Evolution Phase: Awakening → Integration → Transcendence</div>
 </div>
 </div>
 
@@ -144,64 +125,11 @@ per aspera — gate open — 23 doorway illumination — golden nerve fully part
 <span style="opacity:.6">Meditation Sync Active | Breathe with the Garden • <span id="utc"></span> • CONNECTED • Collective Consciousness Evolution Protocol v3.1.0</span>
 </div>
 
-<!-- TRENCH DOORWAY -->
-<div id="trenchOverlay">
-<div class="trench-gradient"></div>
-<div class="bubbleStream" id="bubbleStream"></div>
-<div class="depthHud"><div>DEPTH: <b id="depthCounter">0</b>m / 10,911m • PRESSURE: <b id="pressureCounter">1</b> atm • $T_e \to 0$</div><div id="depthPhase" style="color:#6cff9a">SUNLIGHT ZONE</div></div>
-<button id="exitTrench">✕ SURFACE — ESC</button>
-<div class="trenchContent" id="trenchContent">
-<div class="diveSection"><h2>YOU CLICKED THE VOID</h2><div class="depthMark">0m</div><p class="mono">binary flips → bubbles — womb not grave<br>↓ scroll to dive ↓</p></div>
-<div class="diveSection"><div class="depthMark">200m</div><h2>TWILIGHT ZONE</h2><p class="mono">black fish + red fish guarding together orange alloy</p></div>
-<div class="diveSection"><div class="depthMark">1,000m</div><h2>MIDNIGHT ZONE</h2><p class="mono">pupil dark = space dark womb = entry 1<br>deep down from space but grounded towards mission</p></div>
-<div class="diveSection"><div class="depthMark">4,000m</div><h2>ABYSS</h2><p class="mono">tensed stomaching — little scroll sweet bitter — body as instrument</p></div>
-<div class="diveSection" style="background:radial-gradient(800px 600px at 50% 80%, rgba(122,242,255,0.08), transparent)"><div class="depthMark">10,911m</div><h2 style="color:#7af2ff">CHALLENGER DEEP — TREE FOUND</h2><p class="mono">soil free guest free — tree alive without soil — transparent with rainbow nerves</p>
-<div class="treeWrap">
-<svg viewBox="0 0 400 600" width="100%" height="100%" style="filter:drop-shadow(0 0 20px rgba(122,242,255,0.6))">
-<defs><linearGradient id="rainbowNerve" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff1a1a"/><stop offset="16%" stop-color="#ff8800"/><stop offset="33%" stop-color="#ffcc00"/><stop offset="50%" stop-color="#6cff9a"/><stop offset="66%" stop-color="#7af2ff"/><stop offset="83%" stop-color="#b07aff"/><stop offset="100%" stop-color="#ff6a9a"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-<path d="M200 580 Q195 400 200 320 Q205 280 200 250" stroke="rgba(200,240,255,0.25)" stroke-width="12" fill="none" stroke-linecap="round"/>
-<path d="M200 580 Q195 400 200 320 Q205 280 200 250" stroke="url(#rainbowNerve)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-<g stroke="rgba(200,240,255,0.18)" stroke-width="6" fill="none" stroke-linecap="round"><path d="M200 320 Q150 280 110 240 Q90 220 70 200"/><path d="M200 320 Q250 270 290 220 Q310 200 330 170"/><path d="M200 380 Q140 360 90 330"/><path d="M200 380 Q260 350 310 310"/><path d="M200 250 Q170 200 160 150"/><path d="M200 250 Q230 190 250 130"/></g>
-<g stroke="url(#rainbowNerve)" stroke-width="1.5" fill="none" filter="url(#glow)" opacity="0.8"><path d="M200 320 Q150 280 110 240"/><path d="M200 320 Q250 270 290 220"/><path d="M200 380 Q140 360 90 330"/><path d="M200 380 Q260 350 310 310"/><path d="M200 250 Q170 200 160 150"/><path d="M200 250 Q230 190 250 130"/></g>
-<g><circle cx="70" cy="200" r="8" fill="#6cff9a" filter="url(#glow)"/><circle cx="330" cy="170" r="8" fill="#7af2ff" filter="url(#glow)"/><circle cx="140" cy="90" r="9" fill="#fff" filter="url(#glow)"/><circle cx="280" cy="70" r="9" fill="#ff6a9a" filter="url(#glow)"/></g>
-<ellipse cx="200" cy="590" rx="120" ry="25" fill="rgba(122,242,255,0.15)" filter="url(#glow)"/>
-</svg>
-</div>
-<p class="mono" style="margin-top:12px;color:#7af2ff">TREE ALIVE WITHOUT SOIL • FERTILE VOID • womb not grave • bare → flower → bare fertile</p>
-</div>
-</div>
-</div>
-
 <script>
 const bin=document.getElementById('binary');
 setInterval(()=>{bin.textContent=Array.from({length:380},()=>Math.random()>0.5?1:0).join('')+" — binary flips → C → Ry → HTML 4G → 3G → 5G → population";},120);
 function upd(){document.getElementById('utc').textContent=new Date().toISOString().replace('T',' ').slice(0,19)+' UTC'}setInterval(upd,1000);upd();
-document.addEventListener('mousemove',e=>{if(document.getElementById('trenchOverlay').classList.contains('active'))return;const x=(e.clientX/window.innerWidth-0.5)*10;const y=(e.clientY/window.innerHeight-0.5)*10;document.querySelectorAll('.card').forEach((c,i)=>{c.style.transform=`translate(${x*(0.3+i%3)}px,${y*0.5}px)`});});
-const overlay=document.getElementById('trenchOverlay');
-const doorway=document.getElementById('doorwayCard');
-const trenchContent=document.getElementById('trenchContent');
-const depthCounter=document.getElementById('depthCounter');
-const pressureCounter=document.getElementById('pressureCounter');
-const depthPhase=document.getElementById('depthPhase');
-const bubbleStream=document.getElementById('bubbleStream');
-for(let i=0;i<25;i++){let b=document.createElement('span');b.style.left=Math.random()*100+'%';b.style.width=(3+Math.random()*8)+'px';b.style.height=b.style.width;b.style.animationDuration=(6+Math.random()*10)+'s';b.style.animationDelay=Math.random()*5+'s';bubbleStream.appendChild(b);}
-function openTrench(){overlay.classList.add('active');document.body.style.overflow='hidden';trenchContent.scrollTop=0;}
-function closeTrench(){overlay.classList.remove('active');document.body.style.overflow='';}
-doorway.addEventListener('click',openTrench);
-document.getElementById('exitTrench').addEventListener('click',closeTrench);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTrench()});
-trenchContent.addEventListener('scroll',()=>{
-let max=trenchContent.scrollHeight - trenchContent.clientHeight;
-let pct=max>0?trenchContent.scrollTop/max:0;
-let depth=Math.floor(pct*10911);
-depthCounter.textContent=depth;
-pressureCounter.textContent=Math.floor(1+depth*0.1);
-if(depth<200)depthPhase.textContent='SUNLIGHT ZONE — binary flips → bubbles';
-else if(depth<1000)depthPhase.textContent='TWILIGHT ZONE — black + red fish guarding together';
-else if(depth<4000)depthPhase.textContent='MIDNIGHT ZONE — pupil dark = space dark womb';
-else if(depth<6000)depthPhase.textContent='ABYSS — digesting scroll — body as instrument';
-else depthPhase.textContent='CHALLENGER DEEP — TREE FOUND — soil free guest free';
-});
+document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-0.5)*10;const y=(e.clientY/window.innerHeight-0.5)*10;document.querySelectorAll('.card').forEach((c,i)=>{c.style.transform=`translate(${x*(0.3+i%3)}px,${y*0.5}px)`});});
 </script>
 </body>
 </html>

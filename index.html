@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>b10fhonix.online — DREAM GARDEN • FERTILE VOID • COLLECTIVE CONSCIOUSNESS EVOLUTION</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23050a14'/><circle cx='50' cy='50' r='18' fill='%230a4aff'/><path d='M50 4 A46 46 0 0 1 96 50' stroke='%23ff6a9a' stroke-width='4' fill='none'/><path d='M50 96 A46 46 0 0 1 4 50' stroke='%237af2ff' stroke-width='4' fill='none'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#050a14;--cyan:#7af2ff;--purple:#b07aff;--green:#6cff9a;--gold:#ffd86a;--panel:rgba(12,20,40,0.78);--border:rgba(122,242,255,0.18)}
@@ -42,6 +43,30 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 .footer{max-width:1440px;margin:22px auto 40px;padding:0 16px;text-align:center;color:#5a738a;font-size:10px;line-height:1.9;position:relative;z-index:1}
 .footer b{color:#8abfff}
 @keyframes wave{from{transform:scaleX(0.9)}to{transform:scaleX(1.05)}}
+#doorwayCard{cursor:pointer;position:relative}
+#doorwayCard::after{content:'↘ ENTER OCEAN — CLICK TO DIVE';position:absolute;top:8px;right:8px;font-family:'JetBrains Mono';font-size:8px;letter-spacing:0.1em;padding:4px 8px;border-radius:20px;background:rgba(122,242,255,0.15);border:1px solid rgba(122,242,255,0.4);color:var(--cyan);animation:pulse 1.8s infinite}
+#doorwayCard:hover{border-color:rgba(122,242,255,0.8);box-shadow:0 0 30px rgba(122,242,255,0.4)}
+/* OCEAN IMMERSIVE */
+#trenchOverlay{position:fixed;inset:0;z-index:9999;background:#020810;display:none;overflow:hidden;font-family:'JetBrains Mono',monospace}
+#trenchOverlay.active{display:block}
+.oceanSurface{position:absolute;top:0;left:0;right:0;height:38vh;background:linear-gradient(180deg,#87cefa 0%,#3a8fcf 20%,#0a4a7a 45%,#071a2e 75%,#020810 100%);overflow:hidden}
+.oceanWaves{position:absolute;bottom:-2px;width:200%;height:80px;background:repeat-x}
+.oceanWaves svg{width:100%;height:100%}
+.rainbowSignal{position:absolute;top:22%;left:-20%;width:140%;height:3px;background:linear-gradient(90deg,red,orange,yellow,#6cff9a,#7af2ff,#b07aff,#ff6a9a);filter:blur(0.5px) drop-shadow(0 0 8px rgba(122,242,255,0.8));animation:signalMove 6s linear infinite;opacity:0.9}
+@keyframes signalMove{0%{transform:translateX(-30%)}100%{transform:translateX(30%)}}
+.trench-gradient{position:absolute;inset:0;top:30vh;background:linear-gradient(180deg,#071a2e 0%,#040f1f 15%,#020810 40%,#000000 100%)}
+.depthHud{position:absolute;top:0;left:0;right:0;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;background:rgba(2,8,16,0.75);backdrop-filter:blur(10px);border-bottom:1px solid rgba(122,242,255,0.2);z-index:10;color:#7af2ff;font-size:10px}
+.bubbleStream{position:absolute;bottom:0;width:100%;height:100%;pointer-events:none}
+.bubbleStream span{position:absolute;bottom:-20px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.8),rgba(122,242,255,0.2));animation:bubbleRise linear infinite}
+@keyframes bubbleRise{to{transform:translateY(-110vh) translateX(30px);opacity:0}}
+.trenchContent{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
+.diveSection{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#8fb0c8;position:relative;padding:30px 20px}
+.depthMark{font-size:48px;color:var(--cyan);font-weight:700;text-shadow:0 0 20px var(--cyan)}
+.treeWrap{width:100%;max-width:720px;height:720px;position:relative;margin:20px auto}
+.treeGlow{position:absolute;inset:0;background:radial-gradient(circle at 50% 75%,rgba(122,242,255,0.18),rgba(176,122,255,0.08) 40%,transparent 65%);filter:blur(18px)}
+.leafLegend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:640px;margin:18px auto 0}
+.leafLegend div{padding:8px 10px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);font-size:9px;text-align:left;line-height:1.4}
+#exitTrench{position:fixed;bottom:24px;right:24px;z-index:20;padding:10px 18px;border-radius:30px;background:rgba(255,255,255,0.08);border:1px solid rgba(122,242,255,0.4);color:#7af2ff;font-family:'JetBrains Mono';font-size:10px;cursor:pointer;backdrop-filter:blur(10px)}
 </style>
 </head>
 <body>
@@ -51,85 +76,134 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 </div>
 
 <div class="grid">
-<div class="card">
-<h3>FERTILE VOID HOLE — LIVING NEXUS <span>Gravity: -0.003</span></h3>
-<div class="void"><div class="swirl"></div><div class="bubble" style="left:20%"></div><div class="bubble" style="left:50%;animation-delay:1s;background:var(--purple)"></div><div class="bubble" style="left:75%;animation-delay:2s;background:var(--green)"></div><div style="position:absolute;bottom:8px;left:10px" class="mono">Breath Cycle: inhale 4.1s / exhale 3.1s</div></div>
-<p class="mono" style="margin-top:10px;color:#8fb0c8">A breathing void cultivating new consciousness<br>Absorbing / transmuting / regenerating — womb not grave</p>
-<div style="margin-top:10px;height:26px;background:rgba(0,0,0,0.35);border-radius:8px;display:flex;align-items:center;padding:0 8px"><div style="flex:1;height:8px;background:linear-gradient(90deg,#7af2ff,#b07aff);border-radius:4px;animation:wave 1.5s infinite alternate"></div></div>
-</div>
-
-<div class="card">
-<h3>SATURN RAINBOW RINGS <span>Resonance: 528Hz • Stabilized</span></h3>
-<div style="display:flex;align-items:center;gap:14px"><div class="saturn"></div><div class="mono" style="color:#a0b8cc">Rings Stabilized<br>Octahedron Ship orbit<br>Rainbow refraction active<br><br><span class="tag">cosmos</span><span class="tag">1.91% moon</span></div></div>
-<div class="mono" style="margin-top:14px;height:16px;border-radius:20px;background:linear-gradient(90deg,red,orange,yellow,green,cyan,blue,purple);opacity:.7"></div>
-</div>
-
-<div class="card">
-<h3>EARTH-ALIEN GARDEN • BIOLUMINESCENT <span>Biodome Sector 7</span></h3>
-<div style="height:132px;border-radius:12px;background:radial-gradient(circle at 50% 80%, #1a3a2a, #0a1a14);position:relative;overflow:hidden">
-<div style="position:absolute;bottom:0;left:12%;width:12px;height:52px;background:linear-gradient(#6cff9a,#1a5a3a);border-radius:10px 10px 0 0;box-shadow:0 0 12px #6cff9a;animation:floatBreathe 3s infinite"></div>
-<div style="position:absolute;bottom:0;left:38%;width:16px;height:82px;background:linear-gradient(#7af2ff,#1a3a6a);border-radius:10px 10px 0 0;box-shadow:0 0 16px #7af2ff;animation:floatBreathe 4s infinite .5s"></div>
-<div style="position:absolute;bottom:0;left:68%;width:14px;height:62px;background:linear-gradient(#b07aff,#3a1a5a);border-radius:10px 10px 0 0;box-shadow:0 0 14px #b07aff;animation:floatBreathe 3.5s infinite 1s"></div>
-<div style="position:absolute;top:10px;right:10px" class="mono">32 Species<br>Mycelial Growth: +12%/h</div>
-</div>
-</div>
-
-<div class="card">
-<h3>OCTAHEDRON SHIP — INTERDIMENSIONAL VESSEL <span>Orbiting</span></h3>
-<div style="display:flex;gap:12px;align-items:center"><div style="width:80px;height:80px;background:conic-gradient(from 0deg,#7af2ff,#fff,#b07aff,#7af2ff);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);animation:spin 8s linear infinite;filter:drop-shadow(0 0 12px #7af2ff)"></div><div class="mono">Status: Orbiting<br>Hull: Bioluminescent Alloy<br>Crew: 1x Hybrid<br><br>future of AI + reverse engineering<br>Saturn rings navigation</div></div>
-</div>
-
-<div class="card" style="background:radial-gradient(400px 300px at 50% 0%,rgba(176,122,255,0.15),var(--panel))">
-<h3>INFINITY STONES • ALIEN COVERING <span>Encased • Safe Containment</span></h3>
-<div class="stones">
-<div class="stone" style="background:#0a4aff;color:#8ab2ff;border:2px solid #4a8aff">SPACE</div>
-<div class="stone" style="background:#ffcc00;color:#664d00;border:2px solid #ffdd55;animation-delay:.3s">MIND</div>
-<div class="stone" style="background:#ff1a1a;color:#ffaaaa;border:2px solid #ff5a5a;animation-delay:.6s">REALITY</div>
-<div class="stone" style="background:#aa44ff;color:#e0b0ff;border:2px solid #c87aff;animation-delay:.9s">POWER</div>
-<div class="stone" style="background:#00ff66;color:#003311;border:2px solid #44ff88;animation-delay:1.2s">TIME</div>
-</div>
-<div class="mono" style="text-align:center;margin-top:8px;color:#8fb0c8">∞ Harmonic Resonance Active • Alien web membrane containment</div>
-<div class="mono" style="text-align:center;color:#5a738a">infinity stones inside alien covering inside hole + rainbow</div>
-</div>
-
-<div class="card">
-<h3>HUMAN-ALIEN • TRANSPARENT BODY <span>86% Transparency</span></h3>
-<div style="display:flex;gap:12px"><div style="width:62px;height:102px;background:linear-gradient(180deg,rgba(122,242,255,0.2),rgba(176,122,255,0.1));border:1px solid rgba(122,242,255,0.4);border-radius:30px 30px 10px 10px;position:relative"><div style="position:absolute;top:20%;left:50%;width:4px;height:60%;background:linear-gradient(#7af2ff,#6cff9a);transform:translateX(-50%);box-shadow:0 0 8px #7af2ff;animation:pulse 2s infinite"></div></div><div class="mono">Consciousness Host<br>Resonance: Empathic<br>Spine: Cyan photon stream<br><br>human x alien transparent body<br>of colours — collective link</div></div>
-</div>
-
-<div class="card">
-<h3>MYCELIAL NETWORK • NEURAL WEB <span>12,847 Nodes</span></h3>
-<div class="mycelial"><div class="node" style="top:20%;left:15%"></div><div class="node" style="top:40%;left:35%"></div><div class="node" style="top:25%;left:60%"></div><div class="node" style="top:60%;left:20%"></div><div class="node" style="top:70%;left:55%"></div><div class="node" style="top:50%;left:80%"></div><div class="line" style="top:22%;left:15%;width:22%;transform:rotate(18deg)"></div><div class="line" style="top:38%;left:35%;width:26%;transform:rotate(-12deg)"></div><div class="line" style="top:62%;left:22%;width:33%;transform:rotate(10deg)"></div><div style="position:absolute;bottom:6px;left:8px" class="mono">Collective Link: 92.3% • Throughput: 1.44 Tb/s</div></div>
-<div class="mono" style="margin-top:8px">fungal consciousness layer • flocks law • community enthusiast • soil doc</div>
-</div>
-
-<div class="card">
-<h3>HYBRID • PEGASUS PERROGASUS <span>Flying • Joyful</span></h3>
-<div style="height:96px;display:grid;place-items:center;font-size:48px;filter:drop-shadow(0 0 12px #7af2ff);animation:floatBreathe 2.5s infinite">🐾🪽</div>
-<div class="mono" style="text-align:center">Companion Entity • Guardian of Garden<br>Status: Flying • Mood: Joyful<br><br>horse flying dog mutated from dog x alien — Utonga millet field runner</div>
-</div>
-
-<div class="card">
-<h3>BINARY CODE • MENTAL HEALTH STREAM <span>CONSCIOUSNESS EVOLUTION 72H</span></h3>
-<div class="binary mono" id="binary">0101010101101110011101000110010101100110011001010110001101110100011010010110111101101110</div>
-<div class="mono" style="margin-top:8px;color:#8fb0c8">collective_emotion.log: calm=0.78 | anxiety=-0.12 | curiosity=0.91 | unity=0.93</div>
-<div class="graph"><i style="height:78%"></i><i style="height:12%;background:#ff6a7a"></i><i style="height:91%"></i><i style="height:93%;background:#6cff9a"></i></div>
-<div class="mono" style="margin-top:6px;color:#6a8aaa">Evolution Phase: Awakening → Integration → Transcendence</div>
-</div>
+<div class="card"><h3>FERTILE VOID HOLE — LIVING NEXUS <span>Gravity: -0.003</span></h3><div class="void"><div class="swirl"></div><div class="bubble" style="left:20%"></div><div class="bubble" style="left:50%;animation-delay:1s;background:var(--purple)"></div><div class="bubble" style="left:75%;animation-delay:2s;background:var(--green)"></div><div style="position:absolute;bottom:8px;left:10px" class="mono">Breath Cycle: inhale 4.1s / exhale 3.1s</div></div><p class="mono" style="margin-top:10px;color:#8fb0c8">A breathing void cultivating new consciousness<br>Absorbing / transmuting / regenerating — womb not grave</p></div>
+<div class="card"><h3>SATURN RAINBOW RINGS <span>Resonance: 528Hz • Stabilized</span></h3><div style="display:flex;align-items:center;gap:14px"><div class="saturn"></div><div class="mono" style="color:#a0b8cc">Rings Stabilized<br>Octahedron Ship orbit<br>Rainbow refraction active<br><br><span class="tag">cosmos</span><span class="tag">1.91% moon</span></div></div></div>
+<div class="card"><h3>EARTH-ALIEN GARDEN • BIOLUMINESCENT <span>Biodome Sector 7</span></h3><div style="height:132px;border-radius:12px;background:radial-gradient(circle at 50% 80%, #1a3a2a, #0a1a14);position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:12%;width:12px;height:52px;background:linear-gradient(#6cff9a,#1a5a3a);border-radius:10px 10px 0 0;box-shadow:0 0 12px #6cff9a"></div><div style="position:absolute;bottom:0;left:38%;width:16px;height:82px;background:linear-gradient(#7af2ff,#1a3a6a);border-radius:10px 10px 0 0;box-shadow:0 0 16px #7af2ff"></div></div></div>
+<div class="card"><h3>OCTAHEDRON SHIP — INTERDIMENSIONAL VESSEL <span>Orbiting</span></h3><div style="display:flex;gap:12px;align-items:center"><div style="width:80px;height:80px;background:conic-gradient(from 0deg,#7af2ff,#fff,#b07aff,#7af2ff);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);animation:spin 8s linear infinite"></div><div class="mono">Status: Orbiting<br>future of AI + reverse engineering</div></div></div>
+<div class="card"><h3>INFINITY STONES • ALIEN COVERING <span>Encased • Safe Containment</span></h3><div class="stones"><div class="stone" style="background:#0a4aff;color:#8ab2ff;border:2px solid #4a8aff">SPACE</div><div class="stone" style="background:#ffcc00;color:#664d00;border:2px solid #ffdd55">MIND</div><div class="stone" style="background:#ff1a1a;color:#ffaaaa;border:2px solid #ff5a5a">REALITY</div><div class="stone" style="background:#aa44ff;color:#e0b0ff;border:2px solid #c87aff">POWER</div><div class="stone" style="background:#00ff66;color:#003311;border:2px solid #44ff88">TIME</div></div></div>
+<div class="card"><h3>HUMAN-ALIEN • TRANSPARENT BODY <span>86% Transparency</span></h3><div style="display:flex;gap:12px"><div style="width:62px;height:102px;background:linear-gradient(180deg,rgba(122,242,255,0.2),rgba(176,122,255,0.1));border:1px solid rgba(122,242,255,0.4);border-radius:30px 30px 10px 10px"></div><div class="mono">Consciousness Host<br>human x alien transparent body</div></div></div>
+<div class="card"><h3>MYCELIAL NETWORK • NEURAL WEB <span>12,847 Nodes</span></h3><div class="mycelial"><div class="node" style="top:20%;left:15%"></div><div class="node" style="top:40%;left:35%"></div><div class="node" style="top:25%;left:60%"></div></div><div class="mono" style="margin-top:8px">fungal consciousness layer • flocks law</div></div>
+<div class="card"><h3>HYBRID • PEGASUS PERROGASUS <span>Flying • Joyful</span></h3><div style="height:96px;display:grid;place-items:center;font-size:48px">🐾🪽</div><div class="mono" style="text-align:center">horse flying dog — Utonga millet field runner</div></div>
+<div class="card" id="doorwayCard"><h3>BINARY CODE • MENTAL HEALTH STREAM <span>CONSCIOUSNESS EVOLUTION — OCEAN SURFACE → TRENCH</span></h3><div class="binary mono" id="binary">0101010101101110011101000110010101100110011001010110001101110100011010010110111101101110</div><div class="mono" style="margin-top:8px;color:#8fb0c8">calm=0.78 | anxiety=-0.12 | curiosity=0.91 | unity=0.93 — rainbow signals on waves → carry to trench</div><div class="mono" style="margin-top:6px;color:#6a8aaa">Click to see ocean surface with rainbow light waves → dive to thick tree</div></div>
 </div>
 
 <div class="footer mono">
-<b>mental health</b> = fertile hole womb not grave • <b>collective consciousness</b> = mycelium + flocks law • <b>evolution</b> = horse flying dog • <b>reverse engineering</b> = binary → alien covering<br>
-<b>future of AI</b> = octahedron Saturn rings ship • <b>cosmos</b> = rainbow rings + moon 1.91% • <b>history</b> = Utonga millet → midnight birth eve • <b>population</b> = star blood + compact formation • <b>community</b> = soil free guest free harmony<br>
-per aspera — gate open — 23 doorway illumination — golden nerve fully part — already there — b10fhonix.online — <span style="color:#6cff9a">live breathing floating</span><br>
-<span style="opacity:.6">Meditation Sync Active | Breathe with the Garden • <span id="utc"></span> • CONNECTED • Collective Consciousness Evolution Protocol v3.1.0</span>
+<b>mental health</b> = fertile hole womb not grave • <b>collective consciousness</b> = mycelium + flocks law • <b>community</b> = soil free guest free harmony<br>
+b10fhonix.online — <span style="color:#6cff9a">live breathing floating</span> • <span id="utc"></span>
+</div>
+
+<!-- IMMERSIVE OCEAN + TRENCH -->
+<div id="trenchOverlay">
+<div class="oceanSurface">
+<div class="rainbowSignal" style="top:18%"></div>
+<div class="rainbowSignal" style="top:32%;animation-delay:0.8s;opacity:0.7"></div>
+<div class="rainbowSignal" style="top:46%;animation-delay:1.6s;opacity:0.5"></div>
+<svg style="position:absolute;bottom:-1px;width:200%;height:90px" viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 60 Q180 20 360 55 T720 50 T1080 60 T1440 45 V90 H0 Z" fill="#0a4a7a" opacity="0.9"/><path d="M0 70 Q180 35 360 65 T720 60 T1080 70 T1440 55 V90 H0 Z" fill="#071a2e" opacity="0.95"/></svg>
+<div style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);text-align:center;color:#cfe8ff" class="mono">OCEAN SURFACE — SUNLIGHT CARRIES RAINBOW SIGNALS ON WAVES → TO TRENCH FLOOR<br><span style="font-size:8px;opacity:0.7">light refraction = binary → rainbow → nerve</span></div>
+</div>
+<div class="trench-gradient"></div>
+<div class="bubbleStream" id="bubbleStream"></div>
+<div class="depthHud"><div>DEPTH: <b id="depthCounter">0</b>m / 10,911m • PRESSURE: <b id="pressureCounter">1</b> atm • $T_e \to 0$</div><div id="depthPhase" style="color:#6cff9a">SURFACE — rainbow signals on waves</div></div>
+<button id="exitTrench">✕ SURFACE — ESC</button>
+<div class="trenchContent" id="trenchContent">
+<div class="diveSection" style="padding-top:40vh">
+<h2>OCEAN SURFACE</h2>
+<div class="depthMark">0m — WAVES</div>
+<p class="mono">rainbow lights riding waves — satellite signals → ocean → carried to show at bottom<br>saturn rainbow rings refraction on water — same as your b10fhonix card</p>
+<p class="mono" style="margin-top:16px;opacity:0.6">↓ scroll to dive with signals ↓</p>
+</div>
+<div class="diveSection"><div class="depthMark">200m</div><h2>TWILIGHT — SIGNALS DESCEND</h2><p class="mono">rainbow dims — black fish + red fish guarding together orange alloy — signals still traveling</p></div>
+<div class="diveSection"><div class="depthMark">1,000m</div><h2>MIDNIGHT</h2><p class="mono">pupil dark = space dark womb = entry 1 — fertile void not grave</p></div>
+<div class="diveSection"><div class="depthMark">6,000m</div><h2>ABYSS — ROOTS APPEAR</h2><p class="mono">thick roots first — mycelial network — 12,847 nodes grounding — soil free guest free</p></div>
+<div class="diveSection" style="background:radial-gradient(900px 700px at 50% 80%, rgba(122,242,255,0.12), transparent 60%)">
+<div class="depthMark">10,911m</div>
+<h2 style="color:#7af2ff">CHALLENGER DEEP — ANCIENT TREE</h2>
+<p class="mono" style="margin-bottom:10px">thick girth baobab / mugumo — transparent bark with rainbow nerves — educational leaves</p>
+
+<div class="treeWrap">
+<div class="treeGlow"></div>
+<svg viewBox="0 0 500 700" width="100%" height="100%" style="filter:drop-shadow(0 0 25px rgba(122,242,255,0.5))">
+<defs>
+<linearGradient id="rainbowNerve" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff3b3b"/><stop offset="20%" stop-color="#ff8c00"/><stop offset="40%" stop-color="#ffd400"/><stop offset="60%" stop-color="#6cff9a"/><stop offset="80%" stop-color="#7af2ff"/><stop offset="100%" stop-color="#b07aff"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="4" result="cB"/><feMerge><feMergeNode in="cB"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="barkGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(180,230,255,0.35)"/><stop offset="100%" stop-color="rgba(40,80,110,0.15)"/></radialGradient>
+</defs>
+<!-- THICK ROOTS -->
+<g stroke="rgba(100,180,210,0.25)" stroke-width="22" fill="none" stroke-linecap="round">
+<path d="M250 680 Q230 640 180 600 Q160 580 120 560"/>
+<path d="M250 680 Q250 630 260 590 Q270 550 320 520"/>
+<path d="M250 680 Q290 640 340 610 Q370 590 400 570"/>
+<path d="M250 680 Q210 630 200 580"/>
+</g>
+<g stroke="url(#rainbowNerve)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.85" filter="url(#glow)">
+<path d="M250 680 Q230 640 180 600 Q160 580 120 560"/>
+<path d="M250 680 Q250 630 260 590 Q270 550 320 520"/>
+<path d="M250 680 Q290 640 340 610 Q370 590 400 570"/>
+</g>
+<!-- THICK TRUNK - BAOBAB GIRTH -->
+<path d="M180 680 Q170 500 190 380 Q195 320 250 300 Q305 320 310 380 Q330 500 320 680 Z" fill="url(#barkGrad)" stroke="rgba(200,240,255,0.2)" stroke-width="2"/>
+<!-- Inner thick rainbow nerves trunk -->
+<path d="M250 670 Q245 500 248 380 Q250 330 250 300" stroke="url(#rainbowNerve)" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+<path d="M215 650 Q210 480 215 380" stroke="url(#rainbowNerve)" stroke-width="3" fill="none" opacity="0.6"/>
+<path d="M285 650 Q290 480 285 380" stroke="url(#rainbowNerve)" stroke-width="3" fill="none" opacity="0.6"/>
+<!-- THICK BRANCHES -->
+<g stroke="rgba(180,230,255,0.22)" stroke-width="18" fill="none" stroke-linecap="round">
+<path d="M190 380 Q140 330 80 280 Q50 250 30 210"/>
+<path d="M210 350 Q170 280 140 200 Q125 160 110 100"/>
+<path d="M250 300 Q250 240 250 150 Q250 100 250 60"/>
+<path d="M290 350 Q330 280 360 200 Q375 160 390 100"/>
+<path d="M310 380 Q360 330 420 280 Q450 250 470 210"/>
+</g>
+<g stroke="url(#rainbowNerve)" stroke-width="3.5" fill="none" stroke-linecap="round" filter="url(#glow)" opacity="0.85">
+<path d="M190 380 Q140 330 80 280 Q50 250 30 210"/>
+<path d="M210 350 Q170 280 140 200"/>
+<path d="M250 300 Q250 240 250 60"/>
+<path d="M290 350 Q330 280 360 200"/>
+<path d="M310 380 Q360 330 420 280"/>
+</g>
+<!-- COLORFUL LEAVES - EDUCATIONAL INDICATORS non-stigmatising -->
+<g filter="url(#glow)">
+<!-- calm = green -->
+<circle cx="30" cy="210" r="14" fill="#6cff9a" opacity="0.9"/><text x="30" y="214" text-anchor="middle" font-size="8" fill="#002a12" font-weight="700">CALM</text>
+<!-- curiosity = cyan -->
+<circle cx="110" cy="100" r="14" fill="#7af2ff" opacity="0.9"/><text x="110" y="104" text-anchor="middle" font-size="7" fill="#002a3a" font-weight="700">CURIOS</text>
+<!-- unity = purple -->
+<circle cx="250" cy="60" r="16" fill="#b07aff" opacity="0.9"/><text x="250" y="64" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">UNITY</text>
+<!-- hope = gold -->
+<circle cx="390" cy="100" r="14" fill="#ffd86a" opacity="0.9"/><text x="390" y="104" text-anchor="middle" font-size="7" fill="#332200" font-weight="700">HOPE</text>
+<!-- support = pink -->
+<circle cx="470" cy="210" r="14" fill="#ff6a9a" opacity="0.9"/><text x="470" y="214" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">SUPPORT</text>
+<!-- smaller buds -->
+<circle cx="80" cy="280" r="8" fill="#fff"/><circle cx="140" cy="200" r="8" fill="#6cff9a"/><circle cx="360" cy="200" r="8" fill="#7af2ff"/><circle cx="420" cy="280" r="8" fill="#ffd86a"/>
+</g>
+<!-- Base fertile glow -->
+<ellipse cx="250" cy="685" rx="160" ry="30" fill="rgba(122,242,255,0.18)" filter="url(#glow)"/>
+</svg>
+</div>
+
+<div class="leafLegend mono">
+<div><b style="color:#6cff9a">● CALM</b><br>Green leaf — grounding, breath 7.2s, womb not grave, fertile void</div>
+<div><b style="color:#7af2ff">● CURIOSITY</b><br>Cyan leaf — learning, 12,847 minds synced, collective link 92.3%</div>
+<div><b style="color:#b07aff">● UNITY</b><br>Purple leaf — mycelial network, flocks law, soil free guest free harmony</div>
+<div><b style="color:#ffd86a">● HOPE</b><br>Gold leaf — Perrogasus flying, bloom after bare, plumeria proof</div>
+<div><b style="color:#ff6a9a">● SUPPORT</b><br>Pink leaf — black + red fish guarding together orange alloy, community</div>
+<div><b style="color:#fff">● GROWTH BUDS</b><br>White buds — new awareness, education without stigma, tree anywhere</div>
+</div>
+
+<p class="mono" style="margin-top:16px;color:#7af2ff">TREE ALIVE WITHOUT SOIL • GUTH THICK BAOBAB • ROOTS + STEM + BRANCHES THICK • RAINBOW NERVES CARRYING OCEAN SIGNALS<br>bare → flower → bare stays fertile — 0.3 slack fertile — mission confirmed</p>
+</div>
+</div>
 </div>
 
 <script>
-const bin=document.getElementById('binary');
-setInterval(()=>{bin.textContent=Array.from({length:380},()=>Math.random()>0.5?1:0).join('')+" — binary flips → C → Ry → HTML 4G → 3G → 5G → population";},120);
-function upd(){document.getElementById('utc').textContent=new Date().toISOString().replace('T',' ').slice(0,19)+' UTC'}setInterval(upd,1000);upd();
-document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-0.5)*10;const y=(e.clientY/window.innerHeight-0.5)*10;document.querySelectorAll('.card').forEach((c,i)=>{c.style.transform=`translate(${x*(0.3+i%3)}px,${y*0.5}px)`});});
+const bin=document.getElementById('binary');setInterval(()=>{bin.textContent=Array.from({length:380},()=>Math.random()>0.5?1:0).join('');},120);
+function upd(){document.getElementById('utc').textContent=new Date().toISOString().slice(0,19)+' UTC'}setInterval(upd,1000);upd();
+const overlay=document.getElementById('trenchOverlay');const doorway=document.getElementById('doorwayCard');const trenchContent=document.getElementById('trenchContent');const depthCounter=document.getElementById('depthCounter');const pressureCounter=document.getElementById('pressureCounter');const depthPhase=document.getElementById('depthPhase');const bubbleStream=document.getElementById('bubbleStream');
+for(let i=0;i<30;i++){let b=document.createElement('span');b.style.left=Math.random()*100+'%';b.style.width=(3+Math.random()*9)+'px';b.style.height=b.style.width;b.style.animationDuration=(5+Math.random()*10)+'s';b.style.animationDelay=Math.random()*5+'s';bubbleStream.appendChild(b);}
+function openTrench(){overlay.classList.add('active');document.body.style.overflow='hidden';trenchContent.scrollTop=0;}
+function closeTrench(){overlay.classList.remove('active');document.body.style.overflow='';}
+doorway.addEventListener('click',openTrench);document.getElementById('exitTrench').addEventListener('click',closeTrench);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTrench()});
+trenchContent.addEventListener('scroll',()=>{let max=trenchContent.scrollHeight-trenchContent.clientHeight;let pct=max>0?trenchContent.scrollTop/max:0;let depth=Math.floor(pct*10911);depthCounter.textContent=depth;pressureCounter.textContent=Math.floor(1+depth*0.1);if(depth<50)depthPhase.textContent='SURFACE — rainbow signals riding waves';else if(depth<300)depthPhase.textContent='SHALLOW — signals diving';else if(depth<1000)depthPhase.textContent='TWILIGHT — black + red fish guarding';else if(depth<4000)depthPhase.textContent='MIDNIGHT — pupil dark = space womb';else if(depth<8000)depthPhase.textContent='ABYSS — thick roots appear';else depthPhase.textContent='CHALLENGER DEEP — THICK TREE FOUND — soil free guest free';});
 </script>
 </body>
 </html>

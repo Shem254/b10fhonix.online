@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>b10fhonix.online — DREAM GARDEN • FERTILE VOID • COLLECTIVE CONSCIOUSNESS EVOLUTION</title>
-<link rel="icon" href="data:image/svg+xml,[STRIPPED]">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <style>
 :root{--bg:#050a14;--cyan:#7af2ff;--purple:#b07aff;--green:#6cff9a;--gold:#ffd86a;--panel:rgba(12,20,40,0.78);--border:rgba(122,242,255,0.18)}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -36,10 +39,7 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 @keyframes stonePulse{0%,100%{box-shadow:0 0 14px currentColor,inset 0 0 10px rgba(255,255,255,0.3)}50%{box-shadow:0 0 28px currentColor,inset 0 0 16px rgba(255,255,255,0.5)}}
 .mycelial{height:120px;background:linear-gradient(180deg,rgba(12,30,60,0.9),rgba(5,15,30,0.95));border-radius:12px;position:relative;overflow:hidden}
 .node{position:absolute;width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan)}
-.line{position:absolute;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.55}
 .binary{height:150px;overflow:hidden;background:#030712;border-radius:12px;padding:8px;font-size:8px;line-height:10px;color:#4a6a7a;word-break:break-all;pointer-events:none}
-.graph{height:38px;display:flex;align-items:end;gap:3px;margin-top:8px;pointer-events:none}
-.graph i{flex:1;background:var(--cyan);border-radius:2px 2px 0 0;opacity:.75}
 .footer{max-width:1440px;margin:22px auto 40px;padding:0 16px;text-align:center;color:#5a738a;font-size:10px;line-height:1.9;position:relative;z-index:1}
 .footer b{color:#8abfff}
 #doorwayCard{cursor:pointer;position:relative;z-index:5;pointer-events:auto}
@@ -63,12 +63,23 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 .leafLegend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:640px;margin:18px auto 0}
 .leafLegend div{padding:8px 10px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);font-size:9px;text-align:left;line-height:1.4}
 #exitTrench{position:fixed;bottom:24px;right:24px;z-index:20;padding:10px 18px;border-radius:30px;background:rgba(255,255,255,0.08);border:1px solid rgba(122,242,255,0.4);color:#7af2ff;font-family:'JetBrains Mono';font-size:10px;cursor:pointer;backdrop-filter:blur(10px)}
+/* HANDWRITE LAB OVERLAY */
+#handwriteOverlay{position:fixed;inset:0;z-index:9998;background:#020810;display:none;overflow:auto;font-family:'JetBrains Mono',monospace}
+#handwriteOverlay.active{display:block}
+.hwTop{position:sticky;top:0;z-index:5;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,12,24,0.92);border-bottom:1px solid rgba(122,242,255,0.2);backdrop-filter:blur(12px)}
+.hwDrop{max-width:1100px;margin:18px auto;padding:28px;border:2px dashed rgba(122,242,255,0.4);border-radius:18px;text-align:center;background:rgba(12,20,40,0.9)}
+#hwPages{max-width:1100px;margin:18px auto;display:flex;flex-wrap:wrap;gap:12px;min-height:120px}
+.hwPg{width:168px;background:rgba(255,255,255,0.06);border:1px solid rgba(122,242,255,0.2);border-radius:12px;padding:8px;cursor:grab;position:relative}
+.hwPg img{width:100%;border-radius:8px;display:block}
+.hwPg textarea{width:100%;margin-top:6px;background:#020810;color:#7af2ff;border:1px solid rgba(122,242,255,0.2);border-radius:6px;font-size:10px;padding:4px}
+.hwBtn{background:var(--cyan);color:#001;border:0;padding:10px 18px;border-radius:20px;font-weight:700;cursor:pointer;font-family:'JetBrains Mono';font-size:11px}
+.hwBtn.ghost{background:transparent;color:var(--cyan);border:1px solid rgba(122,242,255,0.4)}
 </style>
 </head>
 <body>
 <div class="topbar mono">
 <div><b>b10fhonix.online</b> — DREAM GARDEN • FERTILE VOID HOLE • COLLECTIVE CONSCIOUSNESS EVOLUTION <span class="breathe" style="margin-left:12px"><span class="pulse"></span> Live • 7.2s BREATHING</span></div>
-<div style="display:flex;gap:14px;align-items:center"><span>12,847 MINDS SYNCED</span><span style="color:#6cff9a">Collective Calm 78% •</span></div>
+<div style="display:flex;gap:14px;align-items:center"><span>12,847 MINDS SYNCED</span><span style="color:#6cff9a">Collective Calm 78% • LAB READY</span></div>
 </div>
 
 <div class="grid">
@@ -79,10 +90,21 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 <div class="card"><h3>INFINITY STONES • ALIEN COVERING <span>Encased • Safe Containment</span></h3><div class="stones"><div class="stone" style="background:#0a4aff;color:#8ab2ff;border:2px solid #4a8aff">SPACE</div><div class="stone" style="background:#ffcc00;color:#664d00;border:2px solid #ffdd55">MIND</div><div class="stone" style="background:#ff1a1a;color:#ffaaaa;border:2px solid #ff5a5a">REALITY</div><div class="stone" style="background:#aa44ff;color:#e0b0ff;border:2px solid #c87aff">POWER</div><div class="stone" style="background:#00ff66;color:#003311;border:2px solid #44ff88">TIME</div></div></div>
 <div class="card"><h3>HUMAN-ALIEN • TRANSPARENT BODY <span>86% Transparency</span></h3><div style="display:flex;gap:12px"><div style="width:62px;height:102px;background:linear-gradient(180deg,rgba(122,242,255,0.2),rgba(176,122,255,0.1));border:1px solid rgba(122,242,255,0.4);border-radius:30px 30px 10px 10px"></div><div class="mono">Consciousness Host<br>human x alien transparent body</div></div></div>
 <div class="card"><h3>MYCELIAL NETWORK • NEURAL WEB <span>12,847 Nodes</span></h3><div class="mycelial"><div class="node" style="top:20%;left:15%"></div><div class="node" style="top:40%;left:35%"></div><div class="node" style="top:25%;left:60%"></div></div><div class="mono" style="margin-top:8px">fungal consciousness layer • flocks law</div></div>
+
 <div class="card"><h3>HYBRID • PEGASUS PERROGASUS <span>Flying • Joyful</span></h3><div style="height:96px;display:grid;place-items:center;font-size:48px">🐾🪽</div><div class="mono" style="text-align:center">horse flying dog — Utonga millet field runner</div></div>
 
-<!-- FIXED CLICKABLE CARD -->
-<div class="card" id="doorwayCard" onclick="openTrench()" style="cursor:pointer; z-index:5; pointer-events:auto;">
+<!-- NEW LAB TOOL CARD -->
+<div class="card" id="handwriteCard" onclick="openHandwrite()" style="cursor:pointer;border-color:rgba(108,255,154,0.5);box-shadow:0 0 18px rgba(108,255,154,0.15)">
+<h3>HANDWRITE SORTER • LAB TOOL <span>$0 • Offline • CLICK TO OPEN</span></h3>
+<div style="height:132px;border-radius:12px;background:radial-gradient(circle at 30% 20%, rgba(108,255,154,0.25), rgba(5,15,30,0.95));display:grid;place-items:center;position:relative;overflow:hidden">
+<div style="font-size:52px">📝→📄</div>
+<div style="position:absolute;bottom:8px;left:10px" class="mono">Tesseract.js + pdf-lib • client-side OCR</div>
+<div style="position:absolute;top:8px;right:8px;font-size:9px;padding:4px 8px;border-radius:20px;background:rgba(108,255,154,0.15);border:1px solid rgba(108,255,154,0.4);color:var(--green)">● READY</div>
+</div>
+<div class="mono" style="margin-top:8px;color:#8fb0c8">Drop handwriting → auto OCR → drag to sort → export searchable PDF<br><span style="color:var(--green)">No server • i5 does work • Works offline</span></div>
+</div>
+
+<div class="card" id="doorwayCard" onclick="openTrench()" style="cursor:pointer;">
 <h3>BINARY CODE • MENTAL HEALTH STREAM <span>CONSCIOUSNESS EVOLUTION — OCEAN SURFACE → TRENCH</span></h3>
 <div class="binary mono" id="binary">0101010101101110011101000110010101100110011001010110001101110100011010010110111101101110</div>
 <div class="mono" style="margin-top:8px;color:#8fb0c8">calm=0.78 | anxiety=-0.12 | curiosity=0.91 | unity=0.93 — rainbow signals on waves → carry to trench</div>
@@ -92,10 +114,10 @@ body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45
 
 <div class="footer mono">
 <b>mental health</b> = fertile hole womb not grave • <b>collective consciousness</b> = mycelium + flocks law • <b>community</b> = soil free guest free harmony<br>
-b10fhonix.online — <span style="color:#6cff9a">live breathing floating</span> • <span id="utc"></span>
+b10fhonix.online — <span style="color:#6cff9a">live breathing floating</span> • <span id="utc"></span> • LAB: /handwrite • TOOL: client-side
 </div>
 
-<!-- IMMERSIVE OCEAN + TRENCH -->
+<!-- OCEAN TRENCH OVERLAY (YOUR OLD) -->
 <div id="trenchOverlay">
 <div class="oceanSurface">
 <div class="rainbowSignal" style="top:18%"></div>
@@ -137,6 +159,36 @@ b10fhonix.online — <span style="color:#6cff9a">live breathing floating</span> 
 </div>
 </div>
 
+<!-- HANDWRITE LAB OVERLAY -->
+<div id="handwriteOverlay">
+<div class="hwTop mono">
+<div><b style="color:var(--green)">b10fhonix.online / LAB — HANDWRITE SORTER</b> <span style="opacity:.6">• Client-side • Tesseract.js + pdf-lib + SortableJS • No server upload</span></div>
+<div style="display:flex;gap:8px">
+<button class="hwBtn ghost" onclick="closeHandwrite()">✕ CLOSE ESC</button>
+<button class="hwBtn" id="hwExport">EXPORT SORTED PDF</button>
+</div>
+</div>
+
+<div class="hwDrop" id="hwDrop">
+<h2 style="color:var(--cyan)">Drop Handwriting Photos / PDFs Here</h2>
+<p style="opacity:.7;margin:8px 0">Drag & drop crooked notes — auto OCR in browser — drag to reorder — export searchable PDF</p>
+<input type="file" id="hwUpload" multiple accept="image/*,.pdf" hidden>
+<div style="margin:12px 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+<button class="hwBtn" onclick="document.getElementById('hwUpload').click()">CHOOSE FILES</button>
+<button class="hwBtn ghost" onclick="clearAll()">CLEAR ALL</button>
+</div>
+<div id="hwStatus" style="color:var(--green);margin-top:10px">Ready • Client-side • No upload to server • Works offline after first load</div>
+<div class="mono" style="margin-top:8px;color:#6a8aaa">Flow: SENSE (photo) → CONVERT (OCR) → MOVE (drag sort) → GROUND (export PDF + save to /ATMOSPHERE/log.csv)</div>
+</div>
+
+<div id="hwPages"></div>
+
+<div style="max-width:1100px;margin:20px auto;padding:14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)" class="mono">
+<b style="color:var(--green)">HOW IT WORKS — NO MAN'S LANGUAGE:</b><br>
+0D Dot = one photo • 1D Line = OCR text • 2D Flat = preview card • 3D House = sorted stack • 4D Time = drag order • 5D Data = searchable PDF • 6D Move = export • 7D Pattern = same law as weather • 8D Community = share PDF • 9D Governance = you own pattern
+</div>
+</div>
+
 <script>
 const bin=document.getElementById('binary');setInterval(()=>{bin.textContent=Array.from({length:380},()=>Math.random()>0.5?1:0).join('');},120);
 function upd(){document.getElementById('utc').textContent=new Date().toISOString().slice(0,19)+' UTC'}setInterval(upd,1000);upd();
@@ -150,8 +202,66 @@ for(let i=0;i<30;i++){let b=document.createElement('span');b.style.left=Math.ran
 function openTrench(){overlay.classList.add('active');document.body.style.overflow='hidden';trenchContent.scrollTop=0;depthCounter.textContent='0';}
 function closeTrench(){overlay.classList.remove('active');document.body.style.overflow='';}
 document.getElementById('exitTrench').addEventListener('click',closeTrench);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTrench()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTrench(); closeHandwrite();}});
 trenchContent.addEventListener('scroll',()=>{let max=trenchContent.scrollHeight-trenchContent.clientHeight;let pct=max>0?trenchContent.scrollTop/max:0;let depth=Math.floor(pct*10911);depthCounter.textContent=depth;pressureCounter.textContent=Math.floor(1+depth*0.1);if(depth<50)depthPhase.textContent='SURFACE — rainbow signals riding waves';else if(depth<300)depthPhase.textContent='SHALLOW — signals diving';else if(depth<1000)depthPhase.textContent='TWILIGHT — black + red fish guarding';else if(depth<4000)depthPhase.textContent='MIDNIGHT — pupil dark = space womb';else if(depth<8000)depthPhase.textContent='ABYSS — thick roots appear';else depthPhase.textContent='CHALLENGER DEEP — THICK TREE FOUND';});
+
+// HANDWRITE LOGIC
+const hwPagesEl = document.getElementById('hwPages');
+const hwStatusEl = document.getElementById('hwStatus');
+const hwOverlay = document.getElementById('handwriteOverlay');
+let hwItems = [];
+function openHandwrite(){ hwOverlay.classList.add('active'); document.body.style.overflow='hidden'; }
+function closeHandwrite(){ hwOverlay.classList.remove('active'); document.body.style.overflow=''; }
+function clearAll(){ hwItems=[]; hwRender(); hwStatusEl.textContent='Cleared • Ready'; }
+function hwRender(){
+  hwPagesEl.innerHTML='';
+  hwItems.forEach((it, idx)=>{
+    const div=document.createElement('div');
+    div.className='hwPg'; div.dataset.id=it.id;
+    div.innerHTML=`<img src="${it.imgSrc}"><textarea rows="4">${(it.text||'').replace(/</g,'&lt;')}</textarea><div style="font-size:9px;opacity:.6;margin-top:4px;display:flex;justify-content:space-between"><span>#${idx+1}</span><span style="cursor:pointer;color:#ff6a9a" onclick="removeItem('${it.id}')">✕</span></div>`;
+    div.querySelector('textarea').addEventListener('input', e=>{ it.text=e.target.value; });
+    hwPagesEl.appendChild(div);
+  });
+  if(window.Sortable) new Sortable(hwPagesEl,{animation:150,onEnd:()=>{
+    const newOrder=[]; [...hwPagesEl.children].forEach(ch=>{
+      const found=hwItems.find(x=>String(x.id)===String(ch.dataset.id)); if(found) newOrder.push(found);
+    }); hwItems=newOrder; hwRender();
+  }});
+}
+window.removeItem = (id)=>{ hwItems=hwItems.filter(x=>String(x.id)!==String(id)); hwRender(); }
+async function hwOcr(file){
+  hwStatusEl.textContent=`OCR ${file.name}...`;
+  const {data:{text}} = await Tesseract.recognize(file,'eng',{logger:m=>{ if(m.status==='recognizing text') hwStatusEl.textContent=`OCR ${file.name} ${Math.floor(m.progress*100)}%`; }});
+  return text;
+}
+document.getElementById('hwUpload').addEventListener('change', async e=>{
+  for(let f of e.target.files){ if(f.type.startsWith('image/')){ const url=URL.createObjectURL(f); const txt=await hwOcr(f); hwItems.push({id:Date.now()+Math.random(),imgSrc:url,text:txt}); hwRender(); } }
+  hwStatusEl.textContent=`Done • ${hwItems.length} pages • Drag to sort • Ready to export`;
+});
+const hwDrop=document.getElementById('hwDrop');
+hwDrop.addEventListener('dragover', e=>{e.preventDefault(); hwDrop.style.borderColor='#6cff9a'});
+hwDrop.addEventListener('dragleave', ()=>{hwDrop.style.borderColor='rgba(122,242,255,0.4)'});
+hwDrop.addEventListener('drop', async e=>{
+  e.preventDefault(); hwDrop.style.borderColor='rgba(122,242,255,0.4)';
+  for(let f of e.dataTransfer.files){ if(f.type.startsWith('image/')){ const url=URL.createObjectURL(f); const txt=await hwOcr(f); hwItems.push({id:Date.now()+Math.random(),imgSrc:url,text:txt}); hwRender(); } }
+  hwStatusEl.textContent=`Done • ${hwItems.length} pages • Drag to sort • Ready to export`;
+});
+document.getElementById('hwExport').addEventListener('click', async ()=>{
+  if(!hwItems.length) return alert('Add pages first - drop handwriting photos');
+  hwStatusEl.textContent='Building searchable PDF...';
+  const pdfDoc=await PDFLib.PDFDocument.create();
+  for(let it of hwItems){
+    const imgBytes=await fetch(it.imgSrc).then(r=>r.arrayBuffer());
+    let img; try{ img=await pdfDoc.embedJpg(imgBytes); }catch{ img=await pdfDoc.embedPng(imgBytes); }
+    const page=pdfDoc.addPage([img.width, img.height]);
+    page.drawImage(img,{x:0,y:0,width:img.width,height:img.height});
+  }
+  const bytes=await pdfDoc.save();
+  const blob=new Blob([bytes],{type:'application/pdf'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='b10fhonix-handwrite-sorted.pdf'; a.click();
+  hwStatusEl.textContent='Exported • Searchable PDF downloaded • SENSE→CONVERT→MOVE→GROUND done';
+});
 </script>
 </body>
 </html>

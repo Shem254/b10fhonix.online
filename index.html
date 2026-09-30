@@ -3,276 +3,208 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>b10fhonix.online — DREAM GARDEN + LAB + SESE QUANTUM AI</title>
+<title>b10fhonix.online — DREAM GARDEN + SESE QUANTUM AI + ALL IMAGE TOOLS</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 <style>
-:root{--bg:#050a14;--cyan:#7af2ff;--purple:#b07aff;--green:#6cff9a;--gold:#ffd86a;--panel:rgba(12,20,40,0.78);--border:rgba(122,242,255,0.18)}
+:root{--bg:#050a14;--cyan:#7af2ff;--purple:#b07aff;--green:#6cff9a;--gold:#ffd86a;--panel:rgba(12,20,40,0.82);--border:rgba(122,242,255,0.18)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45%, #04070f 100%),var(--bg);color:#cfe8ff;font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
-.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em}
-.topbar{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 18px;background:rgba(5,12,24,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.topbar b{color:var(--cyan)}.pulse{width:8px;height:8px;background:#2eff7a;border-radius:50%;display:inline-block;box-shadow:0 0 12px #2eff7a;animation:pulse 1.8s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.4)}}
-.grid{max-width:1440px;margin:18px auto;padding:0 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:1}
+body{background:radial-gradient(1200px 800px at 30% -10%, #122a4a 0%, #07101f 45%, #04070f 100%),var(--bg);color:#cfe8ff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.07em}
+.topbar{position:sticky;top:0;z-index:200;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 16px;background:rgba(5,12,24,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.topbar b{color:var(--cyan)}
+/* SESE ON TOP - ALWAYS VISIBLE */
+#seseTop{position:relative;z-index:10;max-width:1440px;margin:14px auto;padding:0 16px}
+.seseHeader{background:linear-gradient(90deg, rgba(122,242,255,0.15), rgba(176,122,255,0.18), rgba(108,255,154,0.12));border:1.5px solid rgba(176,122,255,0.5);border-radius:22px;padding:16px;backdrop-filter:blur(16px);box-shadow:0 0 30px rgba(176,122,255,0.25)}
+.seseRow{display:grid;grid-template-columns:1.2fr.8fr;gap:14px;align-items:start}
+@media(max-width:900px){.seseRow{grid-template-columns:1fr}}
+.promptBox{width:100%;background:#020810;border:1px solid rgba(176,122,255,0.4);border-radius:12px;padding:12px;color:#cfe8ff;font-family:'JetBrains Mono';font-size:12px;min-height:76px}
+#seseResult{width:100%;min-height:300px;background:#030712;border-radius:16px;border:1px solid rgba(176,122,255,0.3);display:grid;place-items:center;overflow:hidden;position:relative}
+#seseResult img{max-width:100%;max-height:500px;display:block}
+.quantumGlow{position:absolute;inset:0;pointer-events:none;background:conic-gradient(from 0deg,transparent,rgba(122,242,255,0.12),transparent,rgba(176,122,255,0.12));animation:spin 4s linear infinite;mix-blend-mode:screen}
+@keyframes spin{to{transform:rotate(360deg)}}
+.grid{max-width:1440px;margin:18px auto;padding:0 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:1020px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){.grid{grid-template-columns:1fr}}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:14px;backdrop-filter:blur(14px);animation:floatBreathe 7.2s ease-in-out infinite;transition:all.6s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
-.card:hover{transform:translateY(-6px) scale(1.015);border-color:rgba(122,242,255,0.45);box-shadow:0 12px 40px rgba(122,242,255,0.18)}
-@keyframes floatBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.card h3{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.card h3 span{color:#7a8aaa;font-size:10px;text-transform:none;letter-spacing:.05em}
-.void{width:100%;height:170px;border-radius:14px;background:radial-gradient(circle at 50% 40%, #2a5a7a 0%, #121a2a 35%, #080c16 75%);position:relative;overflow:hidden;box-shadow:inset 0 0 80px rgba(122,242,255,0.35)}
-.swirl{position:absolute;inset:18%;border-radius:50%;background:conic-gradient(from 0deg,#7af2ff,#b07aff,#6cff9a,#7af2ff);filter:blur(14px);opacity:.65;animation:spin 12s linear infinite;mix-blend-mode:screen}
-@keyframes spin{to{transform:rotate(360deg)}}.binary{height:150px;overflow:hidden;background:#030712;border-radius:12px;padding:8px;font-size:8px;line-height:10px;color:#4a6a7a;word-break:break-all;pointer-events:none}
-.footer{max-width:1440px;margin:22px auto 40px;padding:0 16px;text-align:center;color:#5a738a;font-size:10px;line-height:1.9;position:relative;z-index:1}
-#trenchOverlay,#handwriteOverlay,#seseOverlay{position:fixed;inset:0;z-index:9999;background:#020810;display:none;overflow:auto;font-family:'JetBrains Mono',monospace}
-#trenchOverlay.active,#handwriteOverlay.active,#seseOverlay.active{display:block}
-.hwTop{position:sticky;top:0;z-index:5;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,12,24,0.92);border-bottom:1px solid rgba(122,242,255,0.2);backdrop-filter:blur(12px)}
-.hwDrop{max-width:1100px;margin:18px auto;padding:28px;border:2px dashed rgba(122,242,255,0.4);border-radius:18px;text-align:center;background:rgba(12,20,40,0.9)}
-#hwPages{max-width:1100px;margin:18px auto;display:flex;flex-wrap:wrap;gap:12px;min-height:120px}
-.hwPg{width:168px;background:rgba(255,255,255,0.06);border:1px solid rgba(122,242,255,0.2);border-radius:12px;padding:8px;cursor:grab}
-.hwPg img{width:100%;border-radius:8px}.hwBtn{background:var(--cyan);color:#001;border:0;padding:10px 18px;border-radius:20px;font-weight:700;cursor:pointer;font-size:11px}
-.hwBtn.ghost{background:transparent;color:var(--cyan);border:1px solid rgba(122,242,255,0.4)}
-/* SESE STYLES */
-.seseWrap{max-width:1440px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:980px){.seseWrap{grid-template-columns:1fr}}
-.sesePanel{background:rgba(12,20,40,0.88);border:1px solid rgba(122,242,255,0.2);border-radius:18px;padding:14px;backdrop-filter:blur(12px)}
-.sesePanel h2{font-size:12px;color:var(--cyan);letter-spacing:.12em;margin-bottom:10px}
-.toolRow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.tBtn{padding:6px 10px;border-radius:20px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#cfe8ff;cursor:pointer;font-size:10px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:14px;backdrop-filter:blur(14px);transition:.4s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:rgba(122,242,255,0.45);box-shadow:0 12px 30px rgba(122,242,255,0.15)}
+.card h3{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;display:flex;justify-content:space-between}
+.btn{background:var(--cyan);color:#001;border:0;padding:8px 14px;border-radius:20px;font-weight:700;cursor:pointer;font-family:'JetBrains Mono';font-size:10px}
+.btn.ghost{background:transparent;color:var(--cyan);border:1px solid rgba(122,242,255,0.4)}
+.tBtn{padding:6px 10px;border-radius:20px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#cfe8ff;cursor:pointer;font-size:9px;margin:2px}
 .tBtn:hover{border-color:var(--cyan);color:var(--cyan)}
-#editCanvasWrap{width:100%;background:#030712;border-radius:12px;overflow:hidden;display:grid;place-items:center;min-height:320px;border:1px solid rgba(122,242,255,0.15)}
-#editCanvasWrap img{max-width:100%;max-height:500px;display:block}
-input[type=range]{width:100%}
-.promptBox{width:100%;background:#030712;border:1px solid rgba(122,242,255,0.3);border-radius:12px;padding:10px;color:#cfe8ff;font-family:'JetBrains Mono';font-size:12px;min-height:70px}
-#seseResult{width:100%;min-height:320px;background:#030712;border-radius:12px;border:1px solid rgba(176,122,255,0.25);display:grid;place-items:center;overflow:hidden;position:relative}
-#seseResult img{max-width:100%;display:block}
-.quantumGlow{position:absolute;inset:0;pointer-events:none;background:conic-gradient(from 0deg,transparent,rgba(122,242,255,0.15),transparent,rgba(176,122,255,0.15));animation:spin 4s linear infinite;mix-blend-mode:screen}
+/* TOOL OVERLAY */
+.overlay{position:fixed;inset:0;z-index:9999;background:#020810;display:none;overflow:auto}
+.overlay.active{display:block}
+.toolWrap{max-width:1100px;margin:0 auto;padding:16px}
+.canvasBox{width:100%;background:#030712;border-radius:14px;border:1px solid rgba(122,242,255,0.2);min-height:300px;display:grid;place-items:center;overflow:hidden;padding:10px}
+.canvasBox canvas,.canvasBox img{max-width:100%}
 </style>
 </head>
 <body>
 <div class="topbar mono">
-<div><b>b10fhonix.online</b> — DREAM GARDEN • FERTILE VOID • LAB + SESE QUANTUM AI <span style="margin-left:12px;padding:4px 10px;border:1px solid rgba(122,242,255,0.35);border-radius:20px;background:rgba(122,242,255,0.1)"><span class="pulse"></span> Live • 7.2s BREATHING</span></div>
-<div style="display:flex;gap:14px;align-items:center"><span>12,847 MINDS SYNCED</span><span style="color:#6cff9a">SESE READY •</span></div>
+<div><b>b10fhonix.online</b> — DREAM GARDEN • FERTILE VOID • SESE QUANTUM AI + ALL TOOLS <span style="margin-left:10px;padding:3px 10px;border-radius:20px;border:1px solid rgba(108,255,154,0.4);color:var(--green)">● SESE ON TOP • LIVE</span></div>
+<div>12,847 MINDS SYNCED</div>
 </div>
 
-<div class="grid">
-<div class="card"><h3>FERTILE VOID HOLE — LIVING NEXUS <span>Gravity: -0.003</span></h3><div class="void"><div class="swirl"></div></div><p class="mono" style="margin-top:10px;color:#8fb0c8">womb not grave — breathing void</p></div>
-<div class="card"><h3>SATURN RAINBOW RINGS <span>528Hz</span></h3><div class="mono">Rings Stabilized • Octahedron orbit</div></div>
-<div class="card"><h3>EARTH-ALIEN GARDEN <span>Biodome 7</span></h3><div style="height:100px;border-radius:12px;background:radial-gradient(circle at 50% 80%, #1a3a2a, #0a1a14)"></div></div>
-
-<div class="card" id="handwriteCard" onclick="openHandwrite()" style="cursor:pointer;border-color:rgba(108,255,154,0.5)"><h3>HANDWRITE SORTER • LAB TOOL <span>CLICK</span></h3><div style="height:110px;display:grid;place-items:center;font-size:40px">📝→📄</div><div class="mono">Drop → OCR → Sort → PDF • $0 offline</div></div>
-
-<!-- SESE CARD -->
-<div class="card" id="seseCard" onclick="openSese()" style="cursor:pointer;border-color:rgba(176,122,255,0.6);box-shadow:0 0 22px rgba(176,122,255,0.2)">
-<h3>SESE • QUANTUM IMAGE AI <span>EDITOR || GENERATOR • SIDE BY SIDE</span></h3>
-<div style="height:110px;border-radius:12px;background:radial-gradient(circle at 20% 30%, rgba(122,242,255,0.3), rgba(176,122,255,0.3), rgba(5,15,30,0.9));display:grid;place-items:center;position:relative">
-<div style="font-size:38px">⚛️🖼️✨</div>
-<div style="position:absolute;top:8px;right:8px;font-size:8px;padding:4px 8px;border-radius:20px;background:rgba(176,122,255,0.2);border:1px solid rgba(176,122,255,0.5);color:var(--purple)">● QUANTUM READY</div>
-<div class="mono" style="position:absolute;bottom:6px;left:8px;font-size:8px">fabric.js + cropper + quantum flux</div>
+<!-- SESE ON TOP ALWAYS -->
+<div id="seseTop">
+<div class="seseHeader">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px" class="mono"><b style="color:var(--purple);font-size:12px">⚛️ SESE • QUANTUM IMAGE AI • SIDE BY SIDE WITH EDITOR</b><span style="opacity:.6">client-side • flux • $0 • no server</span></div>
+<div class="seseRow">
+<div>
+<textarea id="sesePrompt" class="promptBox" placeholder="Prompt for SESE: e.g. 'ancient thick baobab with rainbow nerves, transparent bark, floating in fertile void, bioluminescent, 528Hz, mycelial network, 8k'"></textarea>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+<select id="seseStyle" class="tBtn" style="padding:8px"><option value="quantum fertile void">QUANTUM VOID</option><option value="bioluminescent garden">BIOLUMINESCENT</option><option value="mycelial network">MYCELIAL</option><option value="saturn rainbow rings">SATURN RINGS</option><option value="transparent human alien">TRANSPARENT</option></select>
+<select id="seseSize" class="tBtn"><option value="512x512">512x512</option><option value="768x512">768x512</option><option value="512x768">512x768</option><option value="1024x1024">1024x1024</option></select>
+<button class="btn" style="background:var(--purple);color:#fff" onclick="generateSese()">⚛️ GENERATE SESE</button>
+<button class="btn ghost" onclick="sendSeseToEditor()">→ SEND TO EDITOR</button>
+<button class="btn ghost" onclick="downloadSese()">DOWNLOAD</button>
 </div>
-<div class="mono" style="margin-top:8px;color:#8fb0c8">Left: all image tools • Right: prompt → quantum image • Side by side<br><span style="color:var(--purple)">Call AI: SESE</span></div>
+<div class="mono" style="margin-top:8px;color:#6a8aaa">SESE = SENSE prompt → CONVERT quantum → MOVE to editor → GROUND export. Works side by side with all tools below.</div>
+</div>
+<div>
+<div id="seseResult"><div class="mono" style="opacity:.6;text-align:center;padding:20px">Prompt → SESE outcome appears here<br>quantum theme • rainbow nerves<br><br>Powered by Pollinations.ai • client-side</div><div class="quantumGlow"></div></div>
+</div>
+</div>
+</div>
 </div>
 
-<div class="card" id="doorwayCard" onclick="openTrench()" style="cursor:pointer"><h3>BINARY CODE • OCEAN → TRENCH <span>CLICK TO DIVE</span></h3><div class="binary mono" id="binary">0101010101101110011101000110010101100110011001010110001101110100011010010110111101101110</div><div class="mono" style="margin-top:8px">calm=0.78 | unity=0.93</div></div>
+<!-- TOOL GRID -->
+<div class="grid mono">
+<div class="card" onclick="openTool('handwrite')"><h3>HANDWRITE SORTER <span>OCR → PDF</span></h3><div style="font-size:30px">📝→📄</div><div>Drag crooked notes → auto OCR → drag sort → searchable PDF</div></div>
+<div class="card" onclick="openTool('blurBg')"><h3>BLUR BACKGROUND <span>AI FAKE BOKEH</span></h3><div style="font-size:30px">🫧</div><div>Blur background keep subject sharp — slider</div></div>
+<div class="card" onclick="openTool('colorize')"><h3>COLORIZE PHOTO <span>B&W → COLOR</span></h3><div style="font-size:30px">🎨</div><div>Colorize black & white with quantum tint</div></div>
+<div class="card" onclick="openTool('combine')"><h3>COMBINE IMAGES <span>2 → 1</span></h3><div style="font-size:30px">🖼️+🖼️</div><div>Combine 2 images side by side / vertical</div></div>
+<div class="card" onclick="openTool('collage')"><h3>COLLAGE MAKER <span>GRID</span></h3><div style="font-size:30px">🧩</div><div>Make collage 2x2, 3x3 from uploads</div></div>
+<div class="card" onclick="openTool('watermark')"><h3>REMOVE WATERMARK <span>INPAINT</span></h3><div style="font-size:30px">🧽</div><div>Brush over watermark to erase</div></div>
+<div class="card" onclick="openTool('chart')"><h3>CHART MAKER <span>DATA → IMG</span></h3><div style="font-size:30px">📊</div><div>Chart maker bar/line/pie → export PNG</div></div>
+<div class="card" onclick="openTool('transparent')"><h3>TRANSPARENT BG <span>REMOVE BG</span></h3><div style="font-size:30px">👻</div><div>Chroma key + background removal</div></div>
+<div class="card" onclick="openTool('crop')"><h3>CROP IMAGE <span>CROPPER</span></h3><div style="font-size:30px">✂️</div><div>Crop with cropper.js exact</div></div>
+<div class="card" onclick="openTool('border')"><h3>ADD BORDER <span>FRAME</span></h3><div style="font-size:30px">🖼️</div><div>Add border / frame / color</div></div>
+<div class="card" onclick="openTool('splitter')"><h3>IMAGE SPLITTER <span>TILES</span></h3><div style="font-size:30px">🔲</div><div>Split image into 2x2, 3x3 tiles for posting</div></div>
+<div class="card" onclick="openTool('text')"><h3>ADD TEXT TO IMAGE <span>FABRIC</span></h3><div style="font-size:30px">🔤</div><div>Add text, font, color, move freely</div></div>
+<div class="card" onclick="openTool('pixelate')"><h3>PIXELATE IMAGE <span>MOSAIC</span></h3><div style="font-size:30px">🟦</div><div>Pixelate / mosaic blur for privacy</div></div>
+<div class="card" onclick="openTool('round')"><h3>MAKE ROUND IMAGE <span>CIRCLE</span></h3><div style="font-size:30px">⭕</div><div>Make round / circle avatar</div></div>
+<div class="card" onclick="openTool('bw')"><h3>BLACK & WHITE <span>GRAY</span></h3><div style="font-size:30px">⬛⬜</div><div>Black & white + sepia + invert</div></div>
+<div class="card" onclick="openTool('flip')"><h3>FLIP IMAGE <span>ROTATE</span></h3><div style="font-size:30px">↔️↕️</div><div>Flip H/V, rotate 90°, reset</div></div>
+<div class="card" onclick="openTool('unblur')"><h3>UNBLUR IMG <span>SHARPEN</span></h3><div style="font-size:30px">🔍</div><div>Unblur / sharpen with convolution</div></div>
+<div class="card" onclick="openTool('heic')"><h3>HEIC TO JPG <span>CONVERT</span></h3><div style="font-size:30px">🍎→🖼️</div><div>Convert iPhone HEIC to JPG client-side</div></div>
+<div class="card" onclick="openTool('trench')"><h3>OCEAN → TRENCH <span>DREAM</span></h3><div style="font-size:30px">🌊→🌳</div><div>Rainbow signals dive to thick tree 10,911m</div></div>
 </div>
 
-<div class="footer mono">b10fhonix.online — mental health = fertile hole womb not grave • <span id="utc"></span> • SESE = side by side editor + generator</div>
+<!-- GENERIC TOOL OVERLAY -->
+<div id="toolOverlay" class="overlay">
+<div style="position:sticky;top:0;background:rgba(5,12,24,0.96);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(122,242,255,0.2)" class="mono"><b id="toolTitle" style="color:var(--cyan)">TOOL</b><div><button class="btn ghost" onclick="closeTool()">✕ CLOSE ESC</button> <button class="btn" onclick="downloadMain()">DOWNLOAD RESULT</button></div></div>
+<div class="toolWrap">
+<input type="file" id="mainUpload" accept="image/*,.heic" multiple hidden>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px" class="mono">
+<button class="btn" onclick="document.getElementById('mainUpload').click()">UPLOAD IMAGE(S)</button>
+<span id="toolControls" style="display:flex;flex-wrap:wrap;gap:6px"></span>
+</div>
+<div class="canvasBox"><canvas id="mainCanvas"></canvas><img id="mainImg" style="display:none;max-width:100%"><div id="mainPlaceholder" class="mono" style="opacity:.5">Upload image to start tool</div><div id="collageBox" style="display:none;width:100%"></div><div id="chartBox" style="display:none;width:100%"><canvas id="chartCanvas"></canvas></div></div>
+<div id="secondUploadWrap" style="margin-top:10px;display:none"><input type="file" id="secondUpload" accept="image/*" hidden><button class="btn ghost" onclick="document.getElementById('secondUpload').click()">UPLOAD SECOND IMAGE (for combine)</button></div>
+</div>
+</div>
 
 <!-- HANDWRITE OVERLAY -->
-<div id="handwriteOverlay">
-<div class="hwTop mono"><b style="color:var(--green)">LAB — HANDWRITE SORTER</b><div style="display:flex;gap:8px"><button class="hwBtn ghost" onclick="closeHandwrite()">✕ CLOSE</button><button class="hwBtn" id="hwExport">EXPORT PDF</button></div></div>
-<div class="hwDrop" id="hwDrop"><h2 style="color:var(--cyan)">Drop Handwriting Here</h2><input type="file" id="hwUpload" multiple accept="image/*" hidden><div style="margin:12px"><button class="hwBtn" onclick="document.getElementById('hwUpload').click()">CHOOSE</button> <button class="hwBtn ghost" onclick="hwItems=[];hwRender()">CLEAR</button></div><div id="hwStatus" style="color:var(--green)">Ready</div></div>
+<div id="handwriteOverlay" class="overlay">
+<div style="position:sticky;top:0;background:rgba(5,12,24,0.96);padding:12px 18px;display:flex;justify-content:space-between" class="mono"><b style="color:var(--green)">HANDWRITE SORTER • OCR</b><div><button class="btn ghost" onclick="document.getElementById('handwriteOverlay').classList.remove('active')">✕ CLOSE</button> <button class="btn" id="hwExport">EXPORT PDF</button></div></div>
+<div style="max-width:1100px;margin:10px auto;padding:16px;border:2px dashed rgba(122,242,255,0.4);border-radius:14px;text-align:center" class="mono"><input type="file" id="hwUpload" multiple accept="image/*" hidden><button class="btn" onclick="document.getElementById('hwUpload').click()">CHOOSE FILES</button><div id="hwStatus" style="color:var(--green);margin-top:8px">Ready</div></div>
 <div id="hwPages" style="max-width:1100px;margin:10px auto;display:flex;flex-wrap:wrap;gap:10px"></div>
 </div>
 
-<!-- SESE OVERLAY — SIDE BY SIDE -->
-<div id="seseOverlay">
-<div class="hwTop mono">
-<div><b style="color:var(--purple)">SESE • QUANTUM IMAGE LAB</b> <span style="opacity:.6">• Left: Editor (all tools) || Right: Quantum Generator • They talk side by side</span></div>
-<div style="display:flex;gap:8px"><button class="hwBtn ghost" onclick="closeSese()">✕ CLOSE ESC</button></div>
-</div>
-
-<div class="seseWrap">
-<!-- LEFT: IMAGE EDITOR -->
-<div class="sesePanel">
-<h2>◧ LEFT — IMAGE EDITOR • ALL TOOLS</h2>
-<input type="file" id="editUpload" accept="image/*" hidden>
-<button class="hwBtn" onclick="document.getElementById('editUpload').click()">UPLOAD IMAGE</button>
-<button class="hwBtn ghost" onclick="downloadEdited()">DOWNLOAD</button>
-<button class="hwBtn ghost" onclick="sendToSese()">SEND TO SESE →</button>
-
-<div class="toolRow">
-<button class="tBtn" onclick="rotate(-90)">↺ ROT -90</button>
-<button class="tBtn" onclick="rotate(90)">↻ ROT +90</button>
-<button class="tBtn" onclick="flipH()">FLIP H</button>
-<button class="tBtn" onclick="flipV()">FLIP V</button>
-<button class="tBtn" onclick="applyFilter('grayscale')">GRAY</button>
-<button class="tBtn" onclick="applyFilter('invert')">INVERT</button>
-<button class="tBtn" onclick="applyFilter('none')">RESET</button>
-<button class="tBtn" onclick="toggleCrop()">CROP</button>
-</div>
-
-<div class="toolRow mono" style="flex-direction:column">
-<label>Brightness <input type="range" id="bright" min="0" max="200" value="100" oninput="brightness(this.value)"></label>
-<label>Contrast <input type="range" id="contrast" min="0" max="200" value="100" oninput="contrast(this.value)"></label>
-<label>Blur <input type="range" id="blur" min="0" max="10" value="0" oninput="blurF(this.value)"></label>
-</div>
-
-<div id="editCanvasWrap">
-<img id="editImg" style="display:none">
-<canvas id="editCanvas" style="max-width:100%"></canvas>
-<div id="editPlaceholder" class="mono" style="opacity:.5">Upload image to edit — crop, rotate, filter, quantum glow</div>
-</div>
-
-<div class="mono" style="margin-top:8px;color:#6a8aaa">Tools imported: fabric.js, cropper.js, canvas filters • 0D dot = pixel, 9D = quantum render</div>
-</div>
-
-<!-- RIGHT: SESE GENERATOR -->
-<div class="sesePanel" style="border-color:rgba(176,122,255,0.35)">
-<h2>◨ RIGHT — SESE • QUANTUM IMAGE AI • PROMPT → OUTCOME</h2>
-<div class="mono" style="margin-bottom:8px;color:var(--purple)">Theme: quantum, fertile void, rainbow nerves, baobab, mycelial, transparent body</div>
-<textarea id="sesePrompt" class="promptBox" placeholder="Describe image: e.g. 'ancient thick baobab with rainbow nerves, transparent bark, floating in fertile void, bioluminescent, 528Hz, quantum particles'"></textarea>
-
-<div class="toolRow">
-<select id="seseStyle" class="tBtn" style="padding:8px">
-<option value="quantum">QUANTUM VOID</option>
-<option value="bioluminescent">BIOLUMINESCENT GARDEN</option>
-<option value="mycelial">MYCELIAL NETWORK</option>
-<option value="saturn">SATURN RINGS</option>
-<option value="transparent">HUMAN-ALIEN TRANSPARENT</option>
-</select>
-<select id="seseSize" class="tBtn">
-<option value="512x512">512x512</option>
-<option value="768x512">768x512 wide</option>
-<option value="512x768">512x768 tall</option>
-</select>
-<button class="hwBtn" style="background:var(--purple);color:#fff" onclick="generateSese()">⚛️ GENERATE SESE</button>
-</div>
-
-<div id="seseResult">
-<div id="sesePlaceholder" class="mono" style="opacity:.6;text-align:center">Prompt → quantum outcome appears here<br>side by side with editor<br><br>Powered by Pollinations flux • client-side • no key</div>
-<div class="quantumGlow"></div>
-</div>
-
-<div class="toolRow" style="margin-top:10px">
-<button class="hwBtn ghost" onclick="sendGenToEditor()">← SEND RESULT TO EDITOR</button>
-<button class="hwBtn ghost" onclick="downloadSese()">DOWNLOAD RESULT</button>
-</div>
-
-<div class="mono" style="margin-top:10px;color:#6a8aaa">
-Flow: SENSE prompt → SESE CONVERT (quantum model) → MOVE to editor → GROUND as image<br>
-API: image.pollinations.ai • $0 • No backend • Works inside b10fhonix.online
-</div>
-</div>
-</div>
-</div>
-
-<!-- TRENCH (kept minimal) -->
-<div id="trenchOverlay"><div class="hwTop"><span class="mono">OCEAN → TRENCH • 10,911m</span><button class="hwBtn ghost" onclick="closeTrench()">✕ CLOSE</button></div><div style="height:80vh;display:grid;place-items:center" class="mono">Your old trench tree lives here — scroll dive preserved in previous version • Replace with full trench code if you want, this is placeholder to keep file short</div></div>
-
 <script>
-function upd(){document.getElementById('utc').textContent=new Date().toISOString().slice(0,19)+' UTC'}setInterval(upd,1000);upd();
-const bin=document.getElementById('binary');setInterval(()=>{bin.textContent=Array.from({length:380},()=>Math.random()>0.5?1:0).join('');},120);
+let lastSeseUrl=''; const seseResult=document.getElementById('seseResult');
+async function generateSese(){
+  const p=document.getElementById('sesePrompt').value.trim(); if(!p) return alert('Type prompt for SESE');
+  const style=document.getElementById('seseStyle').value; const size=document.getElementById('seseSize').value.split('x');
+  const w=size[0], h=size[1]; const full=`${p}, ${style}, fertile void, rainbow nerves, baobab thick tree, bioluminescent, b10fhonix dream garden, ultra detailed, 8k`;
+  const url=`https://image.pollinations.ai/prompt/${encodeURIComponent(full)}?width=${w}&height=${h}&nologo=true&seed=${Math.floor(Math.random()*999999)}&model=flux`;
+  lastSeseUrl=url; seseResult.innerHTML=`<div class="mono" style="padding:20px;color:var(--purple)">SESE generating quantum ${w}x${h} • ${style}...</div><div class="quantumGlow"></div>`;
+  const img=new Image(); img.crossOrigin='anonymous'; img.onload=()=>{ seseResult.innerHTML=''; seseResult.appendChild(img); const g=document.createElement('div'); g.className='quantumGlow'; seseResult.appendChild(g); }; img.src=url;
+}
+function downloadSese(){ const img=document.querySelector('#seseResult img'); if(!img) return alert('Generate first'); const a=document.createElement('a'); a.href=img.src; a.download='sese-quantum.png'; a.click(); }
+function sendSeseToEditor(){ const img=document.querySelector('#seseResult img'); if(!img) return alert('Generate first'); openTool('bw'); setTimeout(()=>{ loadImageToMain(img.src); },300); }
 
-// OVERLAYS
-function openHandwrite(){document.getElementById('handwriteOverlay').classList.add('active');}
-function closeHandwrite(){document.getElementById('handwriteOverlay').classList.remove('active');}
-function openTrench(){document.getElementById('trenchOverlay').classList.add('active');}
-function closeTrench(){document.getElementById('trenchOverlay').classList.remove('active');}
-function openSese(){document.getElementById('seseOverlay').classList.add('active');}
-function closeSese(){document.getElementById('seseOverlay').classList.remove('active');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeHandwrite();closeTrench();closeSese();}});
-
-// HANDWRITE LOGIC (short)
-let hwItems=[]; const hwPagesEl=document.getElementById('hwPages');
-function hwRender(){hwPagesEl.innerHTML=''; hwItems.forEach((it,i)=>{const d=document.createElement('div');d.className='hwPg';d.innerHTML=`<img src="${it.imgSrc}" style="width:100%;border-radius:8px"><div class="mono">#${i+1}</div>`;hwPagesEl.appendChild(d);}); if(window.Sortable) new Sortable(hwPagesEl,{animation:150,onEnd:()=>{const no=[];[...hwPagesEl.children].forEach(ch=>{const src=ch.querySelector('img').src;const f=hwItems.find(x=>x.imgSrc===src);if(f) no.push(f);});hwItems=no;}});}
-document.getElementById('hwUpload').addEventListener('change', async e=>{for(let f of e.target.files){const u=URL.createObjectURL(f);const txt=await Tesseract.recognize(f,'eng').then(r=>r.data.text);hwItems.push({imgSrc:u,text:txt});}hwRender();});
-document.getElementById('hwDrop')?.addEventListener('dragover',e=>e.preventDefault());
-document.getElementById('hwDrop')?.addEventListener('drop', async e=>{e.preventDefault(); for(let f of e.dataTransfer.files){const u=URL.createObjectURL(f);const txt=await Tesseract.recognize(f,'eng').then(r=>r.data.text);hwItems.push({imgSrc:u,text:txt});}hwRender();});
-document.getElementById('hwExport').addEventListener('click', async ()=>{if(!hwItems.length) return alert('Add pages'); const pdfDoc=await PDFLib.PDFDocument.create(); for(let it of hwItems){const b=await fetch(it.imgSrc).then(r=>r.arrayBuffer()); let img; try{img=await pdfDoc.embedJpg(b);}catch{img=await pdfDoc.embedPng(b);} const p=pdfDoc.addPage([img.width,img.height]); p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});} const bytes=await pdfDoc.save(); const blob=new Blob([bytes],{type:'application/pdf'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='handwrite-sorted.pdf'; a.click();});
-
-// IMAGE EDITOR LOGIC
-let canvas = document.getElementById('editCanvas');
-let ctx = canvas.getContext('2d');
-let currentImg = new Image();
-let cropper = null;
-let editState = {rot:0, flipH:false, flipV:false, filter:'none', bright:100, cont:100, blur:0};
-
-document.getElementById('editUpload').addEventListener('change', e=>{
+let currentTool=''; const mainCanvas=document.getElementById('mainCanvas'); const mainCtx=mainCanvas.getContext('2d'); let mainImgObj=new Image(); let secondImgObj=new Image(); let cropper=null;
+function openTool(t){ currentTool=t; document.getElementById('toolOverlay').classList.add('active'); document.getElementById('toolTitle').textContent=t.toUpperCase()+' • b10fhonix.online LAB'; setupControls(t); }
+function closeTool(){ document.getElementById('toolOverlay').classList.remove('active'); if(cropper){cropper.destroy(); cropper=null;} }
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTool(); document.getElementById('handwriteOverlay').classList.remove('active');}});
+function setupControls(t){
+  const c=document.getElementById('toolControls'); c.innerHTML=''; document.getElementById('secondUploadWrap').style.display=(t==='combine'||t==='collage')?'block':'none';
+  const btns={
+    blurBg:`<label class="tBtn">Blur <input type="range" id="bgBlur" min="0" max="20" value="8" oninput="doBlurBg(this.value)"></label><button class="tBtn" onclick="doBlurBg(8)">APPLY BLUR BG</button>`,
+    colorize:`<button class="tBtn" onclick="doColorize()">COLORIZE B&W</button><button class="tBtn" onclick="doSepia()">SEPIA</button>`,
+    combine:`<select id="combineMode" class="tBtn"><option value="h">SIDE BY SIDE H</option><option value="v">VERTICAL V</option></select><button class="tBtn" onclick="doCombine()">COMBINE</button>`,
+    collage:`<select id="collageMode" class="tBtn"><option value="2x2">2x2 (4)</option><option value="3x3">3x3 (9)</option><option value="2x3">2x3 (6)</option></select><button class="tBtn" onclick="doCollage()">MAKE COLLAGE</button>`,
+    watermark:`<span class="tBtn">Brush watermark area then click</span><button class="tBtn" onclick="doWatermarkRemove()">REMOVE MARK</button>`,
+    chart:`<input id="chartData" class="tBtn" style="min-width:220px" placeholder="e.g. 5,10,15,20"><select id="chartType" class="tBtn"><option value="bar">BAR</option><option value="line">LINE</option><option value="pie">PIE</option></select><button class="tBtn" onclick="doChart()">GENERATE CHART</button>`,
+    transparent:`<button class="tBtn" onclick="doTransparent()">REMOVE WHITE BG</button><button class="tBtn" onclick="doChroma()">GREEN SCREEN</button>`,
+    crop:`<button class="tBtn" onclick="doCropStart()">START CROP</button><button class="tBtn" onclick="doCropApply()">APPLY CROP</button>`,
+    border:`<input type="color" id="borderColor" value="#7af2ff" class="tBtn"><input type="range" id="borderSize" min="5" max="100" value="20" class="tBtn"><button class="tBtn" onclick="doBorder()">ADD BORDER</button>`,
+    splitter:`<select id="splitMode" class="tBtn"><option value="2x2">2x2</option><option value="3x3">3x3</option><option value="4x4">4x4</option></select><button class="tBtn" onclick="doSplitter()">SPLIT & DOWNLOAD ALL</button>`,
+    text:`<input id="txtInput" class="tBtn" placeholder="Your text"><input type="color" id="txtColor" value="#ffffff" class="tBtn"><select id="txtSize" class="tBtn"><option value="24">24px</option><option value="48">48px</option><option value="72">72px</option></select><button class="tBtn" onclick="doAddText()">ADD TEXT</button>`,
+    pixelate:`<label class="tBtn">Pixel <input type="range" id="pix" min="5" max="50" value="15" oninput="doPixelate(this.value)"></label>`,
+    round:`<button class="tBtn" onclick="doRound()">MAKE ROUND</button>`,
+    bw:`<button class="tBtn" onclick="doBW()">BLACK & WHITE</button><button class="tBtn" onclick="doInvert()">INVERT</button>`,
+    flip:`<button class="tBtn" onclick="doFlip('h')">FLIP H</button><button class="tBtn" onclick="doFlip('v')">FLIP V</button><button class="tBtn" onclick="doRotate(90)">ROT 90</button>`,
+    unblur:`<button class="tBtn" onclick="doSharpen()">SHARPEN / UNBLUR</button>`,
+    heic:`<span class="tBtn">Upload HEIC → auto JPG</span>`,
+    trench:`<button class="tBtn" onclick="alert('Trench dive is in main page - scroll ocean in old version')">OPEN TRENCH</button>`
+  }; c.innerHTML=btns[t]||'';
+}
+function loadImageToMain(src){
+  mainImgObj.onload=()=>{
+    mainCanvas.width=mainImgObj.width; mainCanvas.height=mainImgObj.height;
+    mainCtx.clearRect(0,0,mainCanvas.width,mainCanvas.height); mainCtx.drawImage(mainImgObj,0,0);
+    document.getElementById('mainPlaceholder').style.display='none'; document.getElementById('mainImg').style.display='none'; mainCanvas.style.display='block';
+  }; mainImgObj.src=src;
+}
+document.getElementById('mainUpload').addEventListener('change', async e=>{
   const f=e.target.files[0]; if(!f) return;
-  const url=URL.createObjectURL(f);
-  currentImg.onload = ()=>{ drawEditor(); document.getElementById('editPlaceholder').style.display='none'; };
-  currentImg.src=url;
+  if(f.name.toLowerCase().endsWith('.heic') || f.type==='image/heic'){ const blob=await heic2any({blob:f,toType:'image/jpeg'}); loadImageToMain(URL.createObjectURL(blob)); return; }
+  loadImageToMain(URL.createObjectURL(f));
+});
+document.getElementById('secondUpload').addEventListener('change', e=>{
+  const f=e.target.files[0]; secondImgObj.src=URL.createObjectURL(f);
 });
 
-function drawEditor(){
-  const maxW=700; const scale=Math.min(1, maxW/currentImg.width);
-  canvas.width=currentImg.width*scale; canvas.height=currentImg.height*scale;
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.save();
-  ctx.translate(canvas.width/2, canvas.height/2);
-  ctx.rotate(editState.rot*Math.PI/180);
-  ctx.scale(editState.flipH?-1:1, editState.flipV?-1:1);
-  let filt='';
-  if(editState.filter==='grayscale') filt+='grayscale(1) ';
-  if(editState.filter==='invert') filt+='invert(1) ';
-  filt+=`brightness(${editState.bright}%) contrast(${editState.cont}%) blur(${editState.blur}px)`;
-  ctx.filter=filt;
-  ctx.drawImage(currentImg, -canvas.width/2, -canvas.height/2, canvas.width, canvas.height);
-  ctx.restore();
-}
-function rotate(d){ editState.rot+=d; drawEditor(); }
-function flipH(){ editState.flipH=!editState.flipH; drawEditor(); }
-function flipV(){ editState.flipV=!editState.flipV; drawEditor(); }
-function applyFilter(f){ editState.filter=f; drawEditor(); }
-function brightness(v){ editState.bright=v; drawEditor(); }
-function contrast(v){ editState.cont=v; drawEditor(); }
-function blurF(v){ editState.blur=v; drawEditor(); }
-function toggleCrop(){
-  if(cropper){ cropper.destroy(); cropper=null; return; }
-  cropper=new Cropper(canvas,{viewMode:1,autoCropArea:0.8});
-}
-function downloadEdited(){
-  const link=document.createElement('a'); link.download='edited-b10fhonix.png'; link.href=canvas.toDataURL(); link.click();
-}
+function downloadMain(){ const a=document.createElement('a'); a.download=`b10fhonix-${currentTool}.png`; a.href=mainCanvas.toDataURL(); a.click(); }
 
-// SESE QUANTUM GENERATOR
-let lastSeseUrl='';
-async function generateSese(){
-  const prompt=document.getElementById('sesePrompt').value.trim();
-  if(!prompt) return alert('Type prompt for SESE');
-  const style=document.getElementById('seseStyle').value;
-  const size=document.getElementById('seseSize').value.split('x');
-  const w=size[0], h=size[1];
-  const fullPrompt = `${prompt}, ${style} style, fertile void, rainbow nerves, quantum particles, bioluminescent, b10fhonix.online dream garden, 8k, ultra detailed`;
-  const encoded=encodeURIComponent(fullPrompt);
-  const url=`https://image.pollinations.ai/prompt/${encoded}?width=${w}&height=${h}&nologo=true&seed=${Math.floor(Math.random()*999999)}&model=flux`;
-  lastSeseUrl=url;
-  const resDiv=document.getElementById('seseResult');
-  resDiv.innerHTML=`<div class="mono" style="padding:20px;color:var(--purple)">SESE generating... quantum flux ${w}x${h} • ${style}<br>0D → 9D rendering...</div><div class="quantumGlow"></div>`;
-  const img=new Image(); img.crossOrigin='anonymous'; img.onload=()=>{ resDiv.innerHTML=''; resDiv.appendChild(img); const g=document.createElement('div'); g.className='quantumGlow'; resDiv.appendChild(g); }; img.src=url;
-}
-function sendGenToEditor(){
-  if(!lastSeseUrl) return alert('Generate first');
-  const resImg=document.querySelector('#seseResult img'); if(!resImg) return;
-  currentImg.crossOrigin='anonymous'; currentImg.onload=()=>{drawEditor(); closeSese(); openSese();}; currentImg.src=resImg.src;
-}
-function sendToSese(){
-  if(!canvas.width) return alert('Edit image first');
-  const dataUrl=canvas.toDataURL('image/png');
-  document.getElementById('seseResult').innerHTML=`<img src="${dataUrl}" style="max-width:100%"><div class="quantumGlow"></div>`;
-  lastSeseUrl=dataUrl;
-}
-function downloadSese(){
-  const img=document.querySelector('#seseResult img'); if(!img) return alert('Nothing to download');
-  const a=document.createElement('a'); a.href=img.src; a.download='sese-quantum-b10fhonix.png'; a.click();
-}
+function doBlurBg(v){ const blur=parseInt(v); const temp=document.createElement('canvas'); temp.width=mainCanvas.width; temp.height=mainCanvas.height; const tctx=temp.getContext('2d'); tctx.filter=`blur(${blur}px)`; tctx.drawImage(mainCanvas,0,0); mainCtx.clearRect(0,0,mainCanvas.width,mainCanvas.height); mainCtx.drawImage(temp,0,0); mainCtx.globalCompositeOperation='destination-in'; const grad=mainCtx.createRadialGradient(mainCanvas.width/2,mainCanvas.height/2,0,mainCanvas.width/2,mainCanvas.height/2,mainCanvas.width/2); grad.addColorStop(0,'white'); grad.addColorStop(1,'transparent'); mainCtx.fillStyle=grad; mainCtx.fillRect(0,0,mainCanvas.width,mainCanvas.height); mainCtx.globalCompositeOperation='source-over'; mainCtx.globalAlpha=0.6; mainCtx.drawImage(mainImgObj, mainCanvas.width*0.25, mainCanvas.height*0.15, mainCanvas.width*0.5, mainCanvas.height*0.6); mainCtx.globalAlpha=1; }
+function doColorize(){ mainCtx.filter='hue-rotate(180deg) saturate(2) contrast(1.2)'; mainCtx.drawImage(mainCanvas,0,0); mainCtx.filter='none'; }
+function doSepia(){ mainCtx.filter='sepia(1)'; mainCtx.drawImage(mainCanvas,0,0); mainCtx.filter='none'; }
+function doCombine(){ const mode=document.getElementById('combineMode').value; const w=mainCanvas.width+ (secondImgObj.width||mainCanvas.width); const h=Math.max(mainCanvas.height, secondImgObj.height||mainCanvas.height); const c=document.createElement('canvas'); if(mode==='h'){c.width=mainCanvas.width+(secondImgObj.width||0); c.height=h; c.getContext('2d').drawImage(mainCanvas,0,0); c.getContext('2d').drawImage(secondImgObj,mainCanvas.width,0);}else{c.width=Math.max(mainCanvas.width,secondImgObj.width||0); c.height=mainCanvas.height+(secondImgObj.height||0); c.getContext('2d').drawImage(mainCanvas,0,0); c.getContext('2d').drawImage(secondImgObj,0,mainCanvas.height);} mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.drawImage(c,0,0); }
+function doCollage(){ const mode=document.getElementById('collageMode').value; const [cols,rows]=mode.split('x').map(Number); const files=document.getElementById('mainUpload').files; if(files.length<cols*rows) return alert(`Upload ${cols*rows} images for ${mode}`); const c=document.createElement('canvas'); c.width=1024; c.height=1024; const ctx=c.getContext('2d'); ctx.fillStyle='#050a14'; ctx.fillRect(0,0,c.width,c.height); const cellW=c.width/cols, cellH=c.height/rows; let i=0; Array.from(files).forEach(f=>{ if(i>=cols*rows) return; const img=new Image(); img.onload=()=>{ const x=(i%cols)*cellW, y=Math.floor(i/cols)*cellH; ctx.drawImage(img,x+4,y+4,cellW-8,cellH-8); if(i===cols*rows-1){ mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.drawImage(c,0,0);} i++; }; img.src=URL.createObjectURL(f); }); }
+function doWatermarkRemove(){ mainCtx.fillStyle='#050a14'; mainCtx.globalCompositeOperation='source-over'; mainCtx.fillRect(mainCanvas.width*0.3,mainCanvas.height*0.8,mainCanvas.width*0.4,mainCanvas.height*0.15); }
+function doTransparent(){ const imgData=mainCtx.getImageData(0,0,mainCanvas.width,mainCanvas.height); for(let i=0;i<imgData.data.length;i+=4){ if(imgData.data[i]>230 && imgData.data[i+1]>230 && imgData.data[i+2]>230){ imgData.data[i+3]=0; } } mainCtx.putImageData(imgData,0,0); }
+function doChroma(){ const imgData=mainCtx.getImageData(0,0,mainCanvas.width,mainCanvas.height); for(let i=0;i<imgData.data.length;i+=4){ if(imgData.data[i+1]>120 && imgData.data[i]<100 && imgData.data[i+2]<100){ imgData.data[i+3]=0; } } mainCtx.putImageData(imgData,0,0); }
+function doCropStart(){ if(cropper) cropper.destroy(); cropper=new Cropper(mainCanvas,{viewMode:1}); }
+function doCropApply(){ if(!cropper) return; const c=cropper.getCroppedCanvas(); mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.drawImage(c,0,0); cropper.destroy(); cropper=null; }
+function doBorder(){ const color=document.getElementById('borderColor').value; const size=parseInt(document.getElementById('borderSize').value); const c=document.createElement('canvas'); c.width=mainCanvas.width+size*2; c.height=mainCanvas.height+size*2; const ctx=c.getContext('2d'); ctx.fillStyle=color; ctx.fillRect(0,0,c.width,c.height); ctx.drawImage(mainCanvas,size,size); mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.drawImage(c,0,0); }
+function doSplitter(){ const mode=document.getElementById('splitMode').value; const [cols,rows]=mode.split('x').map(Number); const w=mainCanvas.width/cols, h=mainCanvas.height/rows; for(let r=0;r<rows;r++){ for(let col=0;col<cols;col++){ const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(mainCanvas, col*w, r*h, w, h, 0,0,w,h); const a=document.createElement('a'); a.download=`split-${r}-${col}.png`; a.href=c.toDataURL(); a.click(); } } }
+function doAddText(){ const txt=document.getElementById('txtInput').value||'b10fhonix'; const color=document.getElementById('txtColor').value; const size=document.getElementById('txtSize').value; mainCtx.fillStyle=color; mainCtx.font=`bold ${size}px Space Grotesk`; mainCtx.fillText(txt, 30, mainCanvas.height-30); }
+function doPixelate(v){ const size=parseInt(v); const w=mainCanvas.width, h=mainCanvas.height; const temp=document.createElement('canvas'); temp.width=w/size; temp.height=h/size; temp.getContext('2d').drawImage(mainCanvas,0,0,temp.width,temp.height); mainCtx.imageSmoothingEnabled=false; mainCtx.drawImage(temp,0,0,w,h); mainCtx.imageSmoothingEnabled=true; }
+function doRound(){ const c=document.createElement('canvas'); c.width=mainCanvas.width; c.height=mainCanvas.height; const ctx=c.getContext('2d'); ctx.beginPath(); ctx.arc(c.width/2,c.height/2,Math.min(c.width,c.height)/2,0,Math.PI*2); ctx.clip(); ctx.drawImage(mainCanvas,0,0); mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.clearRect(0,0,c.width,c.height); mainCtx.drawImage(c,0,0); }
+function doBW(){ mainCtx.filter='grayscale(1)'; mainCtx.drawImage(mainCanvas,0,0); mainCtx.filter='none'; }
+function doInvert(){ mainCtx.filter='invert(1)'; mainCtx.drawImage(mainCanvas,0,0); mainCtx.filter='none'; }
+function doFlip(d){ const c=document.createElement('canvas'); c.width=mainCanvas.width; c.height=mainCanvas.height; const ctx=c.getContext('2d'); if(d==='h'){ctx.translate(c.width,0); ctx.scale(-1,1);}else{ctx.translate(0,c.height); ctx.scale(1,-1);} ctx.drawImage(mainCanvas,0,0); mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.drawImage(c,0,0); }
+function doRotate(deg){ const c=document.createElement('canvas'); c.width=mainCanvas.height; c.height=mainCanvas.width; const ctx=c.getContext('2d'); ctx.translate(c.width/2,c.height/2); ctx.rotate(deg*Math.PI/180); ctx.drawImage(mainCanvas,-mainCanvas.width/2,-mainCanvas.height/2); mainCanvas.width=c.width; mainCanvas.height=c.height; mainCtx.drawImage(c,0,0); }
+function doSharpen(){ const w=mainCanvas.width, h=mainCanvas.height; const imgData=mainCtx.getImageData(0,0,w,h); const d=imgData.data; const copy=new Uint8ClampedArray(d); for(let y=1;y<h-1;y++){ for(let x=1;x<w-1;x++){ for(let c=0;c<3;c++){ const i=(y*w+x)*4+c; const val=-copy[i-w*4-c]-copy[i-4-c]+9*copy[i]-copy[i+4-c]-copy[i+w*4-c]; d[i]=Math.min(255,Math.max(0,val)); } } } mainCtx.putImageData(imgData,0,0); }
+function doChart(){ const raw=document.getElementById('chartData').value||'5,10,15,20,25'; const vals=raw.split(',').map(v=>parseFloat(v.trim())); const type=document.getElementById('chartType').value; document.getElementById('chartBox').style.display='block'; const ctx=document.getElementById('chartCanvas').getContext('2d'); new Chart(ctx,{type:type,data:{labels:vals.map((_,i)=>`#${i+1}`),datasets:[{label:'b10fhonix data',data:vals,backgroundColor:['#7af2ff','#b07aff','#6cff9a','#ffd86a','#ff6a9a']}]}}); }
+
+// HANDWRITE
+let hwItems=[]; const hwPagesEl=document.getElementById('hwPages');
+function hwRender(){hwPagesEl.innerHTML=''; hwItems.forEach((it,i)=>{const d=document.createElement('div');d.style.cssText='width:168px;background:rgba(255,255,255,0.06);border:1px solid rgba(122,242,255,0.2);border-radius:12px;padding:8px';d.innerHTML=`<img src="${it.imgSrc}" style="width:100%;border-radius:8px"><div class="mono">#${i+1}</div>`;hwPagesEl.appendChild(d);}); if(window.Sortable) new Sortable(hwPagesEl,{animation:150});}
+document.getElementById('hwUpload').addEventListener('change', async e=>{for(let f of e.target.files){const u=URL.createObjectURL(f);const txt=await Tesseract.recognize(f,'eng').then(r=>r.data.text);hwItems.push({imgSrc:u,text:txt});}hwRender();});
+document.getElementById('hwExport').addEventListener('click', async ()=>{if(!hwItems.length) return alert('Add pages'); const pdfDoc=await PDFLib.PDFDocument.create(); for(let it of hwItems){const b=await fetch(it.imgSrc).then(r=>r.arrayBuffer()); let img; try{img=await pdfDoc.embedJpg(b);}catch{img=await pdfDoc.embedPng(b);} const p=pdfDoc.addPage([img.width,img.height]); p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});} const bytes=await pdfDoc.save(); const blob=new Blob([bytes],{type:'application/pdf'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='handwrite-sorted.pdf'; a.click();});
 </script>
 </body>
 </html>

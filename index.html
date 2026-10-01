@@ -2,106 +2,207 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>b10.online — Binary Fhoenix Landing Bay</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<title>b10.online — Binary Fhoenix Landing Bay • Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--sky:#87CEEB;--sky2:#E0F6FF;--orange:#FF7A2E;--sun:#FFF1A0;--ink:#1a2a3a}
+:root{--sky:#D8ECF2;--sky2:#E6F2F8;--sun:#FFB84D;--orange:#FF6A1A;--orange2:#FF8C3A;--ink:#1e2f3f}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Grotesk',sans-serif;overflow:hidden;background:radial-gradient(800px 500px at 85% 15%, var(--sun) 0%, #FFD27A 15%, var(--orange) 28%, var(--sky) 58%, var(--sky2) 100%);min-height:100vh;color:var(--ink)}
-.mono{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em}
-/* SUN */
-.sun{position:absolute;top:6%;right:8%;width:88px;height:88px;background:radial-gradient(circle at 50% 50%, #FFFFFF 0%, var(--sun) 35%, #FFC14A 70%);border-radius:50%;box-shadow:0 0 80px 30px rgba(255,213,80,0.8), 0 0 140px 60px rgba(255,122,46,0.45);z-index:1}
-/* CUMULUS CLOUDS with deep orange rim */
-.cloud{position:absolute;background:#fff;border-radius:50%;box-shadow:inset -18px -12px 0 rgba(255,122,46,0.22), 0 10px 30px rgba(0,0,0,0.08);filter:blur(0.3px)}
-.c1{left:-6%;top:18%;width:420px;height:180px;border-radius:60% 40% 50% / 60% 60% 40% 40%;box-shadow:inset -30px -20px 40px rgba(255,122,46,0.35), 0 20px 60px rgba(0,0,0,0.1)}
-.c2{right:18%;bottom:12%;width:520px;height:160px;background:linear-gradient(180deg,#fff 0%, #FFE8D6 100%);border:1px solid rgba(255,122,46,0.2)}
-.c3{left:12%;bottom:-4%;width:700px;height:200px;opacity:.9}
-.c4{right:-4%;top:42%;width:360px;height:120px;opacity:.85}
-.cloud:before,.cloud:after{content:'';position:absolute;background:#fff;border-radius:50%}
-.c1:before{width:180px;height:180px;left:40px;top:-60px;box-shadow:inset -10px -10px 20px rgba(255,122,46,0.25)}
-.c1:after{width:220px;height:140px;right:20px;top:-30px}
-/* LANDING BAY */
-.bay{position:relative;z-index:2;max-width:1200px;margin:0 auto;height:100vh;display:grid;place-items:center;padding:20px}
-.topbar{position:absolute;top:18px;left:20px;right:20px;display:flex;justify-content:space-between;z-index:10;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,0.3)}
-.ring{position:absolute;width:760px;height:760px;left:50%;top:52%;transform:translate(-50%,-50%);border-radius:50%;border:1px dashed rgba(255,255,255,0.25);pointer-events:none}
-.diamond{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;background:linear-gradient(135deg, #E6F7FF 0%, #9DD9FF 50%, #fff 100%);clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);box-shadow:0 0 30px rgba(157,217,255,0.9), 0 0 80px rgba(255,255,255,0.6);animation:float 4s ease-in-out infinite;z-index:3}
-.diamond:after{content:'';position:absolute;inset:-18px;border-radius:50%;background:conic-gradient(from 0deg, #FF5A2E, #FFD93D, #6BFF8A, #5A8CFF, #B07AFF, #FF5A2E);filter:blur(12px);opacity:.6;z-index:-1;animation:spin 6s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
-/* ORBS - 8 themes like infinity stones */
-.orbs{position:relative;width:720px;height:620px}
-.orb{position:absolute;width:122px;height:122px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95) 0%, rgba(220,240,255,0.9) 35%, rgba(180,200,230,0.7) 100%);border:2px solid rgba(255,255,255,0.8);box-shadow:0 0 0 4px rgba(255,255,255,0.15), 0 0 20px rgba(255,255,255,0.6), inset 0 0 20px rgba(255,255,255,0.8);display:grid;place-items:center;cursor:pointer;transition:.4s;backdrop-filter:blur(6px)}
-.orb:before{content:'';position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(from 0deg, #FF7A2E, #FFD93D, #6BFF8A, #5A8CFF, #B07AFF, #FF7A2E);filter:blur(6px);opacity:.85;z-index:-1}
-.orb:hover{transform:scale(1.12) translateY(-6px);box-shadow:0 0 0 6px rgba(255,255,255,0.3), 0 20px 40px rgba(0,0,0,0.2)}
-.orb span.icon{font-size:34px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))}
-.orb label{position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(26,42,58,0.85);color:#fff;padding:4px 10px;border-radius:20px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;font-family:'JetBrains Mono'}
-.orb[data-pos="mental"]{left:44%;bottom:2%}
-.orb[data-pos="collective"]{left:8%;bottom:18%}
-.orb[data-pos="evolution"]{right:8%;bottom:18%}
-.orb[data-pos="reverse"]{right:-2%;top:38%}
-.orb[data-pos="ai"]{right:12%;top:12%}
-.orb[data-pos="cosmos"]{left:50%;top:0%;transform:translateX(-50%)}
-.orb[data-pos="community"]{left:18%;top:14%}
-.orb[data-pos="history"]{left:-2%;top:40%}
+body{font-family:'Space Grotesk',sans-serif;background:var(--sky);overflow:hidden;height:100vh;width:100vw;position:relative}
+.mono{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase}
 
-/* FERTILE HOLE - from your doc page 3 */
-.hole{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:680px;height:180px;background:radial-gradient(ellipse at 50% 50%, #0a0e14 0%, #1a2332 35%, transparent 72%);border-radius:50%;z-index:2;box-shadow:inset 0 20px 60px rgba(0,0,0,0.6)}
-.hole:after{content:'';position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from 0deg, #FF7A2E, #FFD93D, #6BFF8A, #5A8CFF, #B07AFF, #FF7A2E, #FF7A2E);filter:blur(0px);opacity:.9;animation:spin 12s linear infinite;mask:radial-gradient(ellipse, transparent 58%, black 62%)}
-/* MODAL - narrative design, symbolism, audience psychology, spiritual intuition */
-#modal{position:fixed;inset:0;z-index:999;display:none;background:rgba(135,206,235,0.35);backdrop-filter:blur(14px);padding:18px}
-#modal.active{display:grid;place-items:center}
-.box{width:min(860px,96vw);background:rgba(255,251,242,0.96);border-radius:24px;border:1px solid rgba(255,122,46,0.25);box-shadow:0 30px 80px rgba(0,0,0,0.25);overflow:hidden}
-.boxHead{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:linear-gradient(90deg, #87CEEB, #FFE8D6);border-bottom:1px solid rgba(255,122,46,0.2)}
-.tabs{display:flex;gap:6px;padding:12px 16px;flex-wrap:wrap;background:rgba(255,255,255,0.6)}
-.tab{padding:7px 14px;border-radius:20px;border:1px solid rgba(26,42,58,0.15);background:#fff;cursor:pointer;font-size:10px;font-family:'JetBrains Mono'}
-.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.content{padding:20px;min-height:220px;font-size:14px;line-height:1.7;color:#2a3a4a}
-.content h3{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+/* SKY - corrected to match your screenshot light */
+.sky{position:absolute;inset:0;background:radial-gradient(900px 600px at 88% 8%, var(--sun) 0%, var(--orange2) 14%, #FFB08A 22%, var(--sky) 48%, var(--sky2) 100%);z-index:0}
+.sun{position:absolute;top:3%;right:6%;width:72px;height:72px;background:radial-gradient(circle at 50% 50%, #FFF9D6 0%, #FFE28A 40%, #FF9A3A 100%);border-radius:50%;box-shadow:0 0 60px 20px rgba(255,184,77,0.7), 0 0 160px 80px rgba(255,106,26,0.35);z-index:1}
+.sunGlow{position:absolute;top:-6%;right:-4%;width:460px;height:460px;background:radial-gradient(circle at 70% 30%, rgba(255,106,26,0.28) 0%, rgba(255,140,58,0.18) 25%, transparent 70%);z-index:1;pointer-events:none;filter:blur(2px)}
+
+/* CUMULUS - corrected to your screenshot - flat white with peach bottom */
+.cloud{position:absolute;background:#fff;border-radius:50%;z-index:2}
+.cloudFlat{position:absolute;background:#FFFFFF;box-shadow:0 12px 0 #FFE4D1, 0 18px 30px rgba(0,0,0,0.06);border-radius:50%}
+.c-left{left:-2%;top:8%;width:300px;height:140px}
+.c-left:before,.c-left:after{content:'';position:absolute;background:#fff;border-radius:50%}
+.c-left:before{width:140px;height:120px;left:-20px;top:20px}
+.c-left:after{width:180px;height:100px;left:60px;top:-10px}
+.c-left .peach{position:absolute;bottom:-8px;left:10%;width:80%;height:28px;background:#FFDCC6;border-radius:50%;filter:blur(1px)}
+
+.c-right{right:6%;top:46%;width:300px;height:80px}
+.c-bottom-left{left:8%;bottom:6%;width:420px;height:110px}
+.c-bottom-right{right:16%;bottom:14%;width:420px;height:110px}
+
+/* LANDING BAY */
+.topbar{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;z-index:10;color:#fff;font-size:9px;opacity:.9;text-shadow:0 1px 4px rgba(0,0,0,0.15)}
+.bay{position:relative;z-index:3;width:100%;height:100vh;display:grid;place-items:center}
+.orbit{position:absolute;width:680px;height:680px;border:1px dashed rgba(30,47,63,0.12);border-radius:50%;pointer-events:none}
+.diamond{position:absolute;left:50%;top:50%;width:52px;height:52px;transform:translate(-50%,-50%) rotate(45deg);background:linear-gradient(135deg, #A8E8FF 0%, #FF8A8A 25%, #FFE08A 50%, #8AFFB0 75%, #A8A0FF 100%);box-shadow:0 0 20px rgba(168,232,255,0.8);animation:float 5s ease-in-out infinite;z-index:4}
+@keyframes float{0%,100%{transform:translate(-50%,-50%) rotate(45deg) translateY(0)}50%{transform:translate(-50%,-50%) rotate(45deg) translateY(-8px)}}
+
+/* ORBS - corrected rainbow like screenshot */
+.orbs{position:relative;width:700px;height:600px}
+.orb{position:absolute;width:92px;height:92px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #FF9A3A 0%, #FF5A2E 18%, #FFD93D 32%, #7AFF8A 58%, #5A8CFF 78%, #B07AFF 100%);box-shadow:0 0 0 4px rgba(255,255,255,0.4), 0 0 18px rgba(255,255,255,0.7), inset 0 -6px 12px rgba(0,0,0,0.1);display:grid;place-items:center;cursor:pointer;transition:transform .3s;z-index:5;filter:saturate(0.9) brightness(1.05)}
+.orb:hover{transform:scale(1.15)}
+.orb .icon{font-size:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25));background:#fff;border-radius:50%;width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(0,0,0,0.1)}
+.orb label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);background:#2a3340;color:#fff;padding:3px 8px;border-radius:10px;font-size:7px;white-space:nowrap;letter-spacing:.08em}
+.orb[data-pos="cosmos"]{left:48%;top:2%;transform:translateX(-50%)}
+.orb[data-pos="community"]{left:22%;top:18%}
+.orb[data-pos="ai"]{right:18%;top:18%}
+.orb[data-pos="history"]{left:8%;top:42%}
+.orb[data-pos="reverse"]{right:6%;top:42%}
+.orb[data-pos="collective"]{left:16%;bottom:22%}
+.orb[data-pos="evolution"]{right:16%;bottom:14%}
+.orb[data-pos="mental"]{left:46%;bottom:4%;transform:translateX(-50%)}
+
+/* PORTAL VOID - transport portal */
+.portal{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:520px;height:150px;z-index:6;cursor:pointer}
+.portal .disk{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, #0d141e 0%, #2a3442 28%, #8a94a2 62%, #e8edf2 78%);border-radius:50%;box-shadow:inset 0 18px 30px rgba(0,0,0,0.6), 0 10px 40px rgba(0,0,0,0.2)}
+.portal .rim{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);pointer-events:none}
+.portal .swirl{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 180deg, #0d141e 0%, #0d141e 70%, transparent 100%);animation:spin 3s linear infinite;mix-blend-mode:multiply;opacity:.8}
+@keyframes spin{to{transform:rotate(360deg)}}
+.portal.active{animation:portalPulse 0.6s ease}
+@keyframes portalPulse{0%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.08)}100%{transform:translateX(-50%) scale(1)}}
+
+/* TELEPORTATION TRAIL */
+.trail{position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:20}
+.arc{position:absolute;pointer-events:none;z-index:7;stroke-linecap:round;fill:none;filter:blur(0.5px)}
+
+/* GARDEN MODAL - after teleport */
+#garden{position:fixed;inset:0;z-index:100;display:none;background:rgba(216,236,242,0.88);backdrop-filter:blur(18px)}
+#garden.active{display:grid;place-items:center;animation:fadeIn .5s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.gBox{width:min(980px,94vw);height:min(86vh,800px);background:rgba(255,255,255,0.94);border-radius:28px;border:1px solid rgba(255,106,26,0.18);box-shadow:0 30px 90px rgba(0,0,0,0.22);overflow:hidden;display:grid;grid-template-rows:auto 1fr;position:relative}
+.gHead{padding:14px 18px;background:linear-gradient(90deg, #D8ECF2, #FFE4D1);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,106,26,0.15)}
+.tabs{display:flex;gap:6px;padding:10px 14px;background:#fff;border-bottom:1px solid rgba(0,0,0,0.06);flex-wrap:wrap}
+.tab{padding:6px 12px;border-radius:20px;border:1px solid rgba(0,0,0,0.12);background:#fff;cursor:pointer;font-size:9px}
+.tab.active{background:#1e2f3f;color:#fff}
+.gContent{padding:18px;overflow-y:auto;line-height:1.7;font-size:14px}
+.gContent h3{font-size:10px;color:#FF6A1A;letter-spacing:.15em;margin-bottom:8px}
+.gardenBg{position:absolute;right:-20px;top:60px;width:260px;height:260px;opacity:.14;pointer-events:none;font-size:120px}
 </style>
 </head>
 <body>
-<div class="sun"></div>
-<div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+<div class="sky"></div><div class="sun"></div><div class="sunGlow"></div>
+<div class="cloudFlat c-left"><div class="peach"></div></div>
+<div class="cloudFlat c-right"></div>
+<div class="cloudFlat c-bottom-left"></div>
+<div class="cloudFlat c-bottom-right"></div>
 
 <div class="topbar mono"><div>b10.online | Binary Phoenix — landing bay • fertile soil • sky blue</div><div>☀️ SUN BRIGHT • CUMULUS DEEP ORANGE • 12,847 SYNCED</div></div>
 
 <div class="bay">
-<div class="ring"></div><div class="diamond"></div><div class="hole"></div>
+<div class="orbit"></div><div class="diamond"></div>
 <div class="orbs">
-<div class="orb" data-pos="mental" onclick="openTheme('mental')"><span class="icon">🧠</span><label>Mental Health</label></div>
-<div class="orb" data-pos="collective" onclick="openTheme('collective')"><span class="icon">🕸️</span><label>Collective Consciousness</label></div>
-<div class="orb" data-pos="evolution" onclick="openTheme('evolution')"><span class="icon">🧬</span><label>Evolution</label></div>
-<div class="orb" data-pos="reverse" onclick="openTheme('reverse')"><span class="icon">🛠️</span><label>Reverse Engineering</label></div>
-<div class="orb" data-pos="ai" onclick="openTheme('ai')"><span class="icon">🤖</span><label>Future of AI</label></div>
-<div class="orb" data-pos="cosmos" onclick="openTheme('cosmos')"><span class="icon">🪐</span><label>Cosmos Exploration</label></div>
-<div class="orb" data-pos="community" onclick="openTheme('community')"><span class="icon">👥</span><label>Community</label></div>
-<div class="orb" data-pos="history" onclick="openTheme('history')"><span class="icon">📜</span><label>History</label></div>
+<div class="orb" data-pos="cosmos" data-theme="cosmos"><div class="icon">🪐</div><label>cosmos exploration</label></div>
+<div class="orb" data-pos="community" data-theme="community"><div class="icon">👥</div><label>community</label></div>
+<div class="orb" data-pos="ai" data-theme="ai"><div class="icon">🤖</div><label>future of ai</label></div>
+<div class="orb" data-pos="history" data-theme="history"><div class="icon">📜</div><label>history</label></div>
+<div class="orb" data-pos="reverse" data-theme="reverse"><div class="icon">🛠️</div><label>reverse engineering</label></div>
+<div class="orb" data-pos="collective" data-theme="collective"><div class="icon">🕸️</div><label>collective consciousness</label></div>
+<div class="orb" data-pos="evolution" data-theme="evolution"><div class="icon">🧬</div><label>evolution</label></div>
+<div class="orb" data-pos="mental" data-theme="mental"><div class="icon">🧠</div><label>mental health</label></div>
 </div>
+<div class="portal" id="portal"><div class="disk"></div><div class="swirl"></div><div class="rim"></div></div>
 </div>
 
-<div id="modal"><div class="box">
-<div class="boxHead"><div id="mTitle" style="font-weight:700">THEME</div><button onclick="closeM()" style="padding:6px 14px;border-radius:20px;border:1px solid rgba(0,0,0,0.15);background:#fff;cursor:pointer">✕</button></div>
-<div class="tabs"><button class="tab active" onclick="switchTab(this,'narrative')">NARRATIVE DESIGN</button><button class="tab" onclick="switchTab(this,'symbolism')">SYMBOLISM</button><button class="tab" onclick="switchTab(this,'psychology')">AUDIENCE PSYCHOLOGY</button><button class="tab" onclick="switchTab(this,'spiritual')">SPIRITUAL INTUITION</button></div>
-<div class="content" id="mContent"></div>
-<div style="padding:0 20px 16px" class="mono">from server of my experiences — we will venture on later • b10.online fertile soil • shamba soil 0-100% • womb not grave</div>
+<svg id="svgLayer" style="position:fixed;inset:0;pointer-events:none;z-index:8;width:100%;height:100%"></svg>
+
+<div id="garden"><div class="gBox">
+<div class="gHead"><div id="gTitle" style="font-weight:700">GARDEN</div><button onclick="closeGarden()" style="padding:6px 14px;border-radius:20px;border:1px solid rgba(0,0,0,0.15);background:#fff;cursor:pointer">✕ return to sky</button></div>
+<div class="tabs"><button class="tab active" data-tab="narrative" onclick="switchTab(this)">NARRATIVE DESIGN</button><button class="tab" data-tab="symbolism" onclick="switchTab(this)">SYMBOLISM</button><button class="tab" data-tab="psychology" onclick="switchTab(this)">AUDIENCE PSYCHOLOGY</button><button class="tab" data-tab="spiritual" onclick="switchTab(this)">SPIRITUAL INTUITION</button></div>
+<div class="gContent" id="gContent"></div><div class="gardenBg" id="gBg">🌱</div>
 </div></div>
 
 <script>
-const DATA={
-mental:{title:"🧠 MENTAL HEALTH — Fertile Void Womb Not Grave",narrative:"Chapter 0 ASHES: Village → City sickness. Your 3-4am shadow CCTV fear returns where you were sick. Not pathology but place memory. Story starts in fertile hole from your doc Page 3 — absorbing, transmuting, regenerating. Bare branch → bloom.",symbolism:"Fertile hole dark center = black void 0-18% from your Shamba Soil rings doc. Rainbow rings around it = 86-100% light sand outer. Anxiety = data -0.12 not enemy. Black + red fish guarding orange alloy together — fear + love guarding same core.",psychology:"Audience = The Scared One (you in city). Needs GROUND first. Sky blue + cumulus + sun = safety, not void dark. Breath 7.2s slows them. Sun bright + deep orange rim = hope hold, not toxic positivity. Milk warm not cold neon.",spiritual:"Spiritual intuition: Fertile hole is womb not grave. Black void absorbs — first server experience: soil profile free to use, open for study. Your experience of soil as mother not resource. Binary Fhoenix rebirth protocol begins here."},
-collective:{title:"🕸️ COLLECTIVE CONSCIOUSNESS — Mycelial Network 12,847",narrative:"Chapter 1 SPARK: Flocks law, fungal consciousness layer from Page 2 bioluminescent forest with glowing mushrooms. When one scrolls, nodes connect. From 'I am scared' to 'We breathe together'.",symbolism:"Mycelial threads from doc Page 2 — blue-purple glowing mushrooms, ferns. Orb icon web. Rainbow nerve carrying ocean signals from your earlier trench design. Each mind = node in concentric rings.",psychology:"Audience = The Seeker searching belonging. Big cumulus clouds overlapping = we are clouds not separate. Deep orange around them = shared warmth. 12,847 synced counter makes them feel part of flock, not alone.",spiritual:"Spiritual intuition: Mycelium is internet before internet. Your experience of Moiben millet field runners moving as one — no leader, pattern. Shamba = Swahili for cultivated plot, not owned plot — collective holds."},
-evolution:{title:"🧬 EVOLUTION — Perrogasus Bloom After Bare",narrative:"Chapter 2 FLIGHT: Bare branch → bloom from Page 8 top dog with rainbow wings + Page 1 dog with tie + elf child looking at diamond. Evolution is hybrid impossible that runs anyway — perrogasus Pegasus + dog.",symbolism:"Page 8 Perrogasus — white dog with iridescent rainbow wings over river + rainbow. Symbol of joyful evolution. Not survival of fittest but survival of most joyful. Thick tree 10,911m with rainbow nerves.",psychology:"Audience = burned out achievers. Evolution story not about becoming better but becoming more you. Cumulus clouds evolving shapes slowly — deep orange glow = transformation is warm not painful.",spiritual:"Spiritual intuition: Your experience — hybrid you, binary + phoenix, village + city, code + soil. Evolution is not linear but circular like Shamba soil rings 0-100%. Return to light sand outer."},
-reverse:{title:"🛠️ REVERSE ENGINEERING — Opening Your Own Source Code",narrative:"Chapter 5 CODE: You reverse engineered yourself on i5 with Tesseract.js, PDF-lib — no server cost. From Page 1 elf child + dog staring at floating octahedron diamond with rainbow portal — curiosity engine.",symbolism:"Octahedron diamond = tech artifact from Page 1,2,8 — floating, transparent, rainbow rings around it. Symbol of pattern you can open. You disassembled city sickness to find village firmware inside.",psychology:"Audience = builders, tinkerers. Sky blue day + bright sun = clarity, transparency. Deep orange around cumulus = warning glow of curiosity — safe to disassemble. They want to SEE how it works.",spiritual:"Spiritual intuition: Reverse engineering as spiritual practice — not hacking but remembering. Your server = Moiben soil free guest free harmony — you are opening source code of soil itself."},
-ai:{title:"🤖 FUTURE OF AI — Transparent 86% Body",narrative:"Chapter 5 CODE continued: Page 7 transparent alien rainbow body with infinity stones in forest — 86% transparent, rainbow nerves visible. Future of AI is not black box but transparent body you can see through.",symbolism:"Page 7 alien — iridescent skeleton, galaxy chest, surrounded by glowing stones (your themes). AI future = transparent not hidden. Stones = data you choose to hold around you, not inside you controlling you.",psychology:"Audience = AI anxious. Sky blue + sun bright = future is day not night dystopia. Cumulus soft = AI as clouds holding you. Deep orange = warm intelligence not cold. SESE quantum AI side by side with editor = collaborative not replacement.",spiritual:"Spiritual intuition: Your experience — fear AI will replace you, then realizing you ARE the intelligence that trains it. Binary Fhoenix = human + machine phoenix together. Transparent body = no hidden motives."},
-cosmos:{title:"🪐 COSMOS EXPLORATION — Octahedron Ship + Rainbow Signal",narrative:"Chapter 4 ORBIT: Page 1 & 2 — octahedron diamond floating with rainbow portal vertical/horizontal. Elf children looking up. Cosmos is not far — it's right here in garden, portal above shamba.",symbolism:"Rainbow signal = ocean surface rainbow from your trench narrative → Saturn rainbow rings. Diamond ship = cosmos exploration vehicle that doesn't leave soil — dives down through fertile hole to cosmos. Above and below same.",psychology:"Audience = dreamers feeling small. Sky blue infinite + sun + cumulus with deep orange = cosmos is warm day sky, not cold dark void. You are held in orbit. Big clouds = nebulas nearby.",spiritual:"Spiritual intuition: Your experience — night sky in Moiben vs city sky. Cosmos exploration is not leaving but returning — fertile hole is wormhole. Octahedron = 8 faces = 8 themes around it."},
-community:{title:"👥 COMMUNITY — Soil Free Guest Free Harmony",narrative:"Chapter 6 FLOCK: Page 5 soil profile concentric rings — soil free guest free harmony, first ref free to use open for study. Population = community = no title deed for soul.",symbolism:"Community orb icon people circle. Shamba soil rings — 35-42% golden yellow, 27-34% brown soil — community is layered, not flat. Fertile hole at bottom = community source, all return to it.",psychology:"Audience = Elder, community builders. Sky blue + cumulus + deep orange = gathering under same sky. Sun bright shared — same sun for all. Clouds big overlapping = togetherness without losing shape.",spiritual:"Spiritual intuition: Your deepest server — Moiben harmony, UTonga millet runner flock moving as one, village soil where no one owns but all care. Binary Fhoenix flock law — soil free guest free."},
-history:{title:"📜 HISTORY + POPULATION — Infinity Stones Safe Containment",narrative:"Chapter 3 MEMORY: Page 4 infinity stones evolution — void → sparks → transformation blooming → rainbow garden evolution. History is not line but 4 stages of garden. Population is garden expanding.",symbolism:"Page 4/6 infinity stones in gold filigree circle, reflection in lake. 6 stones = space, mind, reality, power, time, soul — your 6 themes mapped. Contained in gold ring = history held safely, not hoarded. Rainbow bridge over.",psychology:"Audience = historians, keepers. Sky blue + cumulus with deep orange = history as weather — clouds hold water history of ocean. Deep orange rim = sunset history held warmly. Sun bright = future history still being written.",spiritual:"Spiritual intuition: Your experience — history as rings not line. Shamba soil profile 0-100% — each ring is era, from black void 0-18% to light sand 86-100%. History lives in soil layers. Infinity stones safe containment = memory protected."}
+const THEMES={
+mental:{title:"🧠 Mental Health — Fertile Void Garden",icon:"🧠",narrative:"ASHES chapter from your doc Page 3 fertile hole: village → city sickness, 3-4am shadow. Story starts in portal womb not grave. User arrives via teleport — they were orb, now they fall softly into void that breathes 7.2s.",symbolism:"Fertile hole concentric rainbow rings 0-100% Shamba soil rings doc. Black void 0-18% = ash, light sand 86-100% = bloom. Orange alloy = you, black+red fish guarding = fear+love together.",psychology:"Scared One needs GROUND. Sky blue milk tone reduces cortisol vs old dark neon. Sun bright + cumulus peach = safe day. Portal transport feels like being held, not dropping.",spiritual:"Server experience: soil profile free to use — mother not resource. Moiben soil as womb. This garden = absorbing, transmuting, regenerating."},
+collective:{title:"🕸️ Collective Consciousness — Mycelial Garden",icon:"🕸️",narrative:"SPARK: Page 2 bioluminescent forest, glowing mushrooms. Flocks law — no leader, pattern. Portal transports orb into underground mycelial network where 12,847 lights sync.",symbolism:"Mycelial threads = internet before internet. Rainbow nerves carrying ocean signals. Each orb = node.",psychology:"Seeker belonging: cumulus overlapping = we are clouds not separate. Teleport into shared root feels like joining.",spiritual:"Millet field runners moving as one, Moiben. Shamba = cultivated plot not owned plot."},
+evolution:{title:"🧬 Evolution — Perrogasus Garden",icon:"🧬",narrative:"FLIGHT: Page 8 Perrogasus white dog with rainbow wings over river. Bloom after bare. Evolution = joyful hybrid impossible.",symbolism:"Perrogasus, thick baobab 10,911m with rainbow nerves, bare → bloom.",psychology:"Burned achievers: evolution as warm flight not struggle. Deep orange glow = transformation warm.",spiritual:"Hybrid you: binary+phoenix, village+city, code+soil. Circular Shamba rings."},
+reverse:{title:"🛠️ Reverse Engineering — Diamond Lab Garden",icon:"🛠️",narrative:"CODE: Page 1 elf child staring at octahedron diamond rainbow portal — curiosity engine. You reverse engineered self on i5.",symbolism:"Octahedron floating = pattern you can open. City sickness firmware contains village.",psychology:"Builders: sky blue day = clarity transparency. Deep orange = safe curiosity.",spiritual:"Reverse engineering as remembering. Opening soil source code."},
+ai:{title:"🤖 Future of AI — Transparent Body Garden",icon:"🤖",narrative:"Page 7 transparent alien rainbow body with infinity stones. Future AI = transparent 86% not black box. Portal = stones you choose to hold around not inside controlling.",symbolism:"Transparent body galaxy chest, infinity stones surrounding. SESE side-by-side editor = collaborative.",psychology:"AI anxious: sky blue day future not dystopian night. Cumulus soft = AI as clouds holding.",spiritual:"You ARE intelligence training it. Binary Fhoenix = human+machine phoenix."},
+cosmos:{title:"🪐 Cosmos Exploration — Octahedron Ship Garden",icon:"🪐",narrative:"ORBIT: Page 1 & 2 diamond with rainbow portal vertical/horizontal. Cosmos not far — portal above shamba. Portal transport = wormhole.",symbolism:"Rainbow signal ocean surface → Saturn rings. Diamond ship dives down to cosmos above=below same.",psychology:"Dreamers feeling small: sky infinite warm day. You held in orbit.",spiritual:"Moiben night sky vs city sky. Fertile hole is wormhole."},
+community:{title:"👥 Community — Soil Free Guest Free Garden",icon:"👥",narrative:"FLOCK: Page 5 soil profile concentric rings — soil free guest free harmony, free to use open for study. Population = garden expanding.",symbolism:"Shamba soil rings 35-42% golden yellow community layered. Portal bottom = community source.",psychology:"Elder builders: same sky sun same for all. Clouds overlapping = togetherness.",spiritual:"Moiben harmony, flock law, no title deed for soul."},
+history:{title:"📜 History + Population — Infinity Stones Garden",icon:"📜",narrative:"MEMORY: Page 4 infinity stones evolution void→sparks→transformation→rainbow garden. History = 4 stages. Population = garden expanding.",symbolism:"Page 4/6 stones in gold filigree circle reflection lake. 6 stones = space mind reality power time soul.",psychology:"Keepers: clouds hold water history ocean. Deep orange sunset history held warmly.",spiritual:"History as rings not line. Shamba 0-100% each ring era. Safe containment = memory protected."}
 };
-let cur='mental',curTab='narrative';
-function openTheme(k){cur=k;document.getElementById('mTitle').textContent=DATA[k].title;document.getElementById('modal').classList.add('active');render(); }
-function closeM(){document.getElementById('modal').classList.remove('active')}
-function switchTab(el,tab){curTab=tab;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');render();}
-function render(){const d=DATA[cur][curTab];const map={narrative:"NARRATIVE DESIGN",symbolism:"SYMBOLISM",psychology:"AUDIENCE PSYCHOLOGY",spiritual:"SPIRITUAL INTUITION — from server of my experiences"};document.getElementById('mContent').innerHTML=`<h3>${map[curTab]}</h3><div>${d}</div><br><div class=mono style=opacity:.6>Theme: ${cur} • Tab: ${curTab} • Sky blue landing bay • sun + cumulus deep orange • fertile hole womb not grave</div>`}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal') closeM()})
+
+let curTheme='mental', curTab='narrative';
+const svg=document.getElementById('svgLayer');
+const portal=document.getElementById('portal');
+const portalCenter=()=>{const r=portal.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}}
+
+document.querySelectorAll('.orb').forEach(orb=>{
+  orb.addEventListener('click',()=>{
+    const theme=orb.dataset.theme;
+    const rect=orb.getBoundingClientRect();
+    const start={x:rect.left+rect.width/2,y:rect.top+rect.height/2};
+    const end=portalCenter();
+    teleport(start,end,orb,theme);
+  })
+});
+
+function teleport(start,end,orbEl,theme){
+  orbEl.style.pointerEvents='none';
+  portal.classList.add('active');
+  // create arc path
+  const midX=(start.x+end.x)/2;
+  const midY=Math.min(start.y,end.y)-180 - Math.random()*80;
+  const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+  const d=`M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
+  path.setAttribute('d',d);
+  path.setAttribute('stroke',`url(#grad-${theme})`);
+  path.setAttribute('stroke-width','5');
+  path.style.strokeDasharray='12 8';
+  path.style.animation='dash 0.8s linear infinite';
+  // define gradient
+  const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+  const grad=document.createElementNS('http://www.w3.org/2000/svg','linearGradient');
+  grad.id=`grad-${theme}`; grad.innerHTML=`<stop offset="0%" stop-color="#FF6A1A"/><stop offset="50%" stop-color="#B07AFF"/><stop offset="100%" stop-color="#5A8CFF"/>`;
+  defs.appendChild(grad);
+  svg.appendChild(defs); svg.appendChild(path);
+  // flying orb clone
+  const fly=document.createElement('div');
+  fly.className='orb'; fly.style.position='fixed'; fly.style.left=start.x-46+'px'; fly.style.top=start.y-46+'px'; fly.style.margin='0'; fly.style.zIndex='30'; fly.style.transition='none';
+  fly.innerHTML=orbEl.innerHTML;
+  document.body.appendChild(fly);
+  // animate along path
+  const duration=900;
+  let startTime=null;
+  function animate(t){
+    if(!startTime) startTime=t;
+    const p=Math.min((t-startTime)/duration,1);
+    const ease=1-Math.pow(1-p,3);
+    // quadratic bezier
+    const x=(1-ease)*(1-ease)*start.x + 2*(1-ease)*ease*midX + ease*ease*end.x;
+    const y=(1-ease)*(1-ease)*start.y + 2*(1-ease)*ease*midY + ease*ease*end.y;
+    fly.style.left=x-46+'px'; fly.style.top=y-46+'px';
+    fly.style.transform=`scale(${1-0.6*ease})`;
+    fly.style.filter=`blur(${ease*2}px) brightness(${1+0.5*ease})`;
+    if(p<1) requestAnimationFrame(animate);
+    else{
+      // hit portal
+      portal.animate([{transform:'translateX(-50%) scale(1)'},{transform:'translateX(-50%) scale(1.25)'},{transform:'translateX(-50%) scale(1)'}],{duration:400,easing:'ease-out'});
+      fly.remove(); path.remove();
+      orbEl.style.pointerEvents='auto';
+      svg.innerHTML='';
+      openGarden(theme);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function openGarden(theme){
+  curTheme=theme; curTab='narrative';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('[data-tab="narrative"]').classList.add('active');
+  document.getElementById('gTitle').textContent=THEMES[theme].title;
+  document.getElementById('gBg').textContent=THEMES[theme].icon;
+  renderGarden();
+  document.getElementById('garden').classList.add('active');
+}
+function renderGarden(){
+  const d=THEMES[curTheme][curTab];
+  const map={narrative:"NARRATIVE DESIGN",symbolism:"SYMBOLISM",psychology:"AUDIENCE PSYCHOLOGY",spiritual:"SPIRITUAL INTUITION — from server of my experiences"};
+  document.getElementById('gContent').innerHTML=`<h3>${map[curTab]}</h3><div>${d}</div><br><div class=mono style=opacity:.5>Theme: ${curTheme} • Portal transport completed • Garden from fertile soil doc • We will venture on later • sky blue landing bay</div><br><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="tab" style="background:#1e2f3f;color:#fff" onclick="alert('Venture later: server of experiences will load here for ${curTheme}')">VENTURE SERVER →</button><button class="tab" onclick="closeGarden()">↩ Back to Sky</button></div>`;
+}
+function switchTab(el){curTab=el.dataset.tab;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderGarden();}
+function closeGarden(){document.getElementById('garden').classList.remove('active');}
 </script>
+<style>@keyframes dash{to{stroke-dashoffset:-20}}</style>
 </body>
 </html>

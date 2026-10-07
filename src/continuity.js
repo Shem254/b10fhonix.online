@@ -1,1 +1,0 @@
-export class ContinuityEngine{constructor(){this.seeds={};}seedWorld(b,c){c.forEach(x=>{this.seeds[x.name]=x.seed;});}hash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}getCharacterSeed(n){return this.seeds[n]||this.hash(n);}deterministicRandom(s,f,n=0){const x=Math.sin(s*9999+f*0.13+n*7.7)*10000;return x-Math.floor(x);}}

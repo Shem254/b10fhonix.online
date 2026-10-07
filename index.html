@@ -1,564 +1,85 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SESE V4 — Browser Cinema Engine</title>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SESE V4 — Fully Functional Movie Architecture — b10fhonix.online</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <style>
-:root{--bg:#08090d;--panel:#11131a;--card:#171a22;--line:#292e3a;--text:#f5f7fb;--muted:#8992a3;--a:#7c7cff;--b:#65d7ff;--ok:#6ee7a8;--warn:#ffd166}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#1b1b31,#08090d 55%);color:var(--text);font:13px Inter,system-ui,sans-serif}
-button,input,textarea,select{font:inherit}button{cursor:pointer}.top{height:58px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;background:#08090df0;backdrop-filter:blur(18px);z-index:20}.brand{font-weight:800}.brand span{color:var(--b)}.tag{color:var(--muted);font:10px monospace;margin-left:8px}
-.nav{display:flex;gap:6px}.nav button,.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:8px 12px}.primary{background:#fff;color:#000;border-color:#fff}.danger{color:#ff8c8c}
-.wrap{max-width:1500px;margin:auto;padding:18px}.hero{padding:12px 0 18px}.hero h1{font-size:36px;margin:0 0 7px}.hero h1 i{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:900px}
-.grid{display:grid;grid-template-columns:290px minmax(500px,1fr) 330px;gap:12px}.card{background:#11131ae8;border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:0 14px 50px #0005}.card h3{margin:0 0 10px;font-size:13px}.stack>*+*{margin-top:9px}
-textarea,input,select{width:100%;background:#0c0e13;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px;outline:none}textarea{min-height:115px;resize:vertical}
-.row{display:flex;gap:7px;align-items:center}.row>*{flex:1}.small{font:10px/1.45 monospace;color:var(--muted)}.label{font-size:10px;color:var(--muted);margin-bottom:4px}.pill{display:inline-block;padding:3px 7px;border:1px solid var(--line);border-radius:99px;font:9px monospace;color:var(--b)}
-.canvas{background:#000;border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative;aspect-ratio:16/9}.canvas canvas{width:100%;height:100%;display:block}.overlay{position:absolute;left:10px;bottom:9px;font:10px monospace;color:#ffffff99}
-.progress{height:5px;background:#0a0c10;border-radius:99px;overflow:hidden;margin-top:9px}.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:.2s}
-.shots{max-height:300px;overflow:auto}.shot{border:1px solid var(--line);background:#0c0e13;border-radius:10px;padding:9px;margin:6px 0}.shot.active{border-color:var(--a);box-shadow:0 0 0 1px #7c7cff55}.shothead{display:flex;justify-content:space-between;gap:8px}.shot button{padding:5px 8px;font-size:10px}
-.timeline{overflow:auto;padding-bottom:5px}.track{display:flex;gap:4px;min-width:max-content}.clip{width:120px;height:48px;background:#0b0d12;border:1px solid var(--line);border-radius:7px;padding:5px;font:9px monospace}.clip.active{border-color:var(--b)}
-.tabs{display:flex;gap:5px;margin-bottom:9px}.tabs button.active{background:#fff;color:#000}.hide{display:none}.log{height:145px;overflow:auto;background:#07080b;border:1px solid var(--line);border-radius:9px;padding:8px;font:10px monospace;white-space:pre-wrap;color:#98a0ae}
-pre{white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto;background:#080a0e;border:1px solid var(--line);padding:8px;border-radius:9px;font:9px monospace}
-.bible{font-size:11px;line-height:1.45}.meter{display:flex;justify-content:space-between;font:10px monospace;color:var(--muted);margin:4px 0}
-@media(max-width:1150px){.grid{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.right{display:grid;grid-template-columns:1fr 1fr}}
-@media(max-width:700px){.side,.right{display:block}.hero h1{font-size:27px}.nav .hideMobile{display:none}}
-</style>
-</head>
+:root{--bg:#08080a;--c:#1a1a1f;--l:#26262f;--t:#f5f5f7;--m:#8a8e98;--a:#7c7cff;--a2:#7EC8F0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font-family:Inter,sans-serif}
+#nav{height:56px;display:flex;justify-content:space-between;align-items:center;padding:0 14px;border-bottom:1px solid var(--l);position:sticky;top:0;background:rgba(8,8,10,0.96);z-index:10}
+.logo{font-weight:800}.logo span{color:var(--a2)}.small{font-size:11px;color:var(--m);font-family:JetBrains Mono,monospace}
+#layout{display:grid;grid-template-columns:360px 1fr 360px;gap:10px;max-width:1600px;margin:0 auto;padding:10px}
+@media(max-width:1100px){#layout{grid-template-columns:1fr}}
+.panel{background:var(--c);border:1px solid var(--l);border-radius:18px;padding:12px}
+textarea{width:100%;min-height:120px;background:#000;color:#fff;border:1px solid var(--l);border-radius:12px;padding:10px;font-family:JetBrains Mono,monospace;font-size:12px}
+button{background:var(--c);color:var(--t);border:1px solid var(--l);border-radius:99px;padding:9px 14px;font-weight:600;font-size:12px;cursor:pointer;margin:3px}
+button.primary{background:var(--t);color:#000}
+select{width:100%;background:#000;color:#fff;border:1px solid var(--l);border-radius:10px;padding:8px;margin:4px 0}
+.code{background:#0a0a0c;border:1px solid var(--l);border-radius:10px;padding:8px;font-family:JetBrains Mono,monospace;font-size:10px;white-space:pre-wrap;max-height:300px;overflow:auto;color:var(--m)}
+#stage{border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--l);aspect-ratio:16/9}
+canvas{width:100%;height:100%;display:block}
+.shot{min-width:86px;height:50px;border-radius:10px;background:#111;border:1px solid var(--l);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:JetBrains Mono,monospace;cursor:pointer;margin:3px}
+.shot.active{border-color:var(--a)}.progress{height:6px;background:#111;border-radius:99px;overflow:hidden;flex:1}.progress div{height:100%;width:0%;background:linear-gradient(90deg,var(--a),var(--a2))}
+#strip{display:flex;overflow:auto;padding:6px 0}
+</style></head>
 <body>
-<header class="top">
-  <div class="brand">SESE<span>.V4</span><span class="tag">FULL BROWSER CINEMA ENGINE</span></div>
-  <div class="nav">
-    <button id="newBtn">New</button><button id="saveBtn">Save</button><button id="loadBtn">Load</button>
-    <button class="primary" id="exportBtn">Export .SESE</button>
-  </div>
-</header>
-
-<main class="wrap">
-<section class="hero">
-<h1>Build a movie from <i>story → shots → motion → sound → master</i></h1>
-<p>No API keys. No server. The engine below is a real browser production pipeline: deterministic narrative analysis, scene/shot graph, continuity, procedural 2.5D rendering, camera rigs, particles, lighting, subtitles, synthesized audio, timeline assembly, IndexedDB persistence and WebM export.</p>
-</section>
-
-<div class="grid">
-<aside class="side">
-  <div class="card stack">
-    <h3>1. Story / Production</h3>
-    <textarea id="story" placeholder="Write the story..."></textarea>
-    <div class="row"><button class="btn primary" id="compileBtn">Compile Movie</button><button class="btn" id="sampleBtn">Example</button></div>
-    <div class="label">Genre</div><select id="genre"><option>Sci-Fi Thriller</option><option>Documentary Poetic</option><option>Afrofuturism</option><option>Cinematic Drama</option><option>Fantasy</option></select>
-    <div class="label">Visual language</div><select id="style"><option value="cinematic">Cinematic 35mm</option><option value="noir">Noir</option><option value="dream">Dream / Memory</option><option value="future">Clean Future</option></select>
-    <div class="label">Shots per scene</div><select id="shotsPer"><option>2</option><option>3</option><option>4</option><option>5</option></select>
-    <div class="row"><button class="btn" id="renderBtn">Render All</button><button class="btn" id="audioBtn">Make Audio</button></div>
-    <div class="row"><button class="btn" id="masterBtn">Master Movie</button><button class="btn danger" id="resetBtn">Reset</button></div>
-  </div>
-
-  <div class="card stack">
-    <h3>Character Bible</h3><div id="characters" class="bible">Compile a story to create deterministic character identities.</div>
-  </div>
-  <div class="card stack">
-    <h3>World Bible</h3><div id="world" class="bible">The world graph appears after compilation.</div>
-  </div>
-</aside>
-
-<section>
-  <div class="card">
-    <div class="tabs">
-      <button class="btn active" data-tab="director">Director</button>
-      <button class="btn" data-tab="timelineTab">Timeline</button>
-      <button class="btn" data-tab="masterTab">Master</button>
-    </div>
-
-    <div id="director">
-      <div class="canvas"><canvas id="view" width="1280" height="720"></canvas><div class="overlay" id="status">No production loaded</div></div>
-      <div class="progress"><div id="progress"></div></div>
-      <div class="row" style="margin-top:9px">
-        <button class="btn" id="playBtn">Play Shot</button>
-        <button class="btn" id="stopBtn">Stop</button>
-        <select id="fps"><option>24</option><option>30</option><option>60</option></select>
-      </div>
-      <div class="shots" id="shots"></div>
-    </div>
-
-    <div id="timelineTab" class="hide">
-      <h3>Master Timeline</h3>
-      <div class="timeline"><div class="track" id="timeline"></div></div>
-      <div class="small" id="timelineInfo">No timeline.</div>
-    </div>
-
-    <div id="masterTab" class="hide">
-      <h3>Master Output</h3>
-      <div id="masterOutput" class="small">Render shots, then master the timeline.</div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <h3>Engine Log</h3><div class="log" id="log"></div>
-  </div>
-</section>
-
-<aside class="right">
-  <div class="card stack">
-    <h3>Shot Inspector</h3>
-    <div class="label">Lens</div><select id="lens"><option value="24">24mm Wide</option><option value="35" selected>35mm Anamorphic</option><option value="50">50mm Spherical</option><option value="85">85mm Portrait</option></select>
-    <div class="label">Rig</div><select id="rig"><option value="static">Static</option><option value="dolly">Dolly In</option><option value="pan">Pan</option><option value="orbit">Orbit</option><option value="crane">Crane</option><option value="handheld">Handheld</option></select>
-    <div class="label">Light</div><select id="light"><option value="motivated">Motivated</option><option value="neon">Neon Pulse</option><option value="dawn">Dawn</option><option value="noir">Noir</option></select>
-    <div class="label">Depth</div><select id="depth"><option value="2.5d">2.5D Multiplane</option><option value="flat">Graphic 2D</option></select>
-    <div class="row"><button class="btn" id="applyBtn">Apply to Shot</button><button class="btn" id="regenBtn">Regenerate</button></div>
-  </div>
-
-  <div class="card stack">
-    <h3>Production State</h3>
-    <div class="meter"><span>Scenes</span><b id="sceneCount">0</b></div>
-    <div class="meter"><span>Shots</span><b id="shotCount">0</b></div>
-    <div class="meter"><span>Rendered</span><b id="renderCount">0</b></div>
-    <div class="meter"><span>Approved</span><b id="approvedCount">0</b></div>
-    <div class="meter"><span>Duration</span><b id="duration">0s</b></div>
-  </div>
-
-  <div class="card">
-    <h3>Movie JSON</h3><pre id="json">Compile a production first.</pre>
-  </div>
-</aside>
+<div id="nav"><div class="logo">SESE V4 <span>FULL</span> — b10fhonix.online</div><div class="small">Narrative → WorldGraph → CharacterRig → Director → Three.js Stage → Renderer (pluggable) → Master</div><button id="masterBtn" class="primary">EXPORT MASTER</button></div>
+<div id="layout">
+<div class="panel"><h3>NARRATIVE COMPILER</h3><textarea id="story">A young man wakes up in a dark room. He hears an electrical pulse. He follows a corridor flickering blue. He discovers an old machine with a glowing display reacting to thoughts. An orb floats above console. He touches orb and sees memories of everyone who used machine. He realizes machine doesn't control people — people planted stories into it. He plants his own story about return and light, and a portal of dawn opens.</textarea><select id="genre"><option>Afro Sci-Fi Healing</option><option>Sci-Fi Thriller</option></select><button id="compile" class="primary" style="width:100%">COMPILE → SHOT GRAPH</button><pre id="graph" class="code"></pre><div id="bible" class="small"></div></div>
+<div class="panel"><h3>STAGE — Three.js Virtual Production</h3><div id="stage"></div><div style="display:flex;gap:8px;align-items:center;margin-top:8px"><div class="progress"><div id="prog"></div></div><span id="label" class="small">No shot</span></div><div id="strip"></div><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button id="renderAll" class="primary">RENDER ALL (Three.js OFFLINE)</button><button id="renderAPI">RENDER API MODE (Kling/Sora)</button></div><div id="final" style="margin-top:8px"></div><pre id="log" class="code" style="height:140px">SESE V4 Ready — No npm needed — Three.js via CDN
+</pre></div>
+<div class="panel"><h3>SHOT GRAPH — Director</h3><pre id="shots" class="code"></pre><h3>RENDERER INTERFACE — Plug Real AI Here</h3><pre class="code">// Change in code below:
+async renderShot(shot){
+  // OFFLINE: Three.js (current)
+  // ONLINE:
+  // const res=await fetch('https://api.replicate.com/kling',
+  // {method:'POST', body: JSON.stringify({prompt:shot.visual, seed:shot.seed})})
+}</pre><button id="expJson" style="width:100%">Export.sese.json</button></div>
 </div>
-</main>
-
-<script>
-"use strict";
-
-/* ============================================================
-   SESE V4
-   Browser-native production engine.
-   It does not pretend to contain a remote neural video model.
-   Instead it fully implements the orchestration + procedural
-   cinematography layer and exposes a LocalModelProvider seam.
-   ============================================================ */
-
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-
-const SESE = {
-  project:null,
-  selected:null,
-  timer:null,
-  db:null,
-  clips:new Map(),
-  audio:null,
-
-  log(msg){
-    const el=$("#log"); el.textContent += "\\n["+new Date().toLocaleTimeString()+"] "+msg;
-    el.scrollTop=el.scrollHeight;
-  },
-
-  hash(str){
-    let h=2166136261;
-    for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}
-    return h>>>0;
-  },
-
-  rng(seed){
-    let x=(seed>>>0)||1;
-    return ()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return (x>>>0)/4294967296}
-  },
-
-  clamp(v,a,b){return Math.max(a,Math.min(b,v))},
-  lerp(a,b,t){return a+(b-a)*t},
-  ease(t){return t*t*(3-2*t)},
-
-  sample(){
-    $("#story").value =
-`A young man wakes before dawn in a dark room. An electrical pulse repeats somewhere beyond the wall. He follows the signal through a corridor and finds an old machine connected to a glowing display. The machine reacts when he thinks about a childhood memory. A floating orb opens and reveals fragments of people who used the machine before him. He realizes they did not lose themselves to the machine; they left their stories inside it. He decides to plant one final story about return, family and light. The machine opens a doorway into sunrise.`;
-  },
-
-  async init(){
-    await Storage.open();
-    AudioEngine.init();
-    this.sample();
-    UI.bind();
-    this.log("[System] SESE V4 initialized");
-    this.log("[System] Browser-only mode: no API calls, no server dependency");
-    this.log("[System] Ready");
-    await this.load();
-  },
-
-  compile(){
-    const raw=$("#story").value.trim();
-    if(!raw){alert("Write a story first.");return}
-    const genre=$("#genre").value, style=$("#style").value;
-    const nps=+$("#shotsPer").value;
-    this.project=Narrative.compile(raw,genre,style,nps);
-    this.clips.clear(); this.selected=this.project.shots[0]?.id||null;
-    UI.refresh();
-    this.log(`[Narrative] ${this.project.beats.length} beats extracted`);
-    this.log(`[World] ${this.project.scenes.length} scenes built`);
-    this.log(`[Director] ${this.project.shots.length} shots planned`);
-    this.log(`[Continuity] ${this.project.characters.length} character identities locked`);
-    this.log("[Timeline] Master timeline constructed");
-    this.save();
-  },
-
-  select(id){this.selected=id;UI.refresh();Renderer.preview()},
-
-  async renderAll(){
-    if(!this.project){alert("Compile first.");return}
-    this.stop();
-    const fps=+$("#fps").value;
-    for(let i=0;i<this.project.shots.length;i++){
-      const s=this.project.shots[i];
-      await Renderer.renderClip(s,fps);
-      $("#progress").style.width=((i+1)/this.project.shots.length*100)+"%";
-      $("#renderCount").textContent=this.clips.size;
-      this.log(`[Render] ${s.id} complete`);
-      await new Promise(r=>setTimeout(r,0));
-    }
-    this.save();
-    this.log("[Render] All shots complete");
-  },
-
-  play(){
-    if(!this.project||!this.selected)return;
-    const shot=this.project.shots.find(s=>s.id===this.selected);
-    if(!shot)return;
-    this.stop();
-    const fps=+$("#fps").value, frameMs=1000/fps;
-    let frame=0;
-    const total=Math.max(1,Math.round(shot.duration*fps));
-    const draw=()=>{Renderer.draw(shot,frame,total);frame=(frame+1)%total};
-    draw();this.timer=setInterval(draw,frameMs);
-    $("#status").textContent=`PLAYING ${shot.id} • ${shot.duration}s`;
-  },
-
-  stop(){if(this.timer){clearInterval(this.timer);this.timer=null}},
-
-  apply(){
-    if(!this.project||!this.selected)return;
-    const s=this.project.shots.find(x=>x.id===this.selected);
-    if(!s)return;
-    s.lens=+$("#lens").value;s.rig=$("#rig").value;s.light=$("#light").value;s.depth=$("#depth").value;
-    s.seed=this.hash(s.id+"|"+s.lens+"|"+s.rig+"|"+s.light+"|"+s.depth);
-    this.log(`[Director] Applied camera package to ${s.id}`);
-    this.save();UI.refresh();Renderer.preview();
-  },
-
-  regenerate(){
-    if(!this.project||!this.selected)return;
-    const s=this.project.shots.find(x=>x.id===this.selected);
-    s.seed=this.hash(s.seed+"|regenerate|"+Date.now());
-    s.status="review";
-    this.clips.delete(s.id);
-    this.log(`[Director] Regenerated ${s.id} with new deterministic seed`);
-    UI.refresh();Renderer.preview();this.save();
-  },
-
-  makeAudio(){
-    if(!this.project)return;
-    AudioEngine.playFilmPreview(this.project);
-    this.log("[Audio] Procedural score + ambience preview started");
-  },
-
-  async master(){
-    if(!this.project){alert("Compile first.");return}
-    if(!this.clips.size){await this.renderAll()}
-    this.log("[Master] Assembling timeline into WebM...");
-    const out=await Master.export(this.project,+$("#fps").value);
-    $("#masterOutput").innerHTML="";
-    const v=document.createElement("video");v.controls=true;v.src=out.url;v.style.width="100%";
-    const a=document.createElement("a");a.href=out.url;a.download="SESE_V4_MASTER.webm";a.className="btn primary";a.textContent="Download Master WEBM";a.style.display="block";a.style.marginTop="9px";
-    $("#masterOutput").append(v,a);
-    this.log(`[Master] WEBM ready • ${Math.round(out.blob.size/1024)} KB`);
-  },
-
-  async save(){if(this.project)await Storage.save(this.project)},
-  async load(){
-    const p=await Storage.load();
-    if(p){this.project=p;this.selected=p.shots[0]?.id||null;UI.refresh();this.log("[Storage] Project restored from IndexedDB")}
-  },
-
-  exportJSON(){
-    if(!this.project){alert("Compile first.");return}
-    const blob=new Blob([JSON.stringify(this.project,null,2)],{type:"application/json"});
-    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(this.project.title||"sese_movie")+".sese.json";a.click();
-  },
-
-  reset(){
-    this.stop();this.project=null;this.selected=null;this.clips.clear();
-    $("#progress").style.width="0%";UI.refresh();this.log("[System] New empty production");
-  }
+<script type="module">
+import * as THREE from 'three';
+const $=s=>document.querySelector(s); const log=m=>{const e=$('#log'); e.textContent+=`\n${new Date().toLocaleTimeString()} ${m}`; e.scrollTop=99999;};
+const hash=s=>{let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);};
+const detRand=(seed,f,s)=>{const x=Math.sin(seed*9999+f*0.13+s*7.7)*10000; return x-Math.floor(x);};
+class Continuity{constructor(){this.seeds={};}seedWorld(w,c){c.forEach(x=>this.seeds[x.name]=x.seed);}getSeed(n){return this.seeds[n]||hash(n);}}
+class Narrative{static compile(raw,genre){const sens=raw.split(/[.!?]+/).map(s=>s.trim()).filter(s=>s.length>12); const beats=sens.map((s,i)=>{const l=s.toLowerCase(); let mood='tense'; if(l.includes('dawn')||l.includes('hope')) mood='triumphant'; else if(l.includes('memory')||l.includes('orb')) mood='dream'; let loc='Abandoned Room'; if(l.includes('corridor')) loc='Corridor'; else if(l.includes('machine')||l.includes('console')) loc='Machine Room'; else if(l.includes('orb')||l.includes('memory')) loc='Memory Void'; else if(l.includes('portal')||l.includes('dawn')) loc='Dawn Portal'; return {index:i,text:s,mood,location:loc,duration:8};}); const per=Math.ceil(beats.length/5); const scenes=[]; for(let i=0;i<5;i++){const ch=beats.slice(i*per,(i+1)*per); if(!ch.length) continue; scenes.push({id:`scene_${String(i+1).padStart(2,'0')}`,location:ch[0].location,mood:ch[0].mood,beats:ch});} return {beats,scenes,theme:genre};}}
+class World{static build(sg,raw){const locs=[...new Set(sg.beats.map(b=>b.location))]; return {locations:locs, summary:`${locs.join(' -> ')} | ${raw.slice(0,180)}`};}}
+class CharacterRig{static build(raw){const cands={}; raw.split(/\s+/).forEach(w=>{const c=w.replace(/[^A-Za-z]/g,''); if(c.length>2&&c[0]===c[0].toUpperCase()) cands[c]=(cands[c]||0)+1;}); let tops=Object.entries(cands).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]); if(!tops.length) tops=['Alex','Maya']; return tops.map(n=>{const seed=hash(n); return {name:n,seed,arc:'seeker',description:`${n} consistent seed ${seed}`};});}}
+class Director{constructor(cont){this.cont=cont;}plan(sg,wg,opts){const out=[]; sg.scenes.forEach(sc=>{for(let si=0;si<2;si++){const beat=sc.beats[Math.min(si,sc.beats.length-1)]; const ch=wg.locations[0]||'Alex'; const seed=this.cont.getSeed(ch); out.push({id:`${sc.id}_shot_${String(si+1).padStart(2,'0')}`,scene:sc.id,location:sc.location,mood:sc.mood,camera:{lens:'35mm anamorphic',fov:38,movement:opts.rig},light:{type:opts.light},visual:`${sc.location}, ${beat.text.slice(0,100)}, seed ${seed}`,narration:si===0?beat.text.slice(0,120):'',dialogue:si===1?beat.text.slice(0,120):'',seed,duration:8});}}); return out;}}
+class Stage{
+ constructor(container,continuity,log){this.cont=continuity; this.log=log; this.scene=new THREE.Scene(); this.scene.background=new THREE.Color(0x080a14); this.camera=new THREE.PerspectiveCamera(38,16/9,0.1,1000); this.camera.position.set(0,1.6,3.8); this.renderer=new THREE.WebGLRenderer({antialias:true}); this.renderer.setSize(1920,1080); container.innerHTML=''; container.appendChild(this.renderer.domElement); this.ambient=new THREE.AmbientLight(0x404060,0.7); this.scene.add(this.ambient); this.key=new THREE.PointLight(0x7EC8F0,2,10); this.key.position.set(0,2,2); this.scene.add(this.key); this.console=new THREE.Mesh(new THREE.BoxGeometry(3,1.6,0.4), new THREE.MeshStandardMaterial({color:0x1a1a2a})); this.console.position.set(0,0.8,0); this.scene.add(this.console); this.orb=new THREE.Mesh(new THREE.SphereGeometry(0.18,32,32), new THREE.MeshStandardMaterial({color:0xffffff, emissive:0x7EC8F0, emissiveIntensity:2})); this.orb.position.set(0,1.2,0.5); this.scene.add(this.orb); this.char=new THREE.Group(); const cap=new THREE.Mesh(new THREE.CapsuleGeometry(0.25,1.0,4,8), new THREE.MeshStandardMaterial({color:0xffffff, transparent:true, opacity:0.08})); cap.position.y=0.9; this.char.add(cap); this.scene.add(this.char); this.stars=new THREE.Group(); for(let i=0;i<80;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(0.015,4,4), new THREE.MeshBasicMaterial({color:0xffffff})); s.position.set((Math.random()-0.5)*12, Math.random()*6, (Math.random()-0.5)*12); this.stars.add(s);} this.scene.add(this.stars); this.animate();}
+ animate(){requestAnimationFrame(()=>this.animate()); this.orb.rotation.y+=0.01; this.orb.material.emissiveIntensity=1.5+Math.sin(Date.now()/300)*0.6; this.renderer.render(this.scene,this.camera);}
+ previewShot(shot){if(shot.location.includes('Machine')){this.scene.background=new THREE.Color(0x080a14); this.key.color.set(0x7EC8F0);} else if(shot.location.includes('Void')){this.scene.background=new THREE.Color(0x020208); this.key.intensity=0.3;} else if(shot.location.includes('Dawn')){this.scene.background=new THREE.Color(0x1a182a); this.key.color.set(0xffb86a); this.key.intensity=1.6;} else {this.scene.background=new THREE.Color(0x0c0c14);} if(shot.camera.movement==='dolly_in') this.camera.position.z=3.6+Math.sin(Date.now()/1800)*0.4; if(shot.camera.movement==='orbit') this.camera.position.x=Math.sin(Date.now()/2000)*1.2;}
+}
+class Renderer{
+ constructor(stage,cont,log){this.stage=stage; this.cont=cont; this.log=log; this.clips={};}
+ async renderShot(shot){
+  const canvas=this.stage.renderer.domElement; const stream=canvas.captureStream(24); const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'}); let chunks=[]; rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+  const done=new Promise(r=>{rec.onstop=()=>{const blob=new Blob(chunks,{type:'video/webm'}); const url=URL.createObjectURL(blob); this.clips[shot.id]={url,blob,duration:shot.duration}; r();};});
+  rec.start(); let elapsed=0; const max=shot.duration*1000; const tick=()=>{elapsed+=100; this.stage.previewShot(shot); if(elapsed<max) setTimeout(tick,100); else rec.stop();}; tick(); await done; this.log(`[RENDERER] ${shot.id} rendered — seed ${shot.seed} — Three.js`);
+ }
+ async masterAssemble(sg,finalDiv){
+  const ordered=sg.filter(s=>this.clips[s.id]); if(!ordered.length){alert('Render first'); return;}
+  const c=document.createElement('canvas'); c.width=1920; c.height=1080; const ctx=c.getContext('2d'); const stream=c.captureStream(24); const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'}); let chunks=[]; rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+  const done=new Promise(r=>{rec.onstop=()=>{const blob=new Blob(chunks,{type:'video/webm'}); const url=URL.createObjectURL(blob); finalDiv.innerHTML=`<video controls src="${url}" style="width:100%;border-radius:16px"></video><br><a href="${url}" download="SESE_V4_MASTER.webm"><button class="primary" style="width:100%">⬇ DOWNLOAD MASTER</button></a>`; r();};});
+  rec.start(); for(const s of ordered){const clip=this.clips[s.id]; const v=document.createElement('video'); v.src=clip.url; v.muted=true; await new Promise(r=>{v.onloadedmetadata=()=>{v.play(); r();};}); let f=0; const frames=s.duration*24; await new Promise(r=>{const loop=()=>{ctx.drawImage(v,0,0,1920,1080); f++; if(f<frames&&!v.ended) requestAnimationFrame(loop); else r();}; loop();});} rec.stop(); await done; this.log('[MASTER] Ready');
+ }
+}
+const continuity=new Continuity(); const stage=new Stage($('#stage'),continuity,log); const renderer=new Renderer(stage,continuity,log); let project=null;
+$('#compile').onclick=()=>{
+ const raw=$('#story').value; const genre=$('#genre').value;
+ log('[NARRATIVE] Compiling...'); const storyGraph=Narrative.compile(raw,genre); const worldGraph=World.build(storyGraph,raw); const chars=CharacterRig.build(raw); continuity.seedWorld(worldGraph,chars);
+ const director=new Director(continuity); const shotGraph=director.plan(storyGraph,worldGraph,{rig:'dolly_in',light:'volumetric'});
+ project={storyGraph,worldGraph,characters:chars,shotGraph};
+ $('#graph').textContent=JSON.stringify({scenes:storyGraph.scenes.length, locations:worldGraph.locations, theme:storyGraph.theme},null,2);
+ $('#bible').innerHTML=chars.map(c=>`<div style="padding:6px;border:1px solid #26262f;border-radius:8px;margin:4px 0"><b>${c.name}</b> seed:${c.seed}<br><span class="small">${c.description}</span></div>`).join('')+`<br><span class="small">${worldGraph.summary}</span>`;
+ $('#shots').textContent=JSON.stringify(shotGraph.slice(0,2),null,2);
+ const strip=$('#strip'); strip.innerHTML=''; shotGraph.forEach(s=>{const d=document.createElement('div'); d.className='shot'; d.id='shot_'+s.id; d.textContent=s.id.replace('scene_','S'); d.onclick=()=>{document.querySelectorAll('.shot').forEach(x=>x.classList.remove('active')); d.classList.add('active'); $('#label').textContent=`${s.id} | ${s.location} | ${s.camera.lens}`; stage.previewShot(s);}; strip.appendChild(d);}); if(strip.firstChild) strip.firstChild.click();
+ log(`[DIRECTOR] ${shotGraph.length} shots planned`);
 };
-
-/* ---------- Narrative compiler ---------- */
-const Narrative = {
-  compile(raw,genre,style,nps){
-    const sentences=raw.split(/(?<=[.!?])\\s+/).map(s=>s.trim()).filter(Boolean);
-    const beats=sentences.map((text,i)=>this.beat(text,i,sentences.length));
-    const locations=[...new Set(beats.map(b=>b.location))];
-    const names=this.names(raw);
-    const characters=names.map((name,i)=>{
-      const seed=SESE.hash(name+"|"+genre+"|"+style);
-      return {id:"char_"+SESE.hash(name),name,seed,role:i?"support":"protagonist",
-        visualDNA:`${style}|${genre}|seed:${seed}|consistent silhouette|consistent costume`,
-        arc:i?"witness / guide":"seeker / protagonist"};
-    });
-    const worldSeed=SESE.hash(raw+"|WORLD|"+genre);
-    const world={seed:worldSeed,genre,style,locations,
-      rules:["Continuity is seed locked","Motivated light follows the narrative source",
-             "Foreground/midground/background remain separated","Story beats control shot intent"]};
-    const scenes=[];
-    for(let i=0;i<beats.length;i++){
-      const b=beats[i];
-      let scene=scenes.find(x=>x.location===b.location && x.act===b.act);
-      if(!scene){scene={id:`scene_${String(scenes.length+1).padStart(2,"0")}`,act:b.act,location:b.location,time:b.time,mood:b.mood,beats:[]};scenes.push(scene)}
-      scene.beats.push(b);
-    }
-    const shots=[];
-    scenes.forEach((sc,si)=>{
-      sc.beats.forEach((b,bi)=>{
-        for(let k=0;k<nps;k++){
-          const type=k===0?"establishing":k===nps-1?"close":"medium";
-          const rig=["static","dolly","pan","orbit","crane"][((si+bi+k)%5)];
-          const id=`${sc.id}_shot_${String(bi*nps+k+1).padStart(2,"0")}`;
-          const character=characters[0];
-          shots.push({
-            id,scene:sc.id,beat:b.index,act:sc.act,location:sc.location,time:sc.time,mood:sc.mood,
-            type,lens:type==="establishing"?24:type==="close"?85:35,rig,
-            light:b.mood==="hope"?"dawn":b.mood==="fear"?"noir":"motivated",
-            depth:"2.5d",seed:SESE.hash(id+"|"+worldSeed+"|"+character.seed),
-            action:b.action,visual:b.visual,direction:b.direction,
-            dialogue:k===nps-1?b.text:"",narration:k===0?b.text:"",
-            duration:Math.max(3,Math.round(5+b.text.length/35)),
-            status:"review",approved:false
-          });
-        }
-      });
-    });
-    return {version:"4.0.0",title:raw.slice(0,42)+" — Movie",created:new Date().toISOString(),
-      genre,style,logline:raw.slice(0,180),source:raw,beats,characters,world,scenes,shots,
-      timeline:shots.map((s,i)=>({id:s.id,start:shots.slice(0,i).reduce((a,x)=>a+x.duration,0),duration:s.duration})),
-      meta:{fps:24,width:1280,height:720}};
-  },
-
-  beat(text,i,total){
-    const l=text.toLowerCase();
-    let mood="neutral",act="setup",location="Interior — Unknown";
-    if(/fear|dark|danger|threat|pain|alone|lost|death/.test(l))mood="fear";
-    if(/hope|light|return|family|love|sunrise|dawn|healing/.test(l))mood="hope";
-    if(/memory|dream|childhood|remember|past/.test(l))mood="memory";
-    if(/signal|electric|machine|console|computer|technology|display/.test(l))mood="signal";
-    if(i>total*.65)act="resolution";else if(i>total*.32)act="confrontation";
-    if(/corridor|hallway|wall/.test(l))location="Electric Corridor";
-    else if(/machine|console|computer|display/.test(l))location="Machine Chamber";
-    else if(/room|bed|wakes/.test(l))location="Dark Room";
-    else if(/memory|dream|childhood/.test(l))location="Memory Void";
-    else if(/sunrise|dawn|sky|outside|doorway/.test(l))location="Dawn Threshold";
-    return {index:i,text,mood,act,location,time:["night","pre-dawn","midnight","dawn","morning"][i%5],
-      action:this.action(l),visual:`${location}; ${text.slice(0,120)}`,
-      direction:`Emotion: ${mood}. Preserve continuity and motivate camera movement from the beat.`};
-  },
-  action(l){
-    if(/wake|opens?/.test(l))return "Wake / reveal";
-    if(/follow|walk|runs?|moves?/.test(l))return "Travel / pursuit";
-    if(/find|discover|sees?/.test(l))return "Discovery";
-    if(/touch|press|connect/.test(l))return "Interaction";
-    if(/realizes?|understands?/.test(l))return "Recognition";
-    if(/return|opens?|light|sunrise/.test(l))return "Release / resolution";
-    return "Observe / react";
-  },
-  names(raw){
-    const words=raw.match(/\b[A-Z][a-z]{2,}\b/g)||[];
-    const banned=new Set(["A","The","An","He","She","It","I"]);
-    const out=[...new Set(words.filter(x=>!banned.has(x)))].slice(0,4);
-    return out.length?out:["Protagonist"];
-  }
-};
-
-/* ---------- Procedural renderer ---------- */
-const Renderer = {
-  ctx(){return $("#view").getContext("2d")},
-  preview(){if(SESE.selected&&SESE.project){const s=SESE.project.shots.find(x=>x.id===SESE.selected);if(s)this.draw(s,0,Math.max(1,s.duration*24))}},
-  draw(s,frame,total){
-    const c=$("#view"),ctx=this.ctx(),W=c.width,H=c.height;
-    const t=frame/Math.max(1,total-1),e=SESE.ease(t),r=SESE.rng(s.seed);
-    ctx.clearRect(0,0,W,H);
-    this.background(ctx,W,H,s,t,e,r);
-    if(s.depth==="2.5d")this.parallax(ctx,W,H,s,t);
-    this.atmosphere(ctx,W,H,s,t,r);
-    this.character(ctx,W,H,s,t);
-    this.light(ctx,W,H,s,t);
-    this.grain(ctx,W,H,r);
-    this.ui(ctx,W,H,s);
-  },
-  background(ctx,W,H,s,t,e,r){
-    let top="#080a12",bot="#020308";
-    if(s.location==="Dawn Threshold"){top="#17152b";bot="#e68b55"}
-    if(s.location==="Memory Void"){top="#08061a";bot="#02030b"}
-    if(s.location==="Machine Chamber"){top="#090f1b";bot="#03050a"}
-    if(s.location==="Electric Corridor"){top="#07101b";bot="#02050a"}
-    if(s.light==="noir"){top="#111";bot="#000"}
-    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,top);g.addColorStop(1,bot);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-    // horizon architecture
-    ctx.save();ctx.globalAlpha=.25;
-    if(s.location==="Electric Corridor"||s.location==="Machine Chamber"){
-      ctx.strokeStyle="#65d7ff";ctx.lineWidth=2;
-      for(let i=0;i<8;i++){const y=H*.2+i*H*.1;ctx.beginPath();ctx.moveTo(W*.08,y);ctx.lineTo(W*.92,y);ctx.stroke()}
-      for(let i=0;i<7;i++){const x=W*.1+i*W*.13;ctx.beginPath();ctx.moveTo(W/2,H*.55);ctx.lineTo(x,H*.2);ctx.stroke()}
-    }
-    if(s.location==="Dawn Threshold"){ctx.fillStyle="#f5b36c";ctx.globalAlpha=.18;ctx.beginPath();ctx.arc(W*.5,H*.68,H*.3,Math.PI,Math.PI*2);ctx.fill()}
-    ctx.restore();
-  },
-  parallax(ctx,W,H,s,t){
-    const layers=[{a:.08,y:.66,scale:1.2},{a:.16,y:.72,scale:1},{a:.26,y:.78,scale:.8}];
-    layers.forEach((l,i)=>{ctx.save();ctx.globalAlpha=l.a;ctx.fillStyle=i===1?"#7080a0":"#43506b";const drift=(t-.5)*(i+1)*30;
-      for(let x=-100;x<W+200;x+=180){const h=50+i*35;ctx.fillRect(x+drift,H*l.y-h,120,h)}
-      ctx.restore()});
-  },
-  atmosphere(ctx,W,H,s,t,r){
-    ctx.save();
-    const count=70;
-    for(let i=0;i<count;i++){
-      const x=(r()*W + t*20*(i%3))%W,y=r()*H*.78;
-      const rad=1+r()*2;ctx.fillStyle=`rgba(180,220,255,${.03+r()*.08})`;ctx.beginPath();ctx.arc(x,y,rad,0,7);ctx.fill();
-    }
-    if(s.mood==="signal"){ctx.strokeStyle="rgba(101,215,255,.3)";ctx.beginPath();for(let x=0;x<W;x+=6){const y=H*.5+Math.sin(x/65+t*9)*18+Math.sin(x/23+t*13)*7;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()}
-    ctx.restore();
-  },
-  character(ctx,W,H,s,t){
-    const x=W*.5 + (s.rig==="orbit"?Math.sin(t*Math.PI*2)*70:0) + (s.rig==="handheld"?Math.sin(t*35)*3:0);
-    const y=H*.72-(s.rig==="crane"?t*80:0);
-    const scale=s.type==="close"?1.35:s.type==="establishing"?.82:1;
-    ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);
-    ctx.fillStyle="rgba(10,12,18,.96)";ctx.beginPath();ctx.ellipse(0,0,45,95,0,0,Math.PI*2);ctx.fill();
-    ctx.beginPath();ctx.arc(0,-105,29,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle=s.light==="dawn"?"rgba(255,205,145,.65)":"rgba(101,215,255,.45)";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-28,-65);ctx.lineTo(-52,10);ctx.stroke();
-    ctx.restore();
-  },
-  light(ctx,W,H,s,t){
-    const sources=[];
-    if(s.location==="Machine Chamber"||s.mood==="signal")sources.push([W*.5,H*.48, "#65d7ff"]);
-    if(s.light==="dawn")sources.push([W*.5,H*.68,"#ffbd76"]);
-    if(s.light==="neon")sources.push([W*.7,H*.35,"#7c7cff"]);
-    sources.forEach(([x,y,col])=>{const p=.45+.15*Math.sin(t*12);const g2=ctx.createRadialGradient(x,y,2,x,y,W*.6);g2.addColorStop(0,col);g2.addColorStop(1,"transparent");ctx.globalAlpha=.14;ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;
-      ctx.fillStyle=col;ctx.globalAlpha=.7;ctx.beginPath();ctx.arc(x,y,12+8*p,0,7);ctx.fill();ctx.globalAlpha=1});
-  },
-  grain(ctx,W,H,r){ctx.fillStyle="rgba(255,255,255,.025)";for(let i=0;i<100;i++)ctx.fillRect(r()*W,r()*H,1,1)},
-  ui(ctx,W,H,s){
-    ctx.fillStyle="rgba(0,0,0,.55)";ctx.fillRect(0,0,W,48);ctx.fillRect(0,H-58,W,58);
-    ctx.fillStyle="#fff";ctx.font="bold 15px monospace";ctx.fillText(s.id,18,30);
-    ctx.font="11px monospace";ctx.fillStyle="#b8c0cf";ctx.fillText(`${s.type} • ${s.lens}mm • ${s.rig} • ${s.light} • seed ${s.seed}`,18,H-34);
-    ctx.fillStyle="#fff";ctx.font="12px system-ui";ctx.fillText((s.narration||s.dialogue||"").slice(0,120),18,H-14);
-    // letterbox
-    ctx.fillStyle="#000";ctx.fillRect(0,0,W,18);ctx.fillRect(0,H-18,W,18);
-  },
-  async renderClip(s,fps){
-    const W=1280,H=720,canvas=document.createElement("canvas");canvas.width=W;canvas.height=H;
-    const ctx=canvas.getContext("2d"),stream=canvas.captureStream(fps);
-    let mime="video/webm;codecs=vp9";if(!MediaRecorder.isTypeSupported(mime))mime="video/webm";
-    const rec=new MediaRecorder(stream,{mimeType:mime}),chunks=[];
-    rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);rec.start();
-    const total=Math.max(1,Math.round(s.duration*fps));
-    for(let f=0;f<total;f++){this.drawTo(ctx,W,H,s,f,total);await new Promise(r=>setTimeout(r,1000/fps))}
-    await new Promise(resolve=>{rec.onstop=resolve;rec.stop()});
-    const blob=new Blob(chunks,{type:"video/webm"}),url=URL.createObjectURL(blob);
-    SESE.clips.set(s.id,{blob,url,duration:s.duration});
-  },
-  drawTo(ctx,W,H,s,f,total){
-    // Direct render on the supplied recording context:
-    const t=f/Math.max(1,total-1),e=SESE.ease(t),r=SESE.rng(s.seed);
-    ctx.clearRect(0,0,W,H);
-    this.background(ctx,W,H,s,t,e,r);this.parallax(ctx,W,H,s,t);this.atmosphere(ctx,W,H,s,t,r);this.character(ctx,W,H,s,t);this.light(ctx,W,H,s,t);this.grain(ctx,W,H,r);this.ui(ctx,W,H,s);
-  }
-};
-
-/* ---------- Audio ---------- */
-const AudioEngine = {
-  ctx:null,
-  init(){try{this.ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}},
-  tone(freq,dur,type="sine",gain=.03,delay=0){
-    if(!this.ctx)return;const o=this.ctx.createOscillator(),g=this.ctx.createGain();
-    o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(0,this.ctx.currentTime+delay);g.gain.linearRampToValueAtTime(gain,this.ctx.currentTime+delay+.03);g.gain.exponentialRampToValueAtTime(.0001,this.ctx.currentTime+delay+dur);
-    o.connect(g).connect(this.ctx.destination);o.start(this.ctx.currentTime+delay);o.stop(this.ctx.currentTime+delay+dur+.05);
-  },
-  playFilmPreview(p){
-    if(!this.ctx)return;
-    if(this.ctx.state==="suspended")this.ctx.resume();
-    const notes=[110,146.83,164.81,220,196,246.94];
-    notes.forEach((n,i)=>this.tone(n,1.8,"sine",.025,i*.55));
-    this.tone(55,3,"triangle",.035,0);
-    speechSynthesis.cancel();
-    const first=p.shots.find(s=>s.narration);
-    if(first){const u=new SpeechSynthesisUtterance(first.narration);u.rate=.9;u.pitch=.85;speechSynthesis.speak(u)}
-  }
-};
-
-/* ---------- IndexedDB ---------- */
-const Storage = {
-  db:null,
-  open(){return new Promise(resolve=>{const req=indexedDB.open("SESE_V4_DB",1);req.onupgradeneeded=()=>req.result.createObjectStore("projects");req.onsuccess=()=>{this.db=req.result;resolve()};req.onerror=()=>resolve()})},
-  save(p){if(!this.db)return Promise.resolve();return new Promise(r=>{const tx=this.db.transaction("projects","readwrite");tx.objectStore("projects").put(p,"current");tx.oncomplete=()=>r()})},
-  load(){if(!this.db)return Promise.resolve(null);return new Promise(r=>{const q=this.db.transaction("projects").objectStore("projects").get("current");q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)})}
-};
-
-/* ---------- Master ---------- */
-const Master = {
-  async export(p,fps){
-    const c=document.createElement("canvas");c.width=1280;c.height=720;const ctx=c.getContext("2d");
-    const stream=c.captureStream(fps);let mime="video/webm;codecs=vp9";if(!MediaRecorder.isTypeSupported(mime))mime="video/webm";
-    const rec=new MediaRecorder(stream,{mimeType:mime}),chunks=[];rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);rec.start();
-    for(const s of p.shots){
-      const total=Math.max(1,Math.round(s.duration*fps));
-      for(let f=0;f<total;f++){Renderer.drawTo(ctx,1280,720,s,f,total);await new Promise(r=>requestAnimationFrame(r))}
-    }
-    const done=new Promise(resolve=>rec.onstop=resolve);rec.stop();await done;
-    const blob=new Blob(chunks,{type:"video/webm"});return {blob,url:URL.createObjectURL(blob)}
-  }
-};
-
-/* ---------- UI ---------- */
-const UI = {
-  bind(){
-    $("#sampleBtn").onclick=()=>SESE.sample();
-    $("#compileBtn").onclick=()=>SESE.compile();
-    $("#renderBtn").onclick=()=>SESE.renderAll();
-    $("#audioBtn").onclick=()=>SESE.makeAudio();
-    $("#masterBtn").onclick=()=>SESE.master();
-    $("#playBtn").onclick=()=>SESE.play();
-    $("#stopBtn").onclick=()=>SESE.stop();
-    $("#applyBtn").onclick=()=>SESE.apply();
-    $("#regenBtn").onclick=()=>SESE.regenerate();
-    $("#exportBtn").onclick=()=>SESE.exportJSON();
-    $("#newBtn").onclick=()=>SESE.reset();
-    $("#saveBtn").onclick=()=>SESE.save();
-    $("#loadBtn").onclick=()=>SESE.load();
-    $("#resetBtn").onclick=()=>SESE.reset();
-    $$(".tabs button").forEach(b=>b.onclick=()=>{ $$(".tabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");["director","timelineTab","masterTab"].forEach(id=>$("#"+id).classList.toggle("hide",id!==b.dataset.tab))});
-  },
-  refresh(){
-    const p=SESE.project;
-    if(!p){
-      $("#characters").textContent="Compile a story to create deterministic character identities.";
-      $("#world").textContent="The world graph appears after compilation.";
-      $("#shots").innerHTML="";$("#timeline").innerHTML="";$("#json").textContent="Compile a production first.";
-      ["sceneCount","shotCount","renderCount","approvedCount"].forEach(id=>$("#"+id).textContent="0");$("#duration").textContent="0s";return;
-    }
-    $("#characters").innerHTML=p.characters.map(c=>`<div style="padding:7px;border:1px solid var(--line);border-radius:8px;margin:5px 0"><b>${c.name}</b> <span class="pill">${c.role}</span><br><span class="small">seed ${c.seed}<br>${c.visualDNA}</span></div>`).join("");
-    $("#world").innerHTML=`<b>${p.genre}</b> • ${p.style}<br>seed ${p.world.seed}<br><br>${p.world.locations.map(x=>"• "+x).join("<br>")}`;
-    $("#shots").innerHTML=p.shots.map(s=>`<div class="shot ${s.id===SESE.selected?"active":""}" data-id="${s.id}">
-      <div class="shothead"><b>${s.id}</b><span class="pill">${s.status}</span></div>
-      <div class="small">${s.location} • ${s.type} • ${s.lens}mm • ${s.rig}<br>${s.action} • ${s.duration}s</div>
-      <button class="btn" data-select="${s.id}">Open</button>
-      <button class="btn" data-approve="${s.id}">${s.approved?"Approved":"Approve"}</button>
-    </div>`).join("");
-    $$("#shots [data-select]").forEach(b=>b.onclick=()=>SESE.select(b.dataset.select));
-    $$("#shots [data-approve]").forEach(b=>b.onclick=()=>{const s=p.shots.find(x=>x.id===b.dataset.approve);s.approved=!s.approved;s.status=s.approved?"approved":"review";UI.refresh();SESE.save()});
-    const tl=$("#timeline");tl.innerHTML=p.shots.map(s=>`<div class="clip ${s.id===SESE.selected?"active":""}" onclick="SESE.select('${s.id}')"><b>${s.id}</b><br>${s.duration}s • ${s.mood}</div>`).join("");
-    $("#timelineInfo").textContent=`${p.shots.length} shots • ${p.shots.reduce((a,s)=>a+s.duration,0)} seconds • ${p.meta.fps} fps`;
-    $("#sceneCount").textContent=p.scenes.length;$("#shotCount").textContent=p.shots.length;$("#renderCount").textContent=SESE.clips.size;
-    $("#approvedCount").textContent=p.shots.filter(s=>s.approved).length;$("#duration").textContent=p.shots.reduce((a,s)=>a+s.duration,0)+"s";
-    $("#json").textContent=JSON.stringify(p,null,2);
-    if(SESE.selected){const s=p.shots.find(x=>x.id===SESE.selected);if(s){$("#lens").value=s.lens;$("#rig").value=s.rig;$("#light").value=s.light;$("#depth").value=s.depth;$("#status").textContent=`READY ${s.id} • ${s.location}`;Renderer.preview()}}
-  }
-};
-
-window.addEventListener("beforeunload",()=>SESE.stop());
-SESE.init();
+$('#renderAll').onclick=async()=>{if(!project)return alert('Compile first'); for(let i=0;i<project.shotGraph.length;i++){await renderer.renderShot(project.shotGraph[i]); $('#prog').style.width=((i+1)/project.shotGraph.length*100)+'%';}};
+$('#masterBtn').onclick=async()=>{await renderer.masterAssemble(project.shotGraph,$('#final'));};
+$('#renderAPI').onclick=()=>{alert('To use REAL AI video: open this file, find class Renderer -> renderShot() and replace Three.js capture with fetch to Kling/Sora/Runway API. ShotGraph already provides prompt + seed + duration.');};
+$('#expJson').onclick=()=>{const b=new Blob([JSON.stringify(project,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='SESE_V4.sese.json'; a.click();};
 </script>
-</body>
-</html>
+</body></html>

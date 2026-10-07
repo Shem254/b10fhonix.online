@@ -1,412 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>b10fhonix.online — AI Virtual Movie Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0a0a0c;--panel:#141417;--card:#1a1a1e;--card2:#1e1e23;--line:#26262d;--line2:#2e2e36;--text:#f5f5f7;--muted:#9aa0a8;--accent:#7c7cff;--accent2:#7EC8F0;--green:#3dd68c;--orange:#FF6B35}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;letter-spacing:-0.01em}
-button{font-family:Inter,sans-serif}
-.nav{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(10,10,12,0.9);backdrop-filter:blur(24px);z-index:50}
-.nav-left{display:flex;align-items:center;gap:18px}
-.logo{font-weight:800;font-size:16px;letter-spacing:-0.02em}.logo span{color:var(--accent2)}
-.nav-links{display:flex;gap:6px}
-.nav-link{padding:7px 12px;border-radius:99px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border:1px solid transparent}
-.nav-link.active{background:var(--card);color:var(--text);border-color:var(--line)}
-.nav-right{display:flex;gap:8px;align-items:center}
-.btn{border-radius:99px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--text)}
-.btn-primary{background:var(--text);color:#000;border-color:var(--text)}
-.btn-ghost{background:transparent}
-.small{font-size:11px;color:var(--muted);font-family:JetBrains Mono,monospace}
-.hero{max-width:980px;margin:36px auto 18px;padding:0 18px;text-align:center}
-.hero h1{font-size:38px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;margin:0 0 12px}
-.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:var(--muted);font-size:14px;margin:0 0 18px}
-.prompt-bar{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:10px 12px;box-shadow:0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)}
-.prompt-bar textarea{flex:1;background:transparent;border:none;color:var(--text);font-family:Inter,sans-serif;font-size:14px;resize:none;outline:none;min-height:44px;max-height:120px}
-.prompt-actions{display:flex;gap:8px;align-items:center}
-.icon-btn{width:36px;height:36px;border-radius:10px;background:var(--card2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 8px}
-.chip{padding:8px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:6px}
-.chip.active{background:var(--text);color:#000;border-color:var(--text)}
-.workspace{max-width:1400px;margin:0 auto;padding:12px 12px 40px;display:grid;grid-template-columns:280px 1fr 320px;gap:12px}
-@media(max-width:1100px){.workspace{grid-template-columns:1fr}.side{display:none}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px}
-.card h3{margin:0 0 10px;font-size:13px;font-weight:600}
-.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.tool{padding:10px;border-radius:14px;background:var(--panel);border:1px solid var(--line);cursor:pointer;transition:all 0.15s}
-.tool:hover{border-color:var(--line2);transform:translateY(-1px)}
-.tool.t-title{font-size:12px;font-weight:600}.tool.t-desc{font-size:10px;color:var(--muted);margin-top:2px;font-family:JetBrains Mono,monospace}
-.tool.active{border-color:var(--accent);background:linear-gradient(180deg, rgba(124,124,255,0.14), rgba(20,20,23,1))}
-.badge{display:inline-flex;padding:3px 8px;border-radius:99px;background:#1e1e26;border:1px solid var(--line);font-size:9px;font-weight:600;color:var(--accent2)}
-.preview-wrap{position:relative}
-.preview-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.canvas-box{border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line);aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center}
-canvas{width:100%;height:100%;display:block;background:#000}
-.shot-strip{display:flex;gap:6px;overflow:auto;padding:8px 0}
-.shot-thumb{min-width:86px;height:54px;border-radius:10px;background:var(--panel);border:1px solid var(--line);cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:9px;font-family:JetBrains Mono,monospace;color:var(--muted)}
-.shot-thumb.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(124,124,255,0.3)}
-.progress{height:6px;background:var(--panel);border-radius:99px;overflow:hidden}
-.progress div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width 0.3s}
-.log{height:220px;overflow:auto;background:#0c0c0e;border:1px solid var(--line);border-radius:14px;padding:10px;font-family:JetBrains Mono,monospace;font-size:10px;white-space:pre-wrap;color:var(--muted)}
-select,input{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 10px;font-size:12px;width:100%;font-family:Inter,sans-serif}
-</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SESE V3 — Internal Cinema Engine — b10fhonix.online</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="nav">
-<div class="nav-left">
-<div class="logo">b10fhonix<span>.online</span></div>
-<div class="nav-links">
-<div class="nav-link active">Suite</div>
-<div class="nav-link">Create</div>
-<div class="nav-link">Assets</div>
-<div class="nav-link">Projects</div>
+<div id="nav"><div class="logo">SESE <span>V3</span> — INTERNAL CINEMA ENGINE</div><div class="small">Story → Narrative Compiler → Director → Continuity → Frame Engine → Timeline → Master</div><button id="exportBtn">EXPORT WEBM</button></div>
+<div id="layout">
+<div id="left" class="panel">
+<h3>NARRATIVE COMPILER</h3>
+<textarea id="storyInput" placeholder="Paste story... A young man wakes up in a dark room hearing an electric pulse..."></textarea>
+<div class="row"><select id="genre"><option>Afro Sci-Fi Healing</option><option>Sci-Fi Thriller</option><option>Cinematic Drama</option><option>Afrofuturism</option></select>
+<select id="lensPack"><option value="anamorphic">Anamorphic 35mm</option><option value="spherical">Spherical 50mm</option><option value="macro">Macro 100mm</option><option value="wide">Wide 24mm</option></select></div>
+<button id="compileBtn" class="primary">COMPILE STORY → SCENE GRAPH</button>
+<button id="loadBtn">Load Example</button>
+<pre id="sceneGraph" class="code"></pre>
+</div>
+<div id="center" class="panel">
+<h3>CINEMATOGRAPHY ENGINE — <span id="shotLabel">No shot</span></h3>
+<div id="stage"><canvas id="masterCanvas" width="1920" height="1080"></canvas><canvas id="hiddenCanvas" width="1920" height="1080" style="display:none"></canvas></div>
+<div class="row" style="margin-top:8px"><div class="progress"><div id="progress"></div></div><span id="timecode" class="small">00:00:00:00</span></div>
+<div id="shotStrip"></div>
+<div id="timeline"></div>
+<div class="row"><button id="renderAll" class="primary">RENDER ALL SHOTS</button><button id="playBtn">PLAY TIMELINE</button><button id="masterBtn" class="primary">MASTER → WEBM</button></div>
+<div id="final"></div>
+<pre id="log" class="code" style="height:160px"></pre>
+</div>
+<div id="right" class="panel">
+<h3>DIRECTOR / CONTINUITY</h3>
+<div id="charBible" class="small">Characters will compile here</div>
+<div id="worldBible" class="small" style="margin-top:10px"></div>
+<h3 style="margin-top:14px">SHOT GRAPH</h3>
+<pre id="shotGraph" class="code"></pre>
+<h3>PROPERTIES</h3>
+<label class="small">Camera Rig</label><select id="cameraRig"><option value="dolly_in">Dolly In</option><option value="orbit">Orbit 30deg</option><option value="crane_up">Crane Up</option><option value="handheld">Handheld</option><option value="static">Static</option></select>
+<label class="small">Light</label><select id="lightModel"><option value="volumetric">Volumetric</option><option value="neon">Neon Pulse</option><option value="dawn">Dawn Portal</option></select>
+<pre id="movieJson" class="code" style="max-height:220px"></pre>
+<button id="exportJson">Export.sese.json</button>
 </div>
 </div>
-<div class="nav-right">
-<div class="small">100% Offline • No API • No Keys</div>
-<button class="btn btn-ghost">Import</button>
-<button class="btn btn-primary" onclick="SESE.postProduction.assemble()">Export Movie</button>
-</div>
-</div>
-
-<div class="hero">
-<h1>What would you like to create <span>today?</span></h1>
-<p>SESE — AI Virtual Movie Generator — 5 Engines coded inside. Like OpenArt Suite but fully offline.</p>
-<div class="prompt-bar">
-<textarea id="inputStory" placeholder="Describe your movie... A young man wakes up in a dark room, hears an electrical pulse, discovers a glowing console..."></textarea>
-<div class="prompt-actions">
-<div class="icon-btn" title="Attach file" onclick="document.getElementById('fileInput').click()">📎</div>
-<input type="file" id="fileInput" accept=".txt,.docx" hidden>
-<button class="btn btn-primary" onclick="SESE.preProduction.generate()">Generate →</button>
-</div>
-</div>
-<div class="chips" id="chips">
-<div class="chip active" data-genre="Sci-Fi Thriller">🎬 Story</div>
-<div class="chip" data-genre="Cinematic Drama">🎥 Video</div>
-<div class="chip" data-genre="Afrofuturism">🖼️ Image</div>
-<div class="chip" data-genre="Afro Sci-Fi Healing">🎭 Character</div>
-<div class="chip" data-genre="Documentary Poetic">🎧 Audio</div>
-<div class="chip" onclick="SESE.preProduction.loadGeneric()">✨ Example</div>
-</div>
-<div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
-<select id="genreSelect" style="max-width:180px"><option value="Sci-Fi Thriller">Sci-Fi Thriller</option><option value="Afro Sci-Fi Healing">Afro Sci-Fi Healing</option><option value="Cinematic Drama">Cinematic Drama</option><option value="Afrofuturism">Afrofuturism</option></select>
-<select id="styleSelect" style="max-width:260px"><option value="photorealistic, anamorphic 35mm, cinematic, volumetric light, 8k">Photorealistic Cinematic</option><option value="anime, Studio Ghibli, soft light">Anime Ghibli</option><option value="noir, high contrast, 35mm grain">Noir</option><option value="3D render, Unreal Engine">Unreal 3D</option></select>
-</div>
-</div>
-
-<div class="workspace">
-<div class="side">
-<div class="card">
-<h3>AI Tools <span class="badge">OFFLINE</span></h3>
-<div class="tool-grid">
-<div class="tool active" onclick="setMode('story')"><div class="t-title">📖 Create Story</div><div class="t-desc">Pre-Production Engine</div></div>
-<div class="tool" onclick="setMode('video')"><div class="t-title">🎬 Text to Video</div><div class="t-desc">Visual Engine</div></div>
-<div class="tool" onclick="setMode('lipsync')"><div class="t-title">👄 Lip-Sync Video</div><div class="t-desc">Make any video talk</div></div>
-<div class="tool" onclick="setMode('motion')"><div class="t-title">🏃 Motion-Sync</div><div class="t-desc">Motion-driven animation</div></div>
-<div class="tool" onclick="setMode('upscale')"><div class="t-title">⬆️ Video Upscale</div><div class="t-desc">Enhance resolution</div></div>
-<div class="tool" onclick="setMode('edit')"><div class="t-title">💬 Chat to Edit</div><div class="t-desc">Start editing with chat</div></div>
-<div class="tool" onclick="setMode('image')"><div class="t-title">🎨 Edit Image</div><div class="t-desc">Smart tools</div></div>
-<div class="tool" onclick="setMode('char')"><div class="t-title">🎭 Train Character</div><div class="t-desc">Consistent character</div></div>
-</div>
-</div>
-<div class="card" style="margin-top:12px">
-<h3>Character Bible <span class="badge">IP-Adapter</span></h3>
-<div id="charBible" class="small">No characters yet. Generate a story first.</div>
-</div>
-<div class="card" style="margin-top:12px">
-<h3>World Bible & Style</h3>
-<div id="worldBible" class="small">World details will appear here after parsing.</div>
-</div>
-</div>
-
-<div class="preview-wrap">
-<div class="card">
-<div class="preview-top">
-<h3>Preview — <span id="previewLabel">No shot selected</span></h3>
-<div style="display:flex;gap:6px"><button class="btn" onclick="SESE.visual.generateAll()">Generate All Shots</button><button class="btn" onclick="SESE.audio.generateAll()">Audio</button></div>
-</div>
-<div class="canvas-box"><canvas id="previewCanvas" width="1280" height="720"></canvas></div>
-<div class="progress" style="margin:10px 0"><div id="genProgress"></div></div>
-<div class="shot-strip" id="shotStrip"></div>
-<div id="shotsContainer" style="max-height:260px;overflow:auto;margin-top:8px"></div>
-</div>
-<div class="card" style="margin-top:12px">
-<h3>Final Export — Post-Production Engine</h3>
-<canvas id="finalCanvas" width="1280" height="720" style="display:none"></canvas>
-<div id="finalOutput"></div>
-<div class="log" id="log">SESE Log:
-[System] OpenArt-inspired Suite loaded.
-[AssetStore] IndexedDB ready.
-[Visual] Canvas 1280x720 24fps.
-[Audio] Web Speech + Web Audio.
-[Post] Compositor ready.
-Ready — no keys.
-</div>
-</div>
-</div>
-
-<div class="side">
-<div class="card">
-<h3>Properties</h3>
-<div class="small" style="margin-bottom:6px">Model</div>
-<select id="modelSelect"><option>SESE Offline — Canvas Procedural (replaces Flux/Sora/Kling)</option><option>SESE Offline — Anime (replaces Niji)</option><option>SESE Offline — 3D (replaces Unreal)</option></select>
-<div class="small" style="margin:10px 0 6px">Aspect Ratio</div>
-<select><option>16:9 — Cinematic</option><option>9:16 — Portrait</option><option>1:1 — Square</option></select>
-<div class="small" style="margin:10px 0 6px">Camera Movement</div>
-<select id="cameraSelect"><option>slow dolly in, eye level 35mm</option><option>static handheld slight shake, 85mm</option><option>crane up wide 24mm</option><option>macro push in, orbit, 100mm</option></select>
-<div class="small" style="margin:10px 0 6px">Duration</div>
-<select><option>8 seconds (default)</option><option>12 seconds</option></select>
-<div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-primary" style="flex:1" onclick="SESE.visual.generateAll()">Generate</button><button class="btn" style="flex:1" onclick="SESE.postProduction.assemble()">Assemble</button></div>
-</div>
-<div class="card" style="margin-top:12px">
-<h3>Movie JSON — Screenplay + Storyboard</h3>
-<pre id="movieJson" style="max-height:320px;overflow:auto;background:var(--panel);padding:10px;border-radius:12px;border:1px solid var(--line);font-size:10px;font-family:JetBrains Mono,monospace;white-space:pre-wrap">Movie JSON will appear here...</pre>
-<button class="btn" style="width:100%;margin-top:8px" onclick="SESE.preProduction.exportJSON()">Export movie.json</button>
-</div>
-<div class="card" style="margin-top:12px">
-<h3>Deploy</h3>
-<div class="small">Your folder is already a git repo. Just double-click deploy.bat after editing.</div>
-<pre style="background:var(--panel);padding:8px;border-radius:10px;font-size:10px;overflow:auto">.\deploy.bat → push → https://b10fhonix.online</pre>
-</div>
-</div>
-</div>
-
-<script>
-const SESE={};
-function log(m){ const el=document.getElementById('log'); el.textContent+="\n"+new Date().toLocaleTimeString()+" "+m; el.scrollTop=el.scrollHeight; }
-function hash(s){ let h=0; for(let i=0;i<s.length;i++){ h=((h<<5)-h)+s.charCodeAt(i); h|=0; } return Math.abs(h); }
-function setMode(m){ document.querySelectorAll('.tool').forEach(t=>t.classList.remove('active')); event.currentTarget.classList.add('active'); log('[Suite] Mode: '+m); }
-SESE.assetStore={
-  db:null, characters:{}, worldBible:"", style:"",
-  async init(){
-    return new Promise(res=>{
-      const req=indexedDB.open('SESE_OPENART',1);
-      req.onupgradeneeded=e=>{
-        const db=e.target.result;
-        if(!db.objectStoreNames.contains('characters')) db.createObjectStore('characters',{keyPath:'name'});
-      };
-      req.onsuccess=e=>{ this.db=e.target.result; log('[AssetStore] Ready'); res(); };
-      req.onerror=()=>res();
-    });
-  },
-  saveCharacter(name,data){
-    this.characters[name]=data;
-    localStorage.setItem('SESE_CHAR_'+name, JSON.stringify(data));
-    const bible=document.getElementById('charBible');
-    bible.innerHTML=Object.values(this.characters).map(c=>`<div style="padding:8px;border:1px solid var(--line);border-radius:10px;margin:6px 0;background:var(--panel)"><b style="font-size:12px">${c.name}</b> <span class="badge">seed:${c.seed}</span><br><span class="small">${c.description.slice(0,80)}</span></div>`).join('');
-    document.getElementById('worldBible').innerText=this.worldBible.slice(0,280);
-  },
-  getCharacter(name){ return this.characters[name] || JSON.parse(localStorage.getItem('SESE_CHAR_'+name)||'null'); }
-};
-SESE.preProduction={
-  project:null,
-  generate(){
-    const raw=document.getElementById('inputStory').value.trim();
-    const genre=document.getElementById('genreSelect').value;
-    const visualStyle=document.getElementById('styleSelect').value;
-    if(!raw){ alert('Describe your movie first'); return; }
-    log('[Pre-Production] Parsing story into scenes...');
-    const sentences=raw.split(/[.!?]+/).filter(s=>s.trim().length>10);
-    const charCandidates={};
-    raw.split(/\s+/).forEach(w=>{
-      const clean=w.replace(/[^A-Za-z]/g,'');
-      if(clean.length>2 && clean[0]===clean[0].toUpperCase()) charCandidates[clean]=(charCandidates[clean]||0)+1;
-    });
-    let topChars=Object.entries(charCandidates).sort((a,b)=>b[1]-a[1]).slice(0,4).map(e=>e[0]);
-    if(topChars.length===0) topChars=['Alex','Maya'];
-    const numScenes=Math.min(5, Math.max(3, Math.floor(sentences.length/2)));
-    const perScene=Math.ceil(sentences.length/numScenes);
-    const scenes=[];
-    const locs=["Abandoned Room - Dark","Corridor - Electric Pulse","Old Machine - Glowing Display","Memory Void - White","Roof - Dawn Portal"];
-    const times=["Midnight","00:15AM","00:30AM","01:00AM","5:45AM"];
-    const atms=["dark, tense, dust","corridor, humming, blue light","machine room, sci-fi, warm glow","void, dream, sync","dawn, hope, rainbow"];
-    for(let i=0;i<numScenes;i++){
-      const chunk=sentences.slice(i*perScene,(i+1)*perScene).join('. ');
-      const shots=[];
-      for(let s=0;s<2;s++){
-        const shotId=`scene_${String(i+1).padStart(2,'0')}_shot_${String(s+1).padStart(2,'0')}`;
-        shots.push({
-          id:shotId, duration_seconds:8,
-          visual_prompt:`${locs[i%locs.length]}, ${chunk.slice(0,120)}, ${visualStyle}, ${genre}, photorealistic, character ${topChars[0]} seed consistency, cinematic lighting`,
-          camera:document.getElementById('cameraSelect').value,
-          camera_movement:document.getElementById('cameraSelect').value,
-          action:s===0?`Establishing ${locs[i%locs.length]}`:`Close on ${topChars[0]}, ${chunk.slice(0,60)}`,
-          dialogue:s===1?chunk.slice(0,120):"", narration:s===0?chunk.slice(0,180):"",
-          sound_design:i===1?"electric pulse, low hum":"ambient, subtle", mood:i<2?"tense":"triumphant",
-          continuity_notes:`Keep ${topChars.join(', ')} consistent`
-        });
-      }
-      scenes.push({id:`scene_${String(i+1).padStart(2,'0')}`, location:locs[i%locs.length], time:times[i%times.length], atmosphere:atms[i%times.length], characters:topChars, shots:shots});
-    }
-    const characters=topChars.map(name=>{
-      const seed=hash(name+visualStyle);
-      return {name, description:`${name}, cinematic character, consistent face, ${genre}, seed locked for IP-Adapter`, visualSeed:`${name} seed ${seed} ${visualStyle}`, voice:'young', seed};
-    });
-    this.project={
-      title: raw.slice(0,30)+" - Movie", logline: raw.slice(0,160), genre, visual_style:visualStyle,
-      characters, world_bible:`Locations: ${locs.join(' -> ')}. Story: ${raw.slice(0,200)}. Characters ${topChars.join(', ')} seed locked.`,
-      scenes, meta:{created:new Date().toISOString(), totalShots: scenes.reduce((a,s)=>a+s.shots.length,0)}
-    };
-    SESE.assetStore.worldBible=this.project.world_bible;
-    SESE.assetStore.style=visualStyle;
-    characters.forEach(c=>SESE.assetStore.saveCharacter(c.name,c));
-    document.getElementById('movieJson').textContent=JSON.stringify(this.project,null,2);
-    SESE.visual.renderShotList();
-    log(`[Pre-Production] Done: ${this.project.scenes.length} scenes, ${this.project.meta.totalShots} shots`);
-  },
-  loadGeneric(){
-    document.getElementById('inputStory').value=`A young man wakes up in a dark room. He hears a strange electrical pulse. He follows the sound and discovers an old machine connected to a glowing display. The machine appears to be responding to his thoughts. He touches a glowing orb floating above the console and suddenly sees memories of everyone who used the machine before him. He realizes the machine doesn't control people - people planted their stories into it. He decides to plant his own story.`;
-  },
-  exportJSON(){
-    if(!this.project){ alert('Create first'); return; }
-    const blob=new Blob([JSON.stringify(this.project,null,2)],{type:'application/json'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='sese_movie.json'; a.click();
-  }
-};
-SESE.visual={
-  clips:{},
-  renderShotList(){
-    const proj=SESE.preProduction.project; if(!proj) return;
-    const strip=document.getElementById('shotStrip'); strip.innerHTML='';
-    const cont=document.getElementById('shotsContainer'); cont.innerHTML='';
-    proj.scenes.forEach(scene=>{
-      scene.shots.forEach(shot=>{
-        const thumb=document.createElement('div'); thumb.className='shot-thumb'; thumb.id='thumb_'+shot.id; thumb.innerText=shot.id.replace('scene_','S');
-        thumb.onclick=()=>{ document.querySelectorAll('.shot-thumb').forEach(t=>t.classList.remove('active')); thumb.classList.add('active'); document.getElementById('previewLabel').innerText=shot.id+' — '+scene.location; SESE.visual.preview(shot.id); };
-        strip.appendChild(thumb);
-        const div=document.createElement('div'); div.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:8px;border:1px solid var(--line);border-radius:12px;margin:6px 0;background:var(--panel)';
-        div.innerHTML=`<div><b style="font-size:12px">${shot.id}</b> <span class="badge">${shot.mood}</span><br><span class="small">${shot.visual_prompt.slice(0,90)}</span></div><div><button class="btn" onclick="SESE.visual.generateSingle('${shot.id}')">Generate</button></div>`;
-        cont.appendChild(div);
-      });
-    });
-    if(strip.firstChild) strip.firstChild.click();
-  },
-  preview(shotId){
-    const clip=SESE.visual.clips[shotId];
-    const c=document.getElementById('previewCanvas'); const ctx=c.getContext('2d');
-    if(!clip){ ctx.fillStyle='#000'; ctx.fillRect(0,0,1280,720); ctx.fillStyle='#555'; ctx.font='14px Inter'; ctx.fillText('Not generated yet — click Generate', 460,360); return; }
-    const v=document.createElement('video'); v.src=clip.url; v.muted=true; v.onloadeddata=()=>{ ctx.drawImage(v,0,0,1280,720); };
-  },
-  async generateSingle(shotId){
-    const proj=SESE.preProduction.project;
-    let shot=null, scene=null;
-    for(const sc of proj.scenes) for(const sh of sc.shots) if(sh.id===shotId){ shot=sh; scene=sc; break; }
-    if(!shot) return;
-    const canvas=document.createElement('canvas'); canvas.width=1280; canvas.height=720;
-    const ctx=canvas.getContext('2d');
-    const charName=scene.characters[0]||'Alex';
-    const charData=SESE.assetStore.getCharacter(charName);
-    const seed=charData?charData.seed:hash(charName+proj.visual_style);
-    const stream=canvas.captureStream(24);
-    const recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});
-    let chunks=[];
-    recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
-    const done=new Promise(r=>{
-      recorder.onstop=()=>{
-        const blob=new Blob(chunks,{type:'video/webm'}); const url=URL.createObjectURL(blob);
-        SESE.visual.clips[shotId]={url, blob, duration:shot.duration_seconds};
-        const thumb=document.getElementById('thumb_'+shotId); if(thumb) thumb.style.background='#1a2a1a';
-        const pCanvas=document.getElementById('previewCanvas'); const pCtx=pCanvas.getContext('2d');
-        const v=document.createElement('video'); v.src=url; v.muted=true; v.onloadeddata=()=>pCtx.drawImage(v,0,0,1280,720);
-        document.getElementById('previewLabel').innerText=shotId+' ✓ '+Math.round(blob.size/1024)+'KB';
-        log(`[Visual] ${shotId} done`); r();
-      };
-    });
-    recorder.start();
-    const maxFrames=shot.duration_seconds*24; let frame=0;
-    function draw(){
-      if(scene.location.includes('Dark')){
-        const grad=ctx.createLinearGradient(0,0,0,720); grad.addColorStop(0,'#14141a'); grad.addColorStop(1,'#050508'); ctx.fillStyle=grad; ctx.fillRect(0,0,1280,720);
-      }else if(scene.location.includes('Machine')){
-        ctx.fillStyle='#0a0c14'; ctx.fillRect(0,0,1280,720);
-        ctx.fillStyle='rgba(124,124,255,0.08)'; ctx.fillRect(280,140,720,420);
-        ctx.strokeStyle='rgba(124,124,255,0.25)'; ctx.lineWidth=1; ctx.strokeRect(280,140,720,420);
-        ctx.fillStyle=`rgba(126,200,240,${0.35+Math.sin(frame/10)*0.2})`; ctx.beginPath(); ctx.arc(640,360,42+Math.sin(frame/12)*4,0,Math.PI*2); ctx.fill();
-      }else if(scene.location.includes('Void')){
-        ctx.fillStyle='#030308'; ctx.fillRect(0,0,1280,720);
-        const pulse=1+Math.sin(frame/16)*0.2; ctx.save(); ctx.translate(640,360); ctx.scale(pulse,pulse);
-        ctx.fillStyle='#fff'; ctx.shadowColor='#7c7cff'; ctx.shadowBlur=24; ctx.beginPath(); ctx.arc(0,0,28,0,Math.PI*2); ctx.fill(); ctx.restore();
-        for(let i=0;i<6;i++){ const ang=frame/30 + i*Math.PI/3; const x=640+Math.cos(ang)*180; const y=360+Math.sin(ang)*120; ctx.fillStyle='rgba(124,124,255,0.5)'; ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2); ctx.fill(); }
-      }else{ ctx.fillStyle=`hsl(${240+seed%20}, 18%, 10%)`; ctx.fillRect(0,0,1280,720); }
-      const charX=640 + Math.sin(frame/80)*24;
-      ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.beginPath(); ctx.ellipse(charX,540,38,86,0,0,Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(charX,450,24,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='rgba(0,0,0,0.55)'; ctx.fillRect(0,630,1280,90);
-      ctx.fillStyle='#fff'; ctx.font='600 14px Inter'; ctx.fillText((shot.narration||shot.dialogue||'').slice(0,88), 20, 660);
-      ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='10px JetBrains Mono'; ctx.fillText(`${shot.camera} | ${scene.location} | seed ${seed}`, 20, 680);
-      frame++; if(frame<maxFrames) requestAnimationFrame(draw); else recorder.stop();
-    }
-    draw(); await done;
-    const total=SESE.preProduction.project.meta.totalShots; const doneCount=Object.keys(SESE.visual.clips).length;
-    document.getElementById('genProgress').style.width=(doneCount/total*100)+'%';
-  },
-  async generateAll(){
-    const proj=SESE.preProduction.project; if(!proj){ alert('Create project first'); return; }
-    log('[Visual] Generating all shots...');
-    for(const sc of proj.scenes) for(const sh of sc.shots) await SESE.visual.generateSingle(sh.id);
-    log('[Visual] All done');
-  }
-};
-SESE.audio={
-  generateAll(){
-    const proj=SESE.preProduction.project; if(!proj){ alert('Create project first'); return; }
-    log('[Audio] Generating TTS + SFX offline...');
-    proj.scenes.forEach(scene=>scene.shots.forEach(shot=>{
-      const text=shot.narration||shot.dialogue;
-      if(text){ const u=new SpeechSynthesisUtterance(text.slice(0,160)); u.rate=0.92; if(shot.id===proj.scenes[0].shots[0].id) speechSynthesis.speak(u); }
-    }));
-    log('[Audio] Ready');
-  }
-};
-SESE.postProduction={
-  async assemble(){
-    const proj=SESE.preProduction.project; if(!proj){ alert('Create project first'); return; }
-    const clipIds=Object.keys(SESE.visual.clips); if(clipIds.length===0){ alert('Generate shots first'); return; }
-    log('[Post] Assembling timeline...');
-    const finalCanvas=document.getElementById('finalCanvas');
-    const previewCanvas=document.getElementById('previewCanvas');
-    const fCtx=finalCanvas.getContext('2d'); const pCtx=previewCanvas.getContext('2d');
-    const ordered=[]; proj.scenes.forEach(sc=>sc.shots.forEach(sh=>{ if(SESE.visual.clips[sh.id]) ordered.push(sh.id); }));
-    const stream=finalCanvas.captureStream(24);
-    const recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});
-    let chunks=[]; recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
-    const done=new Promise(r=>{
-      recorder.onstop=()=>{
-        const blob=new Blob(chunks,{type:'video/webm'}); const url=URL.createObjectURL(blob);
-        document.getElementById('finalOutput').innerHTML=`<div style="border-radius:16px;overflow:hidden;border:1px solid var(--line)"><video controls src="${url}" style="width:100%"></video></div><br><a href="${url}" download="b10fhonix_movie.webm"><button class="btn btn-primary" style="width:100%">⬇ Download Movie</button></a><div class="small" style="margin-top:8px">Total ${ordered.length} shots | Ready for b10fhonix.online</div>`;
-        log('[Post] Final ready'); r();
-      };
-    });
-    recorder.start();
-    for(let idx=0; idx<ordered.length; idx++){
-      const shotId=ordered[idx]; const clip=SESE.visual.clips[shotId];
-      const video=document.createElement('video'); video.src=clip.url; video.muted=true;
-      await new Promise(r=>{ video.onloadedmetadata=()=>{ video.play(); r(); }; });
-      const frames=clip.duration*24; let f=0;
-      await new Promise(r=>{
-        function drawFrame(){
-          let alpha=1; if(f<12 && idx>0) alpha=f/12;
-          fCtx.globalAlpha=1; fCtx.fillStyle='#000'; fCtx.fillRect(0,0,1280,720);
-          fCtx.globalAlpha=alpha; fCtx.drawImage(video,0,0,1280,720);
-          const shotObj=proj.scenes.flatMap(s=>s.shots).find(s=>s.id===shotId);
-          if(shotObj && shotObj.mood.includes('tense')){ fCtx.fillStyle='rgba(255,80,40,0.08)'; fCtx.fillRect(0,0,1280,720); }
-          if(shotObj && shotObj.mood.includes('triumphant')){ fCtx.fillStyle='rgba(124,124,255,0.06)'; fCtx.fillRect(0,0,1280,720); }
-          fCtx.globalAlpha=1; fCtx.fillStyle='rgba(0,0,0,0.6)'; fCtx.fillRect(0,640,1280,80);
-          fCtx.fillStyle='#fff'; fCtx.font='600 14px Inter'; fCtx.fillText((shotObj.narration||'').slice(0,88), 20, 670);
-          pCtx.drawImage(finalCanvas,0,0,1280,720,0,0,1280,720);
-          f++; if(f<frames &&!video.ended) requestAnimationFrame(drawFrame); else r();
-        }
-        drawFrame();
-      });
-    }
-    recorder.stop(); await done;
-  }
-};
-(async()=>{ await SESE.assetStore.init(); SESE.preProduction.loadGeneric(); log('[System] OpenArt-style Suite ready'); })();
-document.getElementById('fileInput').addEventListener('change', async e=>{ const file=e.target.files[0]; if(!file) return; const txt=await file.text(); document.getElementById('inputStory').value=txt.slice(0,15000); log('File loaded'); });
-document.querySelectorAll('.chip[data-genre]').forEach(ch=>{ ch.addEventListener('click',()=>{ document.querySelectorAll('.chip[data-genre]').forEach(c=>c.classList.remove('active')); ch.classList.add('active'); document.getElementById('genreSelect').value=ch.dataset.genre; }); });
-</script>
+<script type="module" src="src/app.js"></script>
 </body>
 </html>

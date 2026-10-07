@@ -1,18 +1,14 @@
-#!/bin/bash
-cd "$(dirname "$0")"
-echo "=== SESE b10fhonix.online - ONE CLICK DEPLOY ==="
-echo "Folder: $(pwd)"
+cd "C:/Users/Osena/Downloads/kenya  Copy/b10fhonix.online"
 
-# Ensure CNAME
-if [ ! -f "CNAME" ]; then
-  echo "b10fhonix.online" > CNAME
-fi
+# Rename correctly
+ren index index.html 2>nul
+# or if already index.html, skip
+dir
 
-git status
-git pull --rebase origin main || true
-git add .
-git commit -m "Update b10fhonix.online - $(date '+%Y-%m-%d %H:%M')" || echo "No changes"
-git branch -M main
+# Make sure CNAME is correct
+echo b10fhonix.online > CNAME
+
+# Force add with correct name
+git add index.html CNAME --force
+git commit -m "Fix: rename index to index.html - OpenArt design"
 git push -u origin main
-
-echo "=== DONE - Live at https://b10fhonix.online ==="

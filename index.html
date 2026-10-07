@@ -2,54 +2,229 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SESE V3 — Internal Cinema Engine — b10fhonix.online</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<title>b10fhonix.online — SESE V3 OpenArt Suite + Internal Cinema Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#08080a;--c:#1a1a1f;--l:#26262f;--t:#f2f2f5;--m:#8a8e98;--a:#7c7cff;--a2:#7EC8F0}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font-family:Inter,sans-serif}
-#nav{height:56px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:1px solid var(--l);position:sticky;top:0;background:rgba(8,8,10,0.96);z-index:10}
-.logo{font-weight:800}.logo span{color:var(--a2)}
-#layout{display:grid;grid-template-columns:340px 1fr 340px;gap:10px;max-width:1600px;margin:0 auto;padding:10px}
-@media(max-width:1100px){#layout{grid-template-columns:1fr}}
-.panel{background:var(--c);border:1px solid var(--l);border-radius:18px;padding:12px}
-textarea{width:100%;min-height:110px;background:#000;color:#fff;border:1px solid var(--l);border-radius:12px;padding:10px;font-family:JetBrains Mono,monospace;font-size:12px}
-button{background:var(--c);color:var(--t);border:1px solid var(--l);border-radius:99px;padding:9px 14px;font-weight:600;font-size:12px;cursor:pointer;margin:3px}
-button.primary{background:var(--t);color:#000}
-select{width:100%;background:#000;color:#fff;border:1px solid var(--l);border-radius:10px;padding:8px;margin:4px 0}
-.code{background:#0a0a0c;border:1px solid var(--l);border-radius:10px;padding:8px;font-family:JetBrains Mono,monospace;font-size:10px;white-space:pre-wrap;max-height:300px;overflow:auto;color:var(--m)}
-.small{font-size:11px;color:var(--m);font-family:JetBrains Mono,monospace}
-#stage{border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--l);aspect-ratio:16/9}
+:root{--bg:#09090b;--panel:#121214;--card:#1a1a1f;--card2:#1f1f25;--line:#26262f;--line2:#2f2f3a;--text:#f5f5f7;--muted:#9aa0a8;--accent:#7c7cff;--accent2:#7EC8F0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;letter-spacing:-0.01em}
+button{font-family:Inter,sans-serif}
+.nav{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;background:rgba(9,9,11,0.92);backdrop-filter:blur(24px)}
+.logo{font-weight:800;font-size:16px}.logo span{color:var(--accent2)}.logo i{color:var(--muted);font-style:normal;font-weight:500;margin-left:6px;font-size:11px;font-family:JetBrains Mono}
+.nav-links{display:flex;gap:6px}.nav-link{padding:7px 12px;border-radius:99px;font-size:13px;font-weight:500;color:var(--muted);border:1px solid transparent;cursor:pointer}.nav-link.active{background:var(--card);color:var(--text);border-color:var(--line)}
+.btn{border-radius:99px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--text)}.btn-primary{background:var(--text);color:#000;border-color:var(--text)}.small{font-size:11px;color:var(--muted);font-family:JetBrains Mono,monospace}
+.hero{max-width:980px;margin:32px auto 16px;padding:0 16px;text-align:center}
+.hero h1{font-size:40px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin:0 0 10px}.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);font-size:13px;margin:0 0 14px}
+.prompt-bar{display:flex;gap:10px;background:var(--card);border:1px solid var(--line2);border-radius:18px;padding:10px 12px;box-shadow:0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)}
+.prompt-bar textarea{flex:1;background:transparent;border:none;color:var(--text);font-size:14px;resize:none;outline:none;min-height:48px;font-family:Inter}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0}.chip{padding:8px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:12px;font-weight:500;color:var(--muted);cursor:pointer}.chip.active{background:var(--text);color:#000}
+.workspace{max-width:1480px;margin:0 auto;padding:10px 10px 40px;display:grid;grid-template-columns:300px 1fr 340px;gap:10px}
+@media(max-width:1150px){.workspace{grid-template-columns:1fr}.side{display:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px}
+.card h3{margin:0 0 10px;font-size:13px;font-weight:700}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tool{padding:11px;border-radius:14px;background:var(--panel);border:1px solid var(--line);cursor:pointer;transition:all.15s}.tool:hover{transform:translateY(-1px);border-color:var(--line2)}.tool.active{border-color:var(--accent);background:linear-gradient(180deg, rgba(124,124,255,0.15), var(--panel))}
+.t-title{font-size:12px;font-weight:600}.t-desc{font-size:10px;color:var(--muted);font-family:JetBrains Mono,monospace;margin-top:2px}
+.badge{display:inline-flex;padding:3px 8px;border-radius:99px;background:#1e1e26;border:1px solid var(--line);font-size:9px;font-weight:600;color:var(--accent2)}
+.canvas-box{border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line);aspect-ratio:16/9;position:relative}
 canvas{width:100%;height:100%;display:block}
-#strip{display:flex;gap:6px;overflow:auto;padding:8px 0}
-.shot{min-width:88px;height:52px;border-radius:10px;background:#111;border:1px solid var(--l);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:JetBrains Mono,monospace;cursor:pointer}
-.shot.active{border-color:var(--a)}
-.progress{flex:1;height:6px;background:#111;border-radius:99px;overflow:hidden}.progress div{height:100%;width:0%;background:linear-gradient(90deg,var(--a),var(--a2))}
-#timeline{display:flex;gap:4px;overflow:auto;margin:8px 0}
-.tblock{min-width:76px;padding:6px;border-radius:8px;background:#111;border:1px solid var(--l);font-size:9px;font-family:JetBrains Mono,monospace}
+.shot-strip{display:flex;gap:6px;overflow:auto;padding:8px 0}.shot-thumb{min-width:86px;height:54px;border-radius:10px;background:var(--panel);border:1px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-family:JetBrains Mono,monospace;color:var(--muted)}.shot-thumb.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(124,124,255,0.25)}
+.progress{height:6px;background:var(--panel);border-radius:99px;overflow:hidden}.progress div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width.3s}
+.log{height:200px;overflow:auto;background:#0a0a0c;border:1px solid var(--line);border-radius:14px;padding:10px;font-family:JetBrains Mono,monospace;font-size:10px;white-space:pre-wrap;color:var(--muted)}
+select{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 10px;font-size:12px;width:100%}
+#timeline{display:flex;gap:4px;overflow:auto;margin-top:8px}.tblock{min-width:76px;padding:6px;border-radius:8px;background:#111;border:1px solid var(--line);font-size:9px;font-family:JetBrains Mono,monospace}
 </style>
 </head>
 <body>
-<div id="nav"><div class="logo">SESE V3 <span>INTERNAL</span> — b10fhonix.online</div><div class="small">Story → Narrative Compiler → Director → Continuity → Frame Engine → Timeline → Master</div><button id="masterBtn" class="primary">EXPORT WEBM</button></div>
-<div id="layout">
-<div class="panel"><h3>NARRATIVE COMPILER</h3><textarea id="storyInput" placeholder="Paste story..."></textarea><div style="display:flex;gap:6px"><select id="genre"><option>Afro Sci-Fi Healing</option><option>Sci-Fi Thriller</option><option>Cinematic Drama</option></select><select id="lens"><option>Anamorphic 35mm</option><option>50mm Spherical</option></select></div><button id="compile" class="primary" style="width:100%">COMPILE STORY → SCENE GRAPH</button><button id="loadEx" style="width:100%">Load Example Story</button><pre id="sceneGraph" class="code"></pre><div id="charBible" class="small"></div><div id="worldBible" class="small" style="margin-top:8px"></div></div>
-<div class="panel"><h3>CINEMATOGRAPHY — <span id="shotLabel">No shot</span></h3><div id="stage"><canvas id="master" width="1920" height="1080"></canvas><canvas id="hidden" width="1920" height="1080" style="display:none"></canvas></div><div style="display:flex;gap:8px;margin-top:8px;align-items:center"><div class="progress"><div id="prog"></div></div><span id="tc" class="small">00:00</span></div><div id="strip"></div><div id="timeline"></div><div style="display:flex;gap:6px"><button id="renderAll" class="primary">RENDER ALL SHOTS</button><button id="play">PLAY TIMELINE</button></div><div id="final" style="margin-top:8px"></div><pre id="log" class="code" style="height:140px">SESE V3 Ready — Single File Engine
-</pre></div>
-<div class="panel"><h3>DIRECTOR / SHOT GRAPH</h3><pre id="shotGraph" class="code"></pre><h3>PROPERTIES</h3><label class="small">Camera Rig</label><select id="rig"><option value="dolly_in">Dolly In</option><option value="orbit">Orbit 30deg</option><option value="crane_up">Crane Up</option><option value="handheld">Handheld</option></select><label class="small">Light</label><select id="light"><option value="volumetric">Volumetric</option><option value="neon">Neon Pulse</option><option value="dawn">Dawn Portal</option></select><pre id="json" class="code" style="max-height:200px"></pre><button id="expJson" style="width:100%">Export.sese.json</button></div>
+<div class="nav"><div style="display:flex;align-items:center;gap:18px"><div class="logo">b10fhonix<span>.online</span> <i>V3 INTERNAL + OPENART SUITE</i></div><div class="nav-links"><div class="nav-link active">Suite</div><div class="nav-link">Create</div><div class="nav-link">Assets</div><div class="nav-link">Projects</div></div></div><div style="display:flex;gap:8px"><div class="small">Offline • No API • 1920x1080 24fps</div><button class="btn btn-primary" onclick="SESE.postProduction.assemble()">EXPORT WEBM</button></div></div>
+
+<div class="hero">
+<h1>What would you like to create <span>today?</span></h1>
+<p>SESE V3 — Narrative Compiler → Director (scene, location, time, mood, camera, lens, action, visual, dialogue, seed) → Continuity → Cinematic Renderer (depth, motion, signal) → Timeline → Master</p>
+<div class="prompt-bar"><textarea id="inputStory" placeholder="A young man wakes up in a dark room. He hears an electrical pulse. He follows it to a glowing console that reacts to thoughts..."></textarea><button class="btn btn-primary" onclick="SESE.preProduction.generate()">Generate →</button></div>
+<div class="chips"><div class="chip active" data-genre="Sci-Fi Thriller">🎬 Story</div><div class="chip" data-genre="Afro Sci-Fi Healing">🎭 Character</div><div class="chip" data-genre="Afrofuturism">🖼️ Image</div><div class="chip" data-genre="Cinematic Drama">🎥 Video</div><div class="chip" data-genre="Documentary Poetic">🎧 Audio</div><div class="chip" onclick="SESE.preProduction.loadGeneric()">✨ Example</div></div>
+<div style="display:flex;gap:8px;justify-content:center"><select id="genreSelect" style="max-width:200px"><option>Sci-Fi Thriller</option><option>Afro Sci-Fi Healing</option><option>Afrofuturism</option><option>Cinematic Drama</option></select><select id="styleSelect" style="max-width:300px"><option value="photorealistic, anamorphic 35mm, volumetric light, 8k">Photorealistic Cinematic — Anamorphic</option><option value="anime, Studio Ghibli, soft light">Anime Ghibli</option><option value="noir, high contrast, 35mm grain">Noir</option><option value="3D render, Unreal Engine, global illumination">Unreal 3D</option></select><select id="cameraSelect" style="max-width:220px"><option>slow dolly in, eye level 35mm</option><option>static handheld micro jitter, 85mm</option><option>crane up wide 24mm</option><option>orbit 30deg, 50mm</option></select></div>
 </div>
+
+<div class="workspace">
+<div class="side">
+<div class="card"><h3>AI Tools <span class="badge">OFFLINE V3</span></h3>
+<div class="tool-grid">
+<div class="tool active"><div class="t-title">📖 Create Story</div><div class="t-desc">Narrative Compiler</div></div>
+<div class="tool"><div class="t-title">🎬 Text to Video</div><div class="t-desc">Director + Visual</div></div>
+<div class="tool"><div class="t-title">👄 Lip-Sync</div><div class="t-desc">Audio + Viseme</div></div>
+<div class="tool"><div class="t-title">🏃 Motion-Sync</div><div class="t-desc">Depth Motion</div></div>
+<div class="tool"><div class="t-title">⬆️ Video Upscale</div><div class="t-desc">Signal Enhance</div></div>
+<div class="tool"><div class="t-title">💬 Chat to Edit</div><div class="t-desc">Shot Graph Edit</div></div>
+<div class="tool"><div class="t-title">🎨 Edit Image</div><div class="t-desc">Frame Engine</div></div>
+<div class="tool"><div class="t-title">🎭 Train Character</div><div class="t-desc">Continuity Seed</div></div>
+</div></div>
+<div class="card" style="margin-top:10px"><h3>Character Bible <span class="badge">SEED LOCKED</span></h3><div id="charBible" class="small">Generate story to compile characters with deterministic seeds.</div></div>
+<div class="card" style="margin-top:10px"><h3>World Bible & Theme</h3><div id="worldBible" class="small">World graph will appear here.</div></div>
+</div>
+
+<div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h3>Preview — <span id="previewLabel">No shot</span></h3><div style="display:flex;gap:6px"><button class="btn" onclick="SESE.visual.generateAll()">RENDER ALL SHOTS</button><button class="btn" onclick="SESE.audio.generateAll()">AUDIO</button></div></div>
+<div class="canvas-box"><canvas id="previewCanvas" width="1920" height="1080"></canvas></div><div class="progress" style="margin:10px 0"><div id="genProgress"></div></div><div class="shot-strip" id="shotStrip"></div><div id="shotsContainer" style="max-height:260px;overflow:auto"></div></div>
+<div class="card" style="margin-top:10px"><h3>Master Timeline — Post-Production Engine</h3><canvas id="finalCanvas" width="1920" height="1080" style="display:none"></canvas><div id="finalOutput"></div><div id="timeline"></div><div class="log" id="log">SESE V3 Log:
+[System] OpenArt-inspired Suite loaded
+[Narrative] Compiler ready — beat/theme extraction
+[Director] Shot Graph planner ready — scene/location/time/mood/camera/lens/action/visual/dialogue/seed/duration
+[Continuity] Seed Engine ready — deterministic random
+[Cinematography] Depth Engine ready — environment/subject/light + stars/atmosphere/horizon + signal orb + waveform
+[Timeline] NLE ready
+[Master] MediaRecorder 1920x1080 24fps
+Ready — No API keys.
+</div></div></div>
+
+<div class="side"><div class="card"><h3>Properties — Director</h3><div class="small">Lens</div><select id="lensPack"><option value="anamorphic">Anamorphic 35mm — Oval Bokeh</option><option value="spherical">Spherical 50mm</option><option value="macro">Macro 100mm</option><option value="wide">Wide 24mm</option></select><div class="small" style="margin-top:8px">Camera Rig</div><select id="rigSelect"><option value="dolly_in">Dolly In 0.6m</option><option value="orbit">Orbit 30deg</option><option value="crane_up">Crane Up</option><option value="handheld">Handheld</option></select><div class="small" style="margin-top:8px">Light Model</div><select id="lightSelect"><option value="volumetric">Volumetric + Motivated Orb</option><option value="neon">Neon Pulse</option><option value="dawn">Dawn Portal</option><option value="noir">Noir Shadow</option></select><div class="small" style="margin-top:8px">Depth Model</div><select><option>Multiplane 3-layer — FG Subject / MG Console / BG Void</option></select><div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-primary" style="flex:1" onclick="SESE.visual.generateAll()">Generate</button><button class="btn" style="flex:1" onclick="SESE.postProduction.assemble()">Assemble</button></div></div>
+<div class="card" style="margin-top:10px"><h3>Movie JSON — Screenplay + Storyboard</h3><pre id="movieJson" class="code" style="max-height:320px">Movie JSON will appear after compile...</pre><button class="btn" style="width:100%;margin-top:8px" onclick="SESE.preProduction.exportJSON()">Export.sese.json</button></div>
+<div class="card" style="margin-top:10px"><h3>Architecture</h3><pre class="code" style="font-size:9px">SESE V3
+├─ NARRATIVE COMPILER
+│ ├─ beat analysis
+│ ├─ theme extraction
+│ ├─ character creation
+│ └─ scene graph
+├─ DIRECTOR
+│ ├─ shot size/lens
+│ ├─ camera rig
+│ ├─ action/dialogue
+│ └─ seed continuity
+├─ CONTINUITY
+├─ CINEMATOGRAPHY
+│ ├─ environment depth
+│ ├─ subject
+│ ├─ light/motivated orb
+│ ├─ signal waveform
+│ └─ grading
+├─ TIMELINE
+├─ AUDIO
+└─ MASTER → WEBM
+</pre></div></div>
+</div>
+
 <script>
-const $=s=>document.querySelector(s); const log=m=>{const e=$('#log'); e.textContent+=`\n${new Date().toLocaleTimeString()} ${m}`; e.scrollTop=e.scrollHeight;};
-const hash=s=>{let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);};
-const detRand=(seed,f,salt=0)=>{const x=Math.sin(seed*9999+f*0.13+salt*7.7)*10000;return x-Math.floor(x);};
-let project=null; let clips={};
-const Narrative={compile(raw,genre){const sens=raw.split(/[.!?]+/).map(s=>s.trim()).filter(s=>s.length>12);const beats=sens.map((s,i)=>{const l=s.toLowerCase();let mood='tense';if(l.includes('dawn')||l.includes('hope')||l.includes('light'))mood='triumphant';else if(l.includes('memory')||l.includes('orb'))mood='dream';let loc='Abandoned Room';if(l.includes('corridor'))loc='Corridor - Electric Pulse';else if(l.includes('machine')||l.includes('console'))loc='Old Machine - Glowing Display';else if(l.includes('orb')||l.includes('memory'))loc='Memory Void - White';else if(l.includes('portal')||l.includes('dawn'))loc='Roof - Dawn Portal';return{index:i,text:s,mood,location:loc,time:'00:15',duration:8};});const cands={};raw.split(/\s+/).forEach(w=>{const c=w.replace(/[^A-Za-z]/g,'');if(c.length>2&&c[0]===c[0].toUpperCase())cands[c]=(cands[c]||0)+1;});let tops=Object.entries(cands).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]);if(!tops.length)tops=['Alex','Maya'];const chars=tops.map(n=>{const seed=hash(n);return{name:n,seed,description:`${n}, consistent face seed ${seed}`,visualSeed:`${n} seed ${seed}`};});const world=`World: ${[...new Set(beats.map(b=>b.location))].join(' -> ')}. ${raw.slice(0,200)}`;const per=Math.ceil(beats.length/5);const scenes=[];for(let i=0;i<5;i++){const ch=beats.slice(i*per,(i+1)*per);if(!ch.length)continue;scenes.push({id:`scene_${String(i+1).padStart(2,'0')}`,location:ch[0].location,time:ch[0].time,mood:ch[0].mood,beats:ch,characters:chars.map(c=>c.name)});}return{title:raw.slice(0,28),raw,genre,beats,characters:chars,worldBible:world,sceneGraph:scenes};}};
-const Director={plan(sg,opts){const out=[];sg.forEach(sc=>{for(let si=0;si<2;si++){const beat=sc.beats[Math.min(si,sc.beats.length-1)];const ch=sc.characters[0]||'Alex';const seed=hash(ch);out.push({id:`${sc.id}_shot_${String(si+1).padStart(2,'0')}`,scene:sc.id,location:sc.location,mood:sc.mood,camera:si===1?'close-up 35mm anamorphic':'wide 35mm anamorphic',lens:'35mm anamorphic',movement:opts.rig,light:opts.light,action:beat.text.slice(0,60),narration:si===0?beat.text.slice(0,180):'',dialogue:si===1?beat.text.slice(0,120):'',seed,duration:beat.duration});}});return out;}};
-const Renderer={preview(s){const c=$('#master').getContext('2d');c.fillStyle='#000';c.fillRect(0,0,1920,1080);c.fillStyle='#666';c.font='20px Inter';c.fillText(`${s.id} — ${s.location} — ${s.camera}`,60,540);},async renderShot(shot){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1080;const ctx=canvas.getContext('2d');const stream=canvas.captureStream(24);const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});let chunks=[];rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};const done=new Promise(r=>{rec.onstop=()=>{const blob=new Blob(chunks,{type:'video/webm'});const url=URL.createObjectURL(blob);clips[shot.id]={url,blob,duration:shot.duration};$('#master').getContext('2d').drawImage(canvas,0,0);r();};});rec.start();const max=shot.duration*24;let f=0;const draw=()=>{const rnd=n=>detRand(shot.seed,f,n);if(shot.location.includes('Machine')){ctx.fillStyle='#080a14';ctx.fillRect(0,0,1920,1080);ctx.fillStyle='rgba(20,22,34,0.9)';ctx.fillRect(320,220,1280,620);ctx.strokeStyle='rgba(124,124,255,0.22)';ctx.strokeRect(320,220,1280,620);const p=0.4+Math.sin(f/10)*0.2;ctx.shadowColor='#7EC8F0';ctx.shadowBlur=40*p;ctx.fillStyle=`rgba(200,230,255,${p})`;ctx.beginPath();ctx.arc(960,520,44,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='rgba(124,200,240,0.35)';ctx.beginPath();for(let x=0;x<1280;x+=8){const y=520+Math.sin((x+f*4)/80)*20*rnd(1);if(x===0)ctx.moveTo(320+x,y);else ctx.lineTo(320+x,y);}ctx.stroke();}else if(shot.location.includes('Void')||shot.location.includes('Memory')){ctx.fillStyle='#020208';ctx.fillRect(0,0,1920,1080);const p=1+Math.sin(f/16)*0.18;ctx.save();ctx.translate(960,540);ctx.scale(p,p);ctx.fillStyle='#fff';ctx.shadowColor='#7c7cff';ctx.shadowBlur=28;ctx.beginPath();ctx.arc(0,0,30,0,Math.PI*2);ctx.fill();ctx.restore();}else if(shot.location.includes('Dawn')||shot.location.includes('Roof')){const g=ctx.createLinearGradient(0,0,0,1080);g.addColorStop(0,'#1a182a');g.addColorStop(1,'#ffb86a');ctx.fillStyle=g;ctx.fillRect(0,0,1920,1080);}else{ctx.fillStyle='#0c0c14';ctx.fillRect(0,0,1920,1080);}const cx=960+Math.sin(f/90+shot.seed*0.001)*18;ctx.fillStyle='rgba(255,255,255,0.07)';ctx.beginPath();ctx.ellipse(cx,680,46,98,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(cx,580,28,0,Math.PI*2);ctx.fill();if(shot.location.includes('Machine')){const grad=ctx.createRadialGradient(960,520,10,960,520,600);grad.addColorStop(0,'rgba(126,200,240,0.14)');grad.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=grad;ctx.fillRect(0,0,1920,1080);}ctx.fillStyle='rgba(0,0,0,0.62)';ctx.fillRect(0,0,1920,82);ctx.fillRect(0,998,1920,82);ctx.fillStyle='rgba(255,255,255,0.04)';for(let i=0;i<120;i++){ctx.fillRect(rnd(i)*1920,rnd(i+100)*1080,1,1);}ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fillRect(0,880,1920,118);ctx.fillStyle='#fff';ctx.font='600 20px Inter';ctx.fillText((shot.narration||shot.dialogue||'').slice(0,110),32,926);ctx.fillStyle='rgba(255,255,255,0.55)';ctx.font='11px JetBrains Mono';ctx.fillText(`${shot.camera} | ${shot.location} | seed:${shot.seed} | ${shot.light}`,32,952);f++;if(f<max)requestAnimationFrame(draw);else rec.stop();};draw();await done;log(`[RENDERER] ${shot.id} rendered`);},async masterAssemble(sg,finalDiv){if(!Object.keys(clips).length){alert('Render first');return;}const ordered=sg.filter(s=>clips[s.id]);const c=$('#hidden');const ctx=c.getContext('2d');const stream=c.captureStream(24);const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});let chunks=[];rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};const done=new Promise(r=>{rec.onstop=()=>{const blob=new Blob(chunks,{type:'video/webm'});const url=URL.createObjectURL(blob);finalDiv.innerHTML=`<video controls src="${url}" style="width:100%;border-radius:16px"></video><br><a href="${url}" download="SESE_V3_MASTER.webm"><button class="primary" style="width:100%">⬇ DOWNLOAD MASTER</button></a>`;r();};});rec.start();for(let idx=0;idx<ordered.length;idx++){const s=ordered[idx];const clip=clips[s.id];const v=document.createElement('video');v.src=clip.url;v.muted=true;await new Promise(r=>{v.onloadedmetadata=()=>{v.play();r();};});const frames=clip.duration*24;let f=0;await new Promise(r=>{const loop=()=>{let a=1;if(f<12&&idx>0)a=f/12;ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,1920,1080);ctx.globalAlpha=a;ctx.drawImage(v,0,0,1920,1080);ctx.globalAlpha=1;f++;if(f<frames&&!v.ended)requestAnimationFrame(loop);else r();};loop();});}rec.stop();await done;log('[MASTER] Ready');}};
-$('#compile').onclick=()=>{const raw=$('#storyInput').value.trim();if(!raw){alert('Paste story');return;}log('[NARRATIVE] Compiling...');const comp=Narrative.compile(raw,$('#genre').value);project=comp;$('#sceneGraph').textContent=JSON.stringify(comp.sceneGraph,null,2);$('#charBible').innerHTML=comp.characters.map(c=>`<div style="padding:8px;border:1px solid #26262f;border-radius:10px;margin:6px 0;background:#121214"><b>${c.name}</b> <span style="color:#7EC8F0">${c.seed}</span><br><span class="small">${c.description}</span></div>`).join('');$('#worldBible').innerHTML=`<span class="small">${comp.worldBible}</span>`;const shots=Director.plan(comp.sceneGraph,{rig:$('#rig').value,light:$('#light').value});project.shotGraph=shots;$('#shotGraph').textContent=JSON.stringify(shots.slice(0,2),null,2);$('#json').textContent=JSON.stringify({scenes:comp.sceneGraph.length,shots:shots.length},null,2);const strip=$('#strip');strip.innerHTML='';shots.forEach(s=>{const d=document.createElement('div');d.className='shot';d.id='shot_'+s.id;d.textContent=s.id.replace('scene_','S');d.onclick=()=>{document.querySelectorAll('.shot').forEach(x=>x.classList.remove('active'));d.classList.add('active');$('#shotLabel').textContent=`${s.id} | ${s.location} | ${s.camera}`;Renderer.preview(s);};strip.appendChild(d);});if(strip.firstChild)strip.firstChild.click();const tl=$('#timeline');tl.innerHTML='';shots.forEach(s=>{const b=document.createElement('div');b.className='tblock';b.textContent=s.id;tl.appendChild(b);});log(`[DIRECTOR] ${shots.length} shots planned`);};
-$('#renderAll').onclick=async()=>{if(!project)return alert('Compile first');for(let i=0;i<project.shotGraph.length;i++){await Renderer.renderShot(project.shotGraph[i]);$('#prog').style.width=((i+1)/project.shotGraph.length*100)+'%';const el=document.getElementById('shot_'+project.shotGraph[i].id);if(el)el.style.background='#1a2a1a';}log('All rendered');};
-$('#masterBtn').onclick=async()=>{await Renderer.masterAssemble(project.shotGraph,$('#final'));};
-$('#play').onclick=()=>{let i=0;const next=()=>{if(!project||i>=project.shotGraph.length)return;const s=project.shotGraph[i];$('#shotLabel').textContent=s.id;Renderer.preview(s);i++;setTimeout(next,800);};next();};
-$('#loadEx').onclick=()=>{$('#storyInput').value=`A young man wakes up in a dark room. He hears a strange electrical pulse that seems to follow him. He follows the corridor that flickers with blue light. He discovers an old machine connected to a glowing display that reacts to his thoughts. The console shows a floating orb. He touches the orb and sees memories of everyone who used the machine before him — their fears, their hopes. He realizes the machine doesn't control people, people planted their stories into it. He decides to plant his own story, one about return and light, and the machine opens a portal of dawn.`;};
-$('#expJson').onclick=()=>{const b=new Blob([JSON.stringify(project,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='project.sese.json';a.click();};
+const SESE={}; const $=s=>document.querySelector(s);
+function log(m){const el=$('#log'); el.textContent+=`\n${new Date().toLocaleTimeString()} ${m}`; el.scrollTop=el.scrollHeight;}
+function hash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}
+function detRand(seed,frame,salt=0){const x=Math.sin(seed*9999+frame*0.13+salt*7.7)*10000;return x-Math.floor(x);}
+SESE.assetStore={characters:{},worldBible:"",seeds:{},seedWorld(wb,chars){this.worldBible=wb;chars.forEach(c=>this.seeds[c.name]=c.seed);},getSeed(n){return this.seeds[n]||hash(n);},saveCharacter(name,data){this.characters[name]=data;localStorage.setItem('SESE_CHAR_'+name,JSON.stringify(data));$('#charBible').innerHTML=Object.values(this.characters).map(c=>`<div style="padding:8px;border:1px solid var(--line);border-radius:10px;margin:6px 0;background:var(--panel)"><b style="font-size:12px">${c.name}</b> <span class="badge">seed:${c.seed}</span> <span class="badge">${c.arc}</span><br><span class="small">${c.description.slice(0,90)}</span><br><span class="small" style="opacity:0.7">visualSeed:${c.visualSeed.slice(0,40)}</span></div>`).join('');$('#worldBible').innerHTML=`<span class="small">${this.worldBible.slice(0,320)}</span>`;}};
+SESE.preProduction={
+project:null,
+generate(){
+const raw=$('#inputStory').value.trim(); const genre=$('#genreSelect').value; const visualStyle=$('#styleSelect').value;
+if(!raw){alert('Describe movie first');return;}
+log('[Narrative Compiler] Analyzing beats/theme/characters...');
+const sentences=raw.split(/[.!?]+/).filter(s=>s.trim().length>12);
+const beats=sentences.map((s,i)=>{const low=s.toLowerCase();let mood='tense';if(low.includes('dawn')||low.includes('hope')||low.includes('light')||low.includes('return'))mood='triumphant';else if(low.includes('memory')||low.includes('orb'))mood='dream';let loc='Abandoned Room - Dark';if(low.includes('corridor'))loc='Corridor - Electric Pulse';else if(low.includes('machine')||low.includes('console')||low.includes('display'))loc='Old Machine - Glowing Display';else if(low.includes('orb')||low.includes('memory'))loc='Memory Void - White';else if(low.includes('portal')||low.includes('dawn'))loc='Roof - Dawn Portal';let act='confrontation';if(i<sentences.length*0.25)act='setup';else if(i>sentences.length*0.75)act='resolution';return{index:i,text:s,mood,location:loc,act,time:['Midnight','00:15','00:30','01:00','05:45'][Math.floor(i/(sentences.length/5))%5],duration:8};});
+const cands={}; raw.split(/\s+/).forEach(w=>{const c=w.replace(/[^A-Za-z]/g,'');if(c.length>2&&c[0]===c[0].toUpperCase())cands[c]=(cands[c]||0)+1;});
+let tops=Object.entries(cands).sort((a,b)=>b[1]-a[1]).slice(0,4).map(e=>e[0]); if(!tops.length)tops=['Alex','Maya'];
+const perScene=Math.ceil(beats.length/5); const scenes=[];
+for(let i=0;i<5;i++){const chunk=beats.slice(i*perScene,(i+1)*perScene); if(!chunk.length)continue; scenes.push({id:`scene_${String(i+1).padStart(2,'0')}`,location:chunk[0].location,time:chunk[0].time,mood:chunk[0].mood,act:chunk[0].act,beats:chunk,characters:tops,atmosphere:chunk.map(b=>b.mood).join(', ')});}
+const characters=tops.map((name,i)=>{const seed=hash(name+visualStyle); return {name,description:`${name}, cinematic consistent face, ${genre}, age 28, textured skin, anamorphic light, seed locked`,visualSeed:`${name} seed ${seed} ${visualStyle}`,arc:i===0?'seeker':'guide',seed};});
+const worldBible=`World: ${[...new Set(beats.map(b=>b.location))].join(' -> ')}. Genre ${genre}. Logic: thought-reactive machine, orb = memory interface, portal = reward for planting story. Rule: visual storytelling, seed continuity. Theme: technology as memory vessel + planting stories + signal as call + ${genre}. Story: ${raw.slice(0,220)}`;
+this.project={title:raw.slice(0,32)+' — Movie',logline:raw.slice(0,160),genre,visual_style:visualStyle,theme:worldBible,characters,world_bible:worldBible,scenes,meta:{created:new Date().toISOString(),totalShots:scenes.reduce((a,s)=>a+s.beats.length,0)}};
+SESE.assetStore.seedWorld(worldBible,characters); characters.forEach(c=>SESE.assetStore.saveCharacter(c.name,c));
+const lensPack=$('#lensPack').value; const rig=$('#rigSelect').value; const light=$('#lightSelect').value;
+const lensMap={anamorphic:{lens:'35mm anamorphic',fov:38,bokeh:'oval'},spherical:{lens:'50mm spherical',fov:50,bokeh:'round'},macro:{lens:'100mm macro',fov:20,bokeh:'soft'},wide:{lens:'24mm wide',fov:75,bokeh:'deep'}};
+const lens=lensMap[lensPack]||lensMap.anamorphic;
+const shotGraph=[];
+scenes.forEach(sc=>{for(let si=0;si<2;si++){const beat=sc.beats[Math.min(si,sc.beats.length-1)]; const ch=sc.characters[0]||'Alex'; const seed=SESE.assetStore.getSeed(ch);
+shotGraph.push({id:`${sc.id}_shot_${String(si+1).padStart(2,'0')}`,scene:sc.id,location:sc.location,time:sc.time,mood:sc.mood,camera:si===1?`close-up ${lens.lens}, eye level`:`wide ${lens.lens}, establishing`,lens:lens.lens,fov:lens.fov,bokeh:lens.bokeh,cameraRig:rig,movement:si===1?'static micro jitter':'dolly_in 0.6m',angle:si===1?'eye level':'low 15deg',action:si===0?`Establishing ${sc.location}`:`Close on ${ch}, ${beat.text.slice(0,60)}`,visual:`${sc.location}, ${beat.text.slice(0,100)}, seed ${seed}, ${visualStyle}`,dialogue:si===1?beat.text.slice(0,120):'',narration:si===0?beat.text.slice(0,180):'',sound:sc.location.includes('Corridor')?'electric pulse 60Hz + low hum':'ambient subtle',continuity:`Keep ${ch} seed ${seed} consistent, same jacket, same face`,seed,duration:beat.duration,light,depth:['foreground character','midground console','background void'],signal:{type:'orb',intensity:0.5+si*0.2}});}});
+this.project.shotGraph=shotGraph; this.project.meta.totalShots=shotGraph.length;
+$('#movieJson').textContent=JSON.stringify(this.project,null,2);
+SESE.visual.renderShotList(shotGraph,scenes);
+const tl=$('#timeline'); tl.innerHTML=''; shotGraph.forEach(s=>{const d=document.createElement('div');d.className='tblock';d.textContent=`${s.id} ${s.duration}s`;tl.appendChild(d);});
+log(`[Director] ${shotGraph.length} shots planned — scene/location/time/mood/camera/lens/action/visual/dialogue/continuity/seed/duration`);
+log(`[Continuity] World seed ${hash(worldBible)} — ${characters.length} characters locked`);
+},
+loadGeneric(){$('#inputStory').value=`A young man wakes up in a dark room. He hears a strange electrical pulse that seems to follow him. He follows the corridor that flickers with blue light. He discovers an old machine connected to a glowing display that reacts to his thoughts. The console shows a floating orb. He touches the orb and sees memories of everyone who used the machine before him — their fears, their hopes. He realizes the machine doesn't control people, people planted their stories into it. He decides to plant his own story, one about return and light, and the machine opens a portal of dawn.`;},
+exportJSON(){if(!this.project){alert('Compile first');return;}const blob=new Blob([JSON.stringify(this.project,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sese_v3_movie.json';a.click();}
+};
+SESE.visual={
+clips:{},
+renderShotList(shotGraph,scenes){
+const strip=$('#shotStrip'); strip.innerHTML=''; const cont=$('#shotsContainer'); cont.innerHTML='';
+shotGraph.forEach(shot=>{
+const thumb=document.createElement('div'); thumb.className='shot-thumb'; thumb.id='thumb_'+shot.id; thumb.textContent=shot.id.replace('scene_','S');
+thumb.onclick=()=>{document.querySelectorAll('.shot-thumb').forEach(t=>t.classList.remove('active'));thumb.classList.add('active');$('#previewLabel').textContent=`${shot.id} — ${shot.location} — ${shot.camera} — ${shot.lens}`;SESE.visual.preview(shot.id);};
+strip.appendChild(thumb);
+const div=document.createElement('div'); div.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:8px;border:1px solid var(--line);border-radius:12px;margin:6px 0;background:var(--panel)';
+div.innerHTML=`<div><b style="font-size:12px">${shot.id}</b> <span class="badge">${shot.mood}</span> <span class="badge">${shot.lens}</span><br><span class="small">${shot.visual.slice(0,88)}</span><br><span class="small" style="opacity:0.6">${shot.camera} | ${shot.movement} | seed ${shot.seed} | ${shot.light}</span></div><div><button class="btn" onclick="SESE.visual.generateSingle('${shot.id}')">Generate</button></div>`;
+cont.appendChild(div);
+});
+if(strip.firstChild) strip.firstChild.click();
+},
+preview(shotId){
+const clip=SESE.visual.clips[shotId]; const c=$('#previewCanvas'); const ctx=c.getContext('2d');
+if(!clip){ctx.fillStyle='#000';ctx.fillRect(0,0,1920,1080);ctx.fillStyle='#555';ctx.font='14px Inter';ctx.fillText('Not generated yet — click Generate', 720,540);return;}
+const v=document.createElement('video'); v.src=clip.url; v.muted=true; v.onloadeddata=()=>ctx.drawImage(v,0,0,1920,1080);
+},
+async generateSingle(shotId){
+const proj=SESE.preProduction.project; let shot=null, scene=null;
+for(const sc of proj.scenes) for(const sh of proj.shotGraph||proj.shotGraph) if(sh.id===shotId){shot=sh; scene=sc; break;}
+if(!shot) shot=proj.shotGraph.find(s=>s.id===shotId);
+if(!shot) return;
+const canvas=document.createElement('canvas'); canvas.width=1920; canvas.height=1080; const ctx=canvas.getContext('2d');
+const seed=shot.seed||hash(shotId);
+const stream=canvas.captureStream(24); const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'}); let chunks=[]; rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+const done=new Promise(r=>{rec.onstop=()=>{const blob=new Blob(chunks,{type:'video/webm'});const url=URL.createObjectURL(blob);SESE.visual.clips[shotId]={url,blob,duration:shot.duration};const thumb=$('#thumb_'+shotId);if(thumb)thumb.style.background='#1a2a1a';const pC=$('#previewCanvas');const pCtx=pC.getContext('2d');const v=document.createElement('video');v.src=url;v.muted=true;v.onloadeddata=()=>pCtx.drawImage(v,0,0,1920,1080);$('#previewLabel').textContent=shotId+' ✓ '+Math.round(blob.size/1024)+'KB';log(`[Frame Engine] ${shotId} rendered — depth: FG subject / MG console / BG void — light: ${shot.light} — signal orb + waveform`);r();};});
+rec.start(); const max=shot.duration*24; let f=0;
+function draw(){
+const rnd=n=>detRand(seed,f,n);
+// === ENVIRONMENT DEPTH ===
+if(shot.location.includes('Dark')){
+const g=ctx.createLinearGradient(0,0,0,1080); g.addColorStop(0,'#14141c'); g.addColorStop(1,'#050508'); ctx.fillStyle=g; ctx.fillRect(0,0,1920,1080);
+ctx.fillStyle='rgba(255,255,255,0.45)'; for(let i=0;i<100;i++){const x=rnd(i)*1920; const y=rnd(i+100)*420; ctx.fillRect(x,y,1.4,1.4);}
+}else if(shot.location.includes('Corridor')){
+ctx.fillStyle='#070a12'; ctx.fillRect(0,0,1920,1080);
+ctx.fillStyle='rgba(124,124,255,0.06)'; for(let i=0;i<6;i++)ctx.fillRect(0,150+i*130,1920,36);
+ctx.fillStyle=`rgba(126,200,240,${0.14+Math.sin(f/12)*0.06})`; ctx.fillRect(0,520,1920,8);
+}else if(shot.location.includes('Machine')){
+ctx.fillStyle='#080a14'; ctx.fillRect(0,0,1920,1080);
+// midground console — horizon geometry
+ctx.fillStyle='rgba(18,20,32,0.92)'; ctx.fillRect(300,200,1320,680); ctx.strokeStyle='rgba(124,124,255,0.22)'; ctx.lineWidth=1; ctx.strokeRect(300,200,1320,680);
+// glowing signal source — motivated light
+const pulse=0.42+Math.sin(f/10)*0.22;
+ctx.shadowColor='#7EC8F0'; ctx.shadowBlur=46*pulse; ctx.fillStyle=`rgba(210,235,255,${pulse})`; ctx.beginPath(); ctx.arc(960,520,46+Math.sin(f/11)*3,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+// animated waveform / signal
+ctx.strokeStyle=`rgba(124,200,240,${0.32+Math.sin(f/14)*0.08})`; ctx.lineWidth=1.5; ctx.beginPath(); for(let x=0;x<1320;x+=6){const y=520+Math.sin((x+f*4)/78)*22*rnd(1)+Math.cos((x+f*2)/40)*8; if(x===0)ctx.moveTo(300+x,y); else ctx.lineTo(300+x,y);} ctx.stroke();
+}else if(shot.location.includes('Void')||shot.location.includes('Memory')){
+ctx.fillStyle='#020208'; ctx.fillRect(0,0,1920,1080);
+const p=1+Math.sin(f/16)*0.18; ctx.save(); ctx.translate(960,540); ctx.scale(p,p); ctx.fillStyle='#fff'; ctx.shadowColor='#7c7cff'; ctx.shadowBlur=32; ctx.beginPath(); ctx.arc(0,0,32,0,Math.PI*2); ctx.fill(); ctx.restore(); ctx.shadowBlur=0;
+for(let i=0;i<8;i++){const ang=f/28 + i*Math.PI/4; const x=960+Math.cos(ang)*230; const y=540+Math.sin(ang)*150; ctx.fillStyle='rgba(124,124,255,0.5)'; ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fill();}
+}else{ // Dawn Portal
+const g=ctx.createLinearGradient(0,0,0,1080); g.addColorStop(0,'#1a182c'); g.addColorStop(0.55,'#2a2a3a'); g.addColorStop(1,'#ffb86a'); ctx.fillStyle=g; ctx.fillRect(0,0,1920,1080);
+ctx.fillStyle=`rgba(255,184,106,${0.26+Math.sin(f/18)*0.1})`; ctx.beginPath(); ctx.arc(960,760,420+Math.sin(f/20)*12,0,Math.PI); ctx.fill();
+}
+// === SUBJECT — foreground with depth separation ===
+const charX=960+Math.sin(f/90+seed*0.001)*20;
+ctx.fillStyle='rgba(255,255,255,0.075)'; ctx.beginPath(); ctx.ellipse(charX,720,52,108,0,0,Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(charX,610,30,0,Math.PI*2); ctx.fill();
+ctx.fillStyle=`hsla(${(seed%50)+220}, 24%, 62%, 0.14)`; ctx.fillRect(charX-24,620,48,66);
+// === LIGHT — motivated rim from orb/console ===
+if(shot.location.includes('Machine')||shot.location.includes('Void')){const grad=ctx.createRadialGradient(960,520,20,960,520,700); grad.addColorStop(0,'rgba(126,200,240,0.16)'); grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad; ctx.fillRect(0,0,1920,1080);}
+// === CINEMATIC OVERLAYS — letterbox + grain + metadata ===
+ctx.fillStyle='rgba(0,0,0,0.64)'; ctx.fillRect(0,0,1920,84); ctx.fillRect(0,996,1920,84);
+ctx.fillStyle='rgba(255,255,255,0.035)'; for(let i=0;i<140;i++){ctx.fillRect(rnd(i)*1920, rnd(i+200)*1080,1,1);}
+ctx.fillStyle='rgba(0,0,0,0.58)'; ctx.fillRect(0,880,1920,116);
+ctx.fillStyle='#fff'; ctx.font='600 20px Inter'; ctx.fillText((shot.narration||shot.dialogue||'').slice(0,115),32,920);
+ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='11px JetBrains Mono'; ctx.fillText(`${shot.camera} | ${shot.lens} f${shot.fov} ${shot.bokeh} | ${shot.movement} | ${shot.location} | mood:${shot.mood} | time:${shot.time} | seed:${shot.seed} | ${shot.light} | depth: FG/MG/BG`,32,946);
+f++; if(f<max) requestAnimationFrame(draw); else rec.stop();
+}
+draw(); await done;
+const total=SESE.preProduction.project.shotGraph.length; const doneCount=Object.keys(SESE.visual.clips).length;
+$('#genProgress').style.width=(doneCount/total*100)+'%';
+},
+async generateAll(){
+const proj=SESE.preProduction.project; if(!proj){alert('Compile story first');return;}
+log('[Frame Engine] Rendering all shots with depth/motion/signal...');
+for(const s of proj.shotGraph) await SESE.visual.generateSingle(s.id);
+log('[Frame Engine] All shots rendered');
+}
+};
+SESE.audio={generateAll(){const proj=SESE.preProduction.project; if(!proj)return; log('[Audio] Web Audio pulses + TTS'); proj.shotGraph.forEach(s=>{const t=s.narration||s.dialogue; if(t && s.id===proj.shotGraph[0].id){const u=new SpeechSynthesisUtterance(t.slice(0,160)); u.rate=0.92; speechSynthesis.speak(u);}});}};
+SESE.postProduction={async assemble(){const proj=SESE.preProduction.project; if(!proj){alert('Compile first');return;}const ids=Object.keys(SESE.visual.clips); if(!ids.length){alert('Render shots first');return;}log('[Master Timeline] Assembling 1920x1080 24fps...');const fc=$('#finalCanvas');const fCtx=fc.getContext('2d');const ordered=proj.shotGraph.filter(s=>SESE.visual.clips[s.id]);const stream=fc.captureStream(24);const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});let chunks=[];rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};const done=new Promise(r=>{rec.onstop=()=>{const blob=new Blob(chunks,{type:'video/webm'});const url=URL.createObjectURL(blob);$('#finalOutput').innerHTML=`<div style="border-radius:16px;overflow:hidden;border:1px solid var(--line)"><video controls src="${url}" style="width:100%"></video></div><br><a href="${url}" download="b10fhonix_SESE_V3_MASTER.webm"><button class="btn btn-primary" style="width:100%">⬇ Download Movie WEBM</button></a><div class="small" style="margin-top:6px">${ordered.length} shots | 1920x1080 | V3 Internal Cinema Engine | b10fhonix.online</div>`; log('[Master] WEBM ready'); r();};});rec.start();for(let idx=0; idx<ordered.length; idx++){const sid=ordered[idx].id; const clip=SESE.visual.clips[sid]; const v=document.createElement('video'); v.src=clip.url; v.muted=true; await new Promise(r=>{v.onloadedmetadata=()=>{v.play(); r();};});const frames=clip.duration*24; let f=0; await new Promise(r=>{function drawFrame(){let alpha=1; if(f<12&&idx>0)alpha=f/12; fCtx.globalAlpha=1; fCtx.fillStyle='#000'; fCtx.fillRect(0,0,1920,1080); fCtx.globalAlpha=alpha; fCtx.drawImage(v,0,0,1920,1080); const sObj=proj.shotGraph.find(s=>s.id===sid); if(sObj && sObj.mood.includes('tense')){fCtx.fillStyle='rgba(255,60,40,0.07)'; fCtx.fillRect(0,0,1920,1080);} if(sObj && sObj.mood.includes('triumphant')){fCtx.fillStyle='rgba(126,200,240,0.07)'; fCtx.fillRect(0,0,1920,1080);} fCtx.globalAlpha=1; const pc=$('#previewCanvas').getContext('2d'); pc.drawImage(fc,0,0,1920,1080,0,0,1920,1080); f++; if(f<frames&&!v.ended) requestAnimationFrame(drawFrame); else r();} drawFrame();});}rec.stop(); await done;}};
+(async()=>{SESE.preProduction.loadGeneric(); log('[System] SESE V3 OpenArt Suite + Internal Cinema Engine ready — single file');})();
+document.querySelectorAll('.chip[data-genre]').forEach(ch=>{ch.addEventListener('click',()=>{document.querySelectorAll('.chip[data-genre]').forEach(c=>c.classList.remove('active')); ch.classList.add('active'); $('#genreSelect').value=ch.dataset.genre;});});
 </script>
 </body>
 </html>

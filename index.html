@@ -2,85 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WALLET - SPACE-X | b10fhonix.online</title>
+<title>SPACE-X + PREDICTOR | b10fhonix.online</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#e6c75a;--gold2:#b8911f;--dark:#0f1f0f;--cyan:#00f0ff}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#050a05;color:#e8e8c8;font-family:'JetBrains Mono',monospace;min-height:100vh;display:flex;flex-direction:column}
-header{height:52px;background:linear-gradient(180deg,#122712,#0a1a0a);border-bottom:2px solid #e6c75a33;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
-.logo{font-family:'Orbitron';font-weight:900;letter-spacing:1px;display:flex;align-items:center;gap:10px}
-.logo .z{width:32px;height:32px;border-radius:50%;background:radial-gradient(var(--gold),var(--gold2));display:grid;place-items:center;color:#000}
-.balBox{background:linear-gradient(180deg,#2a2210,#1a1508);border:1px solid var(--gold);border-radius:22px;padding:6px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
-.btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;border:0;border-radius:22px;padding:8px 16px;font-family:'Orbitron';font-weight:900;cursor:pointer}
-.wrap{max-width:780px;margin:20px auto;width:92%;display:flex;flex-direction:column;gap:14px}
-.topCard{background:linear-gradient(180deg,#132a14,#0f1f0f);border:1px solid #ffffff15;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center}
-.topCard h2{font-family:'Orbitron';letter-spacing:3px;color:var(--gold);font-size:16px}
-.balGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:600px){.balGrid{grid-template-columns:1fr}}
-.cardA{background:linear-gradient(180deg,#1a3a1e,#122712);border:2px solid var(--gold);border-radius:14px;padding:16px}
-.cardB{background:#0f1f0f;border:1px solid #ffffff15;border-radius:14px;padding:16px;opacity:.8}
-.cardA b,.cardB b{font-family:'Orbitron';font-size:22px;color:var(--gold);display:block;margin-top:4px}
-.small{font-size:10px;letter-spacing:2px;opacity:.6}
-.tabs2{background:#0a1a0a;border:1px solid #ffffff15;border-radius:22px;display:grid;grid-template-columns:1fr 1fr 1fr;padding:4px}
-.tab{padding:8px;border-radius:18px;text-align:center;font-size:12px;cursor:pointer}
-.tab.active{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;font-weight:900}
-.form{background:linear-gradient(180deg,#132a14,#0f1f0f);border:1px solid #ffffff15;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
-label{font-size:12px;opacity:.8}
-.inputRow{display:flex;background:#000;border:1px solid #ffffff20;border-radius:22px;overflow:hidden}
-.inputRow span{background:#111;padding:10px 12px;font-size:13px;border-right:1px solid #ffffff20}
-.inputRow input{flex:1;background:transparent;border:0;color:#fff;padding:10px;font-family:'Orbitron';outline:none}
-.amount{width:100%;background:#000;border:1px solid #e6c75a55;border-radius:22px;color:#fff;padding:12px;font-family:'Orbitron';font-weight:700}
-.quick{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
-.quick button{padding:10px;border-radius:22px;border:0;background:linear-gradient(180deg,var(--gold),var(--gold2));font-weight:900;cursor:pointer}
-.send{width:100%;padding:14px;border-radius:22px;border:0;background:linear-gradient(180deg,#d1b24a,#8a6a0a);font-family:'Orbitron';font-weight:900;letter-spacing:1px;cursor:pointer;opacity:.7}
-.send.active{opacity:1;box-shadow:0 0 20px #e6c75a66}
-.status{font-size:11px;padding:8px;background:#0008;border-radius:8px;min-height:30px}
-a{color:var(--cyan);text-decoration:none}
+body{background:#000;color:#fff;font-family:'JetBrains Mono',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{height:48px;background:linear-gradient(90deg,#0a1020,#0a1a2a);border-bottom:1px solid #00f0ff44;display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+.brand{font-family:'Orbitron';font-weight:900;letter-spacing:2px;font-size:13px}.brand span{color:#00f0ff;text-shadow:0 0 10px #00f0ff}
+.bal{border:1px solid #e6c75a;color:#e6c75a;padding:5px 10px;border-radius:18px;font-size:12px}
+.split{flex:1;display:grid;grid-template-columns:1.4fr 0.6fr;gap:8px;padding:8px;background:#05080f;overflow:hidden}
+@media(max-width:900px){.split{grid-template-columns:1fr;overflow:auto}}
+.panel{background:linear-gradient(180deg,#0e1730,#070c1a);border:1px solid #ffffff15;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.panelHead{height:36px;background:linear-gradient(90deg,#111c3a,#0a1020);border-bottom:1px solid #ffffff12;display:flex;justify-content:space-between;align-items:center;padding:0 10px;font-family:'Orbitron';font-size:10px;letter-spacing:2px}
+.panelHead .gold{color:#e6c75a}.panelHead .cyan{color:#00f0ff}
+.gameWrap{flex:1;position:relative;background:radial-gradient(ellipse at 50% 120%,#0a1a3a,#000 70%)}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
+#multi{font-family:'Orbitron';font-size:clamp(48px,8vw,84px);font-weight:900;text-shadow:0 0 30px #00f0ff}
+#multi.crash{color:#ff3355;text-shadow:0 0 30px #ff3355}
+.recent{height:32px;background:#050a1a;display:flex;gap:4px;padding:0 8px;align-items:center;overflow-x:auto;border-bottom:1px solid #ffffff0e}
+.chip{font-size:10px;padding:3px 6px;border-radius:10px;border:1px solid #ffffff15;background:#ffffff08}
+.chip.hot{background:#e6c75a;color:#000;font-weight:900}
+.betGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;background:#070c1f}
+.betBox{background:#111a33;border:1px solid #ffffff14;border-radius:10px;padding:8px}
+.betBox input{width:100%;background:#0008;border:1px solid #ffffff20;border-radius:6px;color:#fff;padding:6px;font-family:'Orbitron';font-weight:700;margin:4px 0}
+.btn{width:100%;padding:10px;border:0;border-radius:8px;font-family:'Orbitron';font-weight:900;cursor:pointer}
+.btnBet{background:linear-gradient(180deg,#00f0ff,#0090aa);color:#000}
+.btnCash{background:linear-gradient(180deg,#ffcc00,#ff9900);color:#000;display:none}
+.predBody{padding:10px;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.statGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:#0008;border:1px solid #ffffff12;border-radius:10px;padding:8px;text-align:center}
+.stat b{display:block;font-family:'Orbitron';font-size:18px;color:#e6c75a;margin-top:2px}
+.stat small{font-size:9px;opacity:.6;letter-spacing:1px}
+.signal{background:linear-gradient(180deg,#1a2f1a,#0f1f0f);border:2px solid #00ff88;border-radius:12px;padding:12px;text-align:center;box-shadow:0 0 20px #00ff8844}
+.signal.red{border-color:#ff3355;box-shadow:0 0 20px #ff335544}
+.signal b{font-family:'Orbitron';font-size:28px;display:block}
+.signal span{font-size:10px;opacity:.7}
+.pattern{font-size:11px;line-height:1.6;background:#0008;border-radius:8px;padding:8px;border:1px solid #ffffff0e}
+.bar{height:6px;background:#ffffff10;border-radius:4px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#00f0ff,#e6c75a);width:50%}
+.list{font-size:11px;display:flex;flex-direction:column;gap:4px}
+.row{display:flex;justify-content:space-between;padding:4px 6px;background:#ffffff06;border-radius:6px}
+.row.win{color:#00ff88}.row.loss{color:#ff5577}
+.disclaimer{font-size:8px;opacity:.3;text-align:center;padding:6px}
 </style>
 </head>
 <body>
-<header><div class="logo"><div class="z">Z</div>ZENI PESA <span style="font-size:9px;opacity:.5">WALLET</span></div><div style="display:flex;gap:8px;align-items:center"><div class="balBox">KES <b id="demoBal">50,000.00</b> GUEST</div><button class="btn-gold" onclick="location.href='index.html'">◀ BACK TO GAME</button></div></header>
-<div class="wrap">
-<div class="topCard"><h2>📁 WALLET</h2><span style="font-size:11px;border:1px solid #ffffff20;padding:4px 10px;border-radius:14px">📄 House rules</span></div>
-<div class="balGrid"><div class="cardA"><div class="small">🔗 DEMO (GUEST)</div><b>KES 50,000.00</b><div class="small" style="margin-top:6px">Active for betting</div></div><div class="cardB"><div class="small">♔ REAL BALANCE</div><b id="realBal">KES 0.00</b><div class="small" style="margin-top:6px">Sign in to access real balance</div></div></div>
-<div class="tabs2"><div class="tab active">⊕ Deposit</div><div class="tab" onclick="alert('Withdraw - Coming after Daraja B2C approved (demo)')">⊕ Withdraw</div><div class="tab" onclick="alert('Transactions history - will show Daraja callback logs')">↻ Transactions</div></div>
-<div class="form">
-<label>M-Pesa phone number</label><div class="inputRow"><span>+254</span><input id="phone" placeholder="7XXXXXXXX or 1XXXXXXXXX" value="7"></div>
-<label>Amount (KES)</label><input id="amt" class="amount" type="number" value="500"><div class="small">Min 300 · Max 1,000,000 KES</div>
-<div class="quick"><button onclick="setAmt(300)">300</button><button onclick="setAmt(500)">500</button><button onclick="setAmt(1000)">1000</button><button onclick="setAmt(5000)">5000</button></div>
-<button id="stkBtn" class="send" onclick="sendStk()">SEND STK PUSH</button>
-<div id="stkStatus" class="status">Ready. Enter phone like 712345678 and amount. This will trigger real M-Pesa prompt if backend is connected.</div>
-<div style="font-size:10px;opacity:.4;margin-top:6px">DEMO: No real money charged until you connect Daraja backend. Code for backend below. b10fhonix.online research-hub - Play responsibly 18+.</div>
-</div>
-<div style="text-align:center"><a href="/">← Back to Space-X Aviator (Synced V4)</a> is main game. Wallet is separate page. To make wallet default deposit modal, we link it.</div>
+<header><div class="brand">b10fhonix.<span>ONLINE</span> // SPACE-X</div><div style="display:flex;gap:8px;align-items:center"><span id="phase" style="font-size:10px;padding:4px 8px;border-radius:10px;background:#00ff8815;border:1px solid #00ff8855">BETTING OPEN</span><div class="bal">KES <span id="bal">50,000.00</span> GUEST</div></div></header>
+<div class="split">
+<div class="panel"><div class="panelHead"><span class="cyan">✈ SPACE-X AVIATOR • ROUND #<b id="rnd">181710</b></span><span id="timer">NEXT 8.0s</span></div><div class="recent" id="recent"></div><div class="gameWrap"><canvas id="game"></canvas><div class="center"><div><div id="state" style="font-size:10px;letter-spacing:3px;opacity:.6">ROCKET ON PAD</div><div id="multi">1.00x</div><div id="count" style="color:#e6c75a;font-size:18px"><b>8.0s</b></div></div></div></div><div class="betGrid"><div class="betBox"><div style="font-size:9px;opacity:.6">BOX 1</div><input id="s1" value="100" type="number"><button id="b1" class="btn btnBet" onclick="place(1)">PLACE BET</button><button id="c1" class="btn btnCash" onclick="cash(1)">CASH OUT</button></div><div class="betBox"><div style="font-size:9px;opacity:.6">BOX 2</div><input id="s2" value="100" type="number"><button id="b2" class="btn btnBet" onclick="place(2)">PLACE BET</button><button id="c2" class="btn btnCash" onclick="cash(2)">CASH OUT</button></div></div></div>
+<div class="panel" style="border-color:#e6c75a55"><div class="panelHead" style="background:linear-gradient(90deg,#2a2210,#1a1508)"><span class="gold">📡 SPACE-X PREDICTOR AI</span><span style="background:#00ff88;color:#000;padding:2px 6px;border-radius:8px;font-size:9px">LIVE</span></div><div class="predBody"><div class="statGrid"><div class="stat"><small>AVG LAST 10</small><b id="avg">2.14x</b></div><div class="stat"><small>HOT STREAK</small><b id="hot">3 REDS</b></div><div class="stat"><small>MAX TODAY</small><b id="max">137x</b></div><div class="stat"><small>SAFE ZONE</small><b id="safe">1.4-2.2x</b></div></div><div id="signal" class="signal"><span>AI SIGNAL</span><b id="predVal">2.45x</b><span id="predConf">Confidence 78% • WAIT</span><div class="bar"><i id="confBar" style="width:78%"></i></div></div><div class="pattern"><div style="font-family:'Orbitron';font-size:10px;color:#e6c75a;letter-spacing:1px">PATTERN ANALYSIS</div><div id="patternTxt"></div></div><div class="pattern"><div style="font-family:'Orbitron';font-size:10px;color:#00f0ff;letter-spacing:1px">NEXT ROUND FORECAST</div><div class="list" id="forecast"></div></div><div class="pattern"><div style="font-family:'Orbitron';font-size:10px;letter-spacing:1px">LAST 10 PREDICTIONS vs REAL</div><div class="list" id="accuracy"></div></div><div class="disclaimer">PREDICTOR IS DEMO / EDUCATIONAL ONLY. Crash is random. No real prediction possible. 18+ b10fhonix.online</div></div></div>
 </div>
 <script>
-let realBal=0; const demoEl=document.getElementById('demoBal'); const realEl=document.getElementById('realBal'); const statusEl=document.getElementById('stkStatus'); const btn=document.getElementById('stkBtn');
-function setAmt(v){document.getElementById('amt').value=v; check()}
-function check(){let p=document.getElementById('phone').value.trim(), a=parseFloat(document.getElementById('amt').value); let ok=/^(7|1)\d{8,9}$/.test(p) && a>=10; btn.classList.toggle('active',ok)}
-document.getElementById('phone').addEventListener('input',check); document.getElementById('amt').addEventListener('input',check); check();
-async function sendStk(){
- let phone=document.getElementById('phone').value.trim(); let amount=parseInt(document.getElementById('amt').value);
- if(!/^(7|1)\d{8,9}$/.test(phone)){statusEl.textContent='❌ Invalid phone. Use 7XXXXXXXX';return}
- if(amount<10){statusEl.textContent='❌ Min 10 for demo, 300 for real';return}
- let fullPhone='254'+phone.replace(/^0/,'');
- statusEl.textContent='⏳ Sending STK Push to '+fullPhone+' KES '+amount+'... Check your phone.';
- btn.textContent='SENDING...'; btn.disabled=true;
- try{
-   // This endpoint you will create on backend (see shamba.py below)
-   const res=await fetch('/api/stkpush',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fullPhone,amount})});
-   const data=await res.json();
-   if(data.success||data.ResponseCode==='0'){statusEl.textContent='✅ STK Sent! Check phone '+fullPhone+' enter PIN. '+ (data.CustomerMessage||''); 
-     setTimeout(()=>{realBal+=amount; realEl.textContent='KES '+realBal.toLocaleString('en-KE',{minimumFractionDigits:2}); statusEl.textContent+=' (Demo credited to REAL BALANCE. Real M-Pesa will confirm via callback)';},2000);
-   } else {statusEl.textContent='❌ Failed: '+(data.error||data.errorMessage||'Backend not connected - using demo mode'); // fallback demo
-     realBal+=amount; realEl.textContent='KES '+realBal.toLocaleString('en-KE',{minimumFractionDigits:2}); statusEl.textContent+=' | DEMO credited (connect backend for real)'}
- } catch(e){
-   statusEl.textContent='⚠️ Backend not yet deployed (expected). DEMO credit applied: KES '+amount+' to REAL BALANCE. To enable real STK, deploy shamba.py backend.';
-   realBal+=amount; realEl.textContent='KES '+realBal.toLocaleString('en-KE',{minimumFractionDigits:2});
- }
- btn.textContent='SEND STK PUSH'; btn.disabled=false;
-}
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'); let W,H; function rs(){W=canvas.width=canvas.offsetWidth*2;H=canvas.height=canvas.offsetHeight*2} addEventListener('resize',rs); rs();
+let bal=50000, round=181710, history=[3.98,1.66,7.95,1.99,1.89,4.03,3.70,1.43,1.09,2.00,12.20,1.23,1.01,137.75,1.39,2.58,2.15,1.6,10.6,2.3], phase='betting', timeLeft=8, crash=0, mult=1, bets={1:null,2:null}, start=0, raf=null, smoke=[], predHistory=[];
+function genCrash(){let r=Math.random(); let c=0.99/(1-r); if(c<1.05)c=1.05; if(c>200)c=60+Math.random()*140; if(r>0.967)c=1.05+Math.random()*0.6; return c}
+function fmt(n){return n.toLocaleString('en-KE',{minimumFractionDigits:2})}
+function renderRecent(){document.getElementById('recent').innerHTML=history.slice(0,20).map(v=>`<span class="chip ${v>=10?'hot':''}">${v.toFixed(2)}x</span>`).join('')}
+function updatePredictor(){let last10=history.slice(0,10); let avg=(last10.reduce((a,b)=>a+b,0)/10).toFixed(2); document.getElementById('avg').textContent=avg+'x'; let reds=0; for(let v of history){if(v<2)reds++;else break} document.getElementById('hot').textContent=reds+' REDS'; document.getElementById('max').textContent=Math.max(...history).toFixed(0)+'x'; let pred=0; if(reds>=3) pred=(1.8+Math.random()*1.5); else if(avg<2) pred=(2.5+Math.random()*2); else pred=(1.3+Math.random()*1.2); let conf=60+Math.floor(Math.random()*35); document.getElementById('predVal').textContent=pred.toFixed(2)+'x'; document.getElementById('predConf').textContent=`Confidence ${conf}% • ${pred>2?'SAFE CASH':'WAIT'}`; document.getElementById('confBar').style.width=conf+'%'; let sig=document.getElementById('signal'); sig.className='signal'+(pred<1.5?' red':''); document.getElementById('patternTxt').innerHTML=`Scanning last ${history.length} rounds...<br>• ${reds} reds (<2x) → ${reds>=3?'High chance green next':'Mixed'}<br>• Last big >10x was ${history.findIndex(v=>v>10)} rounds ago<br>• Volatility: ${avg>3?'HIGH':avg<2?'LOW':'MEDIUM'}`; let p1=Math.max(5,45-reds*5), p2=35, p3=100-p1-p2; document.getElementById('forecast').innerHTML=`<div class="row"><span>1.10x-1.50x</span><span>${p1}%</span></div><div class="row win"><span>1.50x-3.00x</span><span>${p2}%</span></div><div class="row"><span>3.00x+</span><span>${p3}%</span></div>`;}
+function logAccuracy(real){let lastPred=parseFloat(document.getElementById('predVal').textContent); let hit=Math.abs(lastPred-real)<1.2?'HIT':'MISS'; predHistory.unshift({pred:lastPred,real,hit}); if(predHistory.length>6)predHistory.pop(); document.getElementById('accuracy').innerHTML=predHistory.map(h=>`<div class="row ${h.hit==='HIT'?'win':'loss'}"><span>PRED ${h.pred.toFixed(2)}x → REAL ${h.real.toFixed(2)}x</span><span>${h.hit}</span></div>`).join('');}
+function place(box){if(phase!=='betting')return; let stake=parseFloat(document.getElementById('s'+box).value)||0; if(bal<stake)return; bal-=stake; bets[box]={stake,cashed:false}; document.getElementById('bal').textContent=fmt(bal); document.getElementById('b'+box).style.display='none'; document.getElementById('c'+box).style.display='block';}
+function cash(box){if(!bets[box]||bets[box].cashed||phase!=='flying')return; let win=Math.floor(bets[box].stake*mult); bal+=win; bets[box].cashed=true; document.getElementById('bal').textContent=fmt(bal); document.getElementById('b'+box).style.display='block'; document.getElementById('c'+box).style.display='none';}
+function startBetting(){phase='betting'; timeLeft=8; crash=genCrash(); mult=1; smoke=[]; document.getElementById('rnd').textContent=round; document.getElementById('phase').textContent='BETTING OPEN'; document.getElementById('state').textContent='ROCKET ON PAD'; document.getElementById('multi').textContent='1.00x'; document.getElementById('multi').classList.remove('crash'); bets={1:null,2:null}; document.getElementById('b1').style.display='block'; document.getElementById('c1').style.display='none'; document.getElementById('b2').style.display='block'; document.getElementById('c2').style.display='none'; updatePredictor(); let iv=setInterval(()=>{timeLeft-=0.1; if(phase!=='betting'){clearInterval(iv);return} document.getElementById('timer').textContent=`NEXT ${timeLeft.toFixed(1)}s`; document.getElementById('count').innerHTML=`<b>${timeLeft.toFixed(1)}s</b>`; if(timeLeft<=0){clearInterval(iv); startFlying()}},100)}
+function startFlying(){phase='flying'; document.getElementById('phase').textContent='FLYING'; document.getElementById('state').textContent='ASCENT'; start=Date.now(); loop()}
+function loop(){if(phase!=='flying')return; let e=(Date.now()-start)/1000; mult=Math.pow(1.082,e*6); if(mult>=crash){endCrash();return} document.getElementById('multi').textContent=mult.toFixed(2)+'x'; document.getElementById('count').innerHTML=`<b>${mult.toFixed(2)}x</b>`; document.querySelectorAll('.btnCash').forEach((b,i)=>{let box=i+1; if(bets[box]&&!bets[box].cashed) b.textContent=`CASH OUT ${mult.toFixed(2)}x`}); draw(mult,false); raf=requestAnimationFrame(loop)}
+function endCrash(){phase='crashed'; mult=crash; document.getElementById('multi').textContent=crash.toFixed(2)+'x'; document.getElementById('multi').classList.add('crash'); document.getElementById('state').textContent=`BUSTED AT ${crash.toFixed(2)}x`; document.getElementById('count').innerHTML=`<b style="color:#ff3355">BUSTED</b>`; document.getElementById('phase').textContent=`CRASHED ${crash.toFixed(2)}x`; history.unshift(crash); logAccuracy(crash); renderRecent(); draw(crash,true); setTimeout(()=>{round++; startBetting()},3000)}
+function draw(m,isCrash){ctx.clearRect(0,0,W,H); let grad=ctx.createRadialGradient(W*0.5,H*0.9,0,W*0.5,H*0.9,W); grad.addColorStop(0,'#0a1a3a'); grad.addColorStop(1,'#000'); ctx.fillStyle=grad; ctx.fillRect(0,0,W,H); let p=phase==='betting'?0:Math.min(m/12,1); let rx=W*0.12+p*W*0.68, ry=H*0.88-Math.pow(p,0.7)*H*0.6; if(phase==='flying'){smoke.push({x:rx-8,y:ry+10,a:1}); if(smoke.length>70)smoke.shift(); smoke.forEach(s=>s.a-=0.018)} else smoke=[]; if(phase!=='betting'){ctx.strokeStyle=isCrash?'#ff3355':'#00f0ff'; ctx.lineWidth=3; ctx.shadowColor=isCrash?'#ff3355':'#00f0ff'; ctx.shadowBlur=16; ctx.beginPath(); ctx.moveTo(W*0.05,H*0.88); ctx.quadraticCurveTo(rx*0.45,H*0.88-p*H*0.2,rx,ry); ctx.stroke(); ctx.shadowBlur=0; smoke.forEach(s=>{ctx.fillStyle=`rgba(${isCrash?'255,50,80':'0,240,255'},${s.a*0.3})`; ctx.beginPath(); ctx.arc(s.x,s.y,Math.random()*6+2,0,Math.PI*2); ctx.fill()})} ctx.save(); ctx.translate(rx,ry); ctx.rotate(-p*0.8); ctx.fillStyle='#fff'; ctx.fillRect(-6,-22,12,44); ctx.fillStyle='#00f0ff'; ctx.fillRect(-7,-24,14,4); if(phase==='flying'&&!isCrash){ctx.fillStyle=`rgba(255,${100+Math.random()*120},0,${0.8+Math.random()*0.2})`; ctx.beginPath(); ctx.moveTo(-4,22); ctx.lineTo(0,34+Math.random()*10); ctx.lineTo(4,22); ctx.fill()} ctx.restore(); if(isCrash){ctx.fillStyle='rgba(255,0,50,0.18)'; ctx.fillRect(0,0,W,H)}}
+renderRecent(); updatePredictor(); startBetting(); draw(1,false);
 </script>
 </body>
 </html>

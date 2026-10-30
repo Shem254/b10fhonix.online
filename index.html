@@ -2,167 +2,192 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRAZY TIME 3D FUTURISTIC | b10fhonix.online</title>
+<title>CRAZY TIME 3D FIXED | b10fhonix.online</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;800&display=swap" rel="stylesheet">
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
 <style>
 :root{--gold:#ffcc00;--pink:#ff2a6d;--cyan:#00f0ff}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000; color:#fff; font-family:'Rajdhani'; height:100vh; overflow:hidden; display:flex; flex-direction:column}
-header{height:56px; background:linear-gradient(90deg, rgba(10,10,20,0.95), rgba(30,10,40,0.95)); border-bottom:2px solid var(--gold); display:flex; justify-content:space-between; align-items:center; padding:0 14px; z-index:20; backdrop-filter:blur(20px)}
-.logo{font-family:'Orbitron'; font-weight:900; letter-spacing:2px; font-size:13px; display:flex; align-items:center; gap:10px}
-.logo i{width:32px;height:32px;background:conic-gradient(var(--gold),var(--pink),var(--cyan),var(--gold));border-radius:50%;display:grid;place-items:center;color:#000;animation:spin 2s linear infinite; box-shadow:0 0 15px var(--gold)}
-@keyframes spin{to{transform:rotate(360deg)}}
+body{background:#000; color:#fff; font-family:'Rajdhani'; height:100vh; display:flex; flex-direction:column; overflow:hidden}
+header{height:54px; background:linear-gradient(90deg, rgba(10,10,20,0.98), rgba(30,10,40,0.98)); border-bottom:2px solid var(--gold); display:flex; justify-content:space-between; align-items:center; padding:0 14px; z-index:30}
+.logo{font-family:'Orbitron'; font-weight:900; font-size:12px; letter-spacing:2px; display:flex; align-items:center; gap:8px}
+.logo i{width:32px;height:32px;background:conic-gradient(var(--gold),var(--pink),var(--cyan),var(--gold));border-radius:50%;display:grid;place-items:center;color:#000;animation:rot 2s linear infinite; box-shadow:0 0 15px var(--gold)} @keyframes rot{to{transform:rotate(360deg)}}
 .pill{background:rgba(0,0,0,0.6); border:1px solid var(--gold); border-radius:20px; padding:6px 12px; font-size:12px; font-weight:800} .pill b{color:var(--gold); font-family:'Orbitron'}
-.main{flex:1; display:grid; grid-template-columns:1.3fr 0.7fr; gap:8px; padding:8px; overflow:hidden; position:relative}
+.main{flex:1; display:grid; grid-template-columns:1.25fr 0.75fr; gap:8px; padding:8px; overflow:hidden}
 @media(max-width:1000px){.main{grid-template-columns:1fr; overflow:auto}}
-.stage{position:relative; background:radial-gradient(ellipse at center, #1a0a2a 0%, #05000a 60%, #000 100%); border:1px solid rgba(255,204,0,0.15); border-radius:18px; overflow:hidden; min-height:520px; display:flex; flex-direction:column}
-#three{flex:1; width:100%; height:100%; display:block}
-.topSlot3D{height:72px; background:linear-gradient(90deg,#0a0a1a,#1a1a2a); border-bottom:1px solid rgba(255,204,0,0.3); display:grid; grid-template-columns:1fr 50px 1fr 100px; align-items:center; gap:8px; padding:0 12px; z-index:5}
-.slotBox{background:#000; border:2px solid #333; border-radius:10px; padding:6px; text-align:center; font-family:'Orbitron'; font-weight:900; font-size:20px; min-height:50px; display:grid; place-items:center; box-shadow:inset 0 0 15px rgba(0,0,0,0.8)}
-.slotBox.win{border-color:var(--gold); background:var(--gold); color:#000; box-shadow:0 0 20px var(--gold), inset 0 0 10px rgba(0,0,0,0.3); animation:flash .4s infinite alternate}
-@keyframes flash{0%{transform:scale(1)}100%{transform:scale(1.05)}}
-.hud{position:absolute; bottom:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:end; z-index:10; pointer-events:none}
-.hudBox{background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:8px 12px; pointer-events:auto}
-.betBoard{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:8px; background:rgba(10,10,20,0.9); border-radius:14px; border:1px solid rgba(255,255,255,0.08)}
+.stage{position:relative; background:radial-gradient(ellipse at 50% 30%, #1e0a3a 0%, #0a0014 45%, #000 100%); border:1px solid rgba(255,204,0,0.2); border-radius:18px; overflow:hidden; min-height:560px; display:flex; flex-direction:column}
+.topSlot{height:68px; background:linear-gradient(90deg,#0a0a1a,#1a1a2a); border-bottom:1px solid rgba(255,204,0,0.3); display:grid; grid-template-columns:1fr 40px 1fr 110px; align-items:center; gap:8px; padding:0 12px; z-index:10}
+.sBox{background:#000; border:2px solid #333; border-radius:10px; padding:6px; text-align:center; font-family:'Orbitron'; font-weight:900; font-size:18px; min-height:48px; display:grid; place-items:center}
+.sBox.win{border-color:var(--gold); background:var(--gold); color:#000; box-shadow:0 0 20px var(--gold); animation:flash .4s infinite alternate} @keyframes flash{0%{transform:scale(1)}100%{transform:scale(1.05)}}
+#three{flex:1; width:100%; height:100%; display:block; outline:none}
+.hud{position:absolute; bottom:92px; left:12px; right:12px; display:flex; justify-content:space-between; z-index:10; pointer-events:none}
+.hudBox{background:rgba(0,0,0,0.75); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:8px 12px; pointer-events:auto}
+.betBoard{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:8px; background:rgba(10,10,20,0.95); border-top:1px solid rgba(255,255,255,0.08)}
 @media(max-width:600px){.betBoard{grid-template-columns:repeat(2,1fr)}}
-.tile{background:linear-gradient(180deg,#1e1e3a,#12122a); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:8px; text-align:center; cursor:pointer; transition:.15s; position:relative; overflow:hidden}
-.tile::before{content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transition:.5s}
-.tile:hover::before{left:100%} .tile:hover{transform:translateY(-3px); border-color:var(--gold); box-shadow:0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,204,0,0.2)}
-.tile.active{border-color:var(--gold); background:linear-gradient(180deg,#2a2210,#1a1508); box-shadow:0 0 20px rgba(255,204,0,0.4)}
-.tile b{font-family:'Orbitron'; font-size:15px; display:block} .tile.bonus b{color:var(--pink)}
-.btnSpin{width:100%; padding:14px; background:linear-gradient(180deg,#ffcc00,#ff8800); color:#000; font-family:'Orbitron'; font-weight:900; font-size:14px; border-radius:12px; border:0; cursor:pointer; box-shadow:0 0 25px rgba(255,204,0,0.5); letter-spacing:1px}
-.btnSpin:disabled{background:#222; color:#555; box-shadow:none}
+.tile{background:linear-gradient(180deg,#1e1e3a,#12122a); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:7px; text-align:center; cursor:pointer; transition:.15s}
+.tile:hover{transform:translateY(-2px); border-color:var(--gold); box-shadow:0 8px 20px rgba(0,0,0,0.5)}
+.tile.active{border-color:var(--gold); background:linear-gradient(180deg,#2a2210,#1a1508); box-shadow:0 0 15px rgba(255,204,0,0.4)}
+.tile b{font-family:'Orbitron'; font-size:13px; display:block} .tile.bonus b{color:var(--pink)}
+.btnSpin{width:100%; padding:12px; background:linear-gradient(180deg,#ffcc00,#ff8800); color:#000; font-family:'Orbitron'; font-weight:900; font-size:13px; border-radius:12px; border:0; cursor:pointer; box-shadow:0 0 20px rgba(255,204,0,0.5)}
 .right{display:flex; flex-direction:column; gap:8px; overflow:hidden}
-.card{background:rgba(14,14,32,0.9); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden; backdrop-filter:blur(12px)}
+.card{background:rgba(14,14,32,0.92); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden}
 .cardHead{height:34px; background:linear-gradient(90deg,#1a1a3a,#101028); border-bottom:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; padding:0 10px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px}
-.chip{font-size:10px; padding:4px 8px; border-radius:10px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); white-space:nowrap; font-weight:700}
 .recent{height:38px; display:flex; gap:4px; padding:0 8px; align-items:center; overflow-x:auto; background:rgba(0,0,0,0.3)}
-.list{flex:1; overflow:auto; max-height:200px; font-size:11px} .row{display:grid; grid-template-columns:1fr 60px 60px; padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.04)}
-.chatBox{height:150px; display:flex; flex-direction:column; background:rgba(0,0,0,0.3); border-top:1px solid rgba(255,255,255,0.06)} .chatLog{flex:1; overflow:auto; padding:6px; font-size:11px; display:flex; flex-direction:column; gap:3px} .chatIn{display:flex; gap:4px; padding:6px}
-.bonus3D{position:fixed; inset:0; background:rgba(0,0,0,0.92); backdrop-filter:blur(20px); display:none; place-items:center; z-index:100; padding:20px}
-.bonus3D.open{display:grid}
-.bonusBox{background:radial-gradient(circle at top, #3a1040, #0a0014); border:2px solid var(--pink); border-radius:24px; padding:28px; width:min(560px,95%); text-align:center; box-shadow:0 0 60px var(--pink), inset 0 0 30px rgba(255,42,109,0.2)}
+.chip{font-size:10px; padding:4px 8px; border-radius:10px; font-weight:700; white-space:nowrap}
+.list{flex:1; overflow:auto; max-height:190px; font-size:11px} .row{display:grid; grid-template-columns:1fr 60px 60px; padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.04)}
+.chatBox{height:140px; display:flex; flex-direction:column; background:rgba(0,0,0,0.3); border-top:1px solid rgba(255,255,255,0.06)} .chatLog{flex:1; overflow:auto; padding:6px; font-size:11px; display:flex; flex-direction:column; gap:3px}
+.bonus3D{position:fixed; inset:0; background:rgba(0,0,0,0.92); backdrop-filter:blur(20px); display:none; place-items:center; z-index:100; padding:20px} .bonus3D.open{display:grid}
+.bonusBox{background:radial-gradient(circle at top, #3a1040, #0a0014); border:2px solid var(--pink); border-radius:24px; padding:28px; width:min(560px,95%); text-align:center; box-shadow:0 0 60px var(--pink)}
 </style>
 </head>
 <body>
-<header><div class="logo"><i>Z</i> b10fhonix • CRAZY TIME 3D <span style="background:var(--pink); color:#fff; padding:2px 6px; border-radius:8px; font-size:9px; margin-left:6px">FUTURISTIC</span></div><div style="display:flex; gap:8px; align-items:center"><div class="pill">DEMO <b id="bal">50,000.00</b></div><button class="pill" style="background:linear-gradient(180deg,var(--gold),#8a6a00); color:#000; border:0; font-family:'Orbitron'; cursor:pointer" onclick="deposit()">DEPOSIT</button><button class="pill" style="background:rgba(255,255,255,0.08); cursor:pointer" onclick="sign()" id="signBtn">SIGN UP</button></div></header>
+<header><div class="logo"><i>Z</i> b10fhonix CRAZY TIME 3D • FIXED <span style="background:var(--pink); color:#fff; padding:2px 6px; border-radius:8px; font-size:9px">V7 3D</span></div><div style="display:flex; gap:8px; align-items:center"><div class="pill">DEMO <b id="bal">50,000.00</b></div><button class="pill" style="background:linear-gradient(180deg,var(--gold),#8a6a00); color:#000; border:0; font-family:'Orbitron'; cursor:pointer" onclick="deposit()">DEPOSIT</button><button class="pill" style="background:rgba(255,255,255,0.08); cursor:pointer" onclick="sign()" id="signBtn">SIGN UP</button></div></header>
 <div class="main">
 <div class="stage">
-<div class="topSlot3D"><div class="slotBox" id="top1">?</div><div style="text-align:center; font-family:'Orbitron'; color:var(--gold); font-size:20px">X</div><div class="slotBox" id="top2">?</div><div class="hudBox" style="text-align:center"><div style="font-size:9px; opacity:.5; letter-spacing:1px">TOP SLOT</div><div id="phase" style="font-family:'Orbitron'; font-size:11px; color:var(--green)">BETTING 8.0s</div></div></div>
+<div class="topSlot"><div class="sBox" id="top1">?</div><div style="text-align:center; font-family:'Orbitron'; color:var(--gold)">X</div><div class="sBox" id="top2">?</div><div style="text-align:center"><div style="font-size:8px; opacity:.5; letter-spacing:1px">PHASE</div><div id="phase" style="font-family:'Orbitron'; font-size:11px; color:#00ff88">BETTING 8.0s</div></div></div>
 <canvas id="three"></canvas>
-<div class="hud"><div class="hudBox"><div style="font-size:9px; opacity:.5">LAST WIN</div><div id="lastWin" style="font-family:'Orbitron'; color:var(--gold)">-</div></div><div class="hudBox" style="text-align:right"><div style="font-size:9px; opacity:.5">ROUND #<span id="rnd">181710</span></div><div id="hub" style="font-family:'Orbitron'; font-size:12px">PLACE BETS</div></div></div>
-<div class="betBoard" id="betBoard">
-<div class="tile" data-type="1" onclick="bet('1')"><b style="color:#3af">1</b><small>21 SEGS • 1:1</small><div>BET <span id="bet-1">0</span></div></div>
+<div class="hud"><div class="hudBox"><div style="font-size:8px; opacity:.5">LAST WIN</div><div id="lastWin" style="font-family:'Orbitron'; color:var(--gold); font-size:12px">-</div></div><div class="hudBox" style="text-align:right"><div style="font-size:8px; opacity:.5">ROUND #<span id="rnd">181710</span></div><div id="hub" style="font-family:'Orbitron'; font-size:11px">PLACE BETS</div></div></div>
+<div class="betBoard">
+<div class="tile" data-type="1" onclick="bet('1')"><b style="color:#3a8fff">1</b><small>21 SEGS • 1:1</small><div>BET <span id="bet-1">0</span></div></div>
 <div class="tile" data-type="2" onclick="bet('2')"><b style="color:#ffef00">2</b><small>13 SEGS • 2:1</small><div>BET <span id="bet-2">0</span></div></div>
 <div class="tile" data-type="5" onclick="bet('5')"><b style="color:#ff5aff">5</b><small>7 SEGS • 5:1</small><div>BET <span id="bet-5">0</span></div></div>
 <div class="tile" data-type="10" onclick="bet('10')"><b style="color:#ff3355">10</b><small>4 SEGS • 10:1</small><div>BET <span id="bet-10">0</span></div></div>
-<div class="tile bonus" data-type="CoinFlip" onclick="bet('CoinFlip')"><b>COIN FLIP</b><small>4 SEGS • BONUS</small><div>BET <span id="bet-CoinFlip">0</span></div></div>
-<div class="tile bonus" data-type="CashHunt" onclick="bet('CashHunt')"><b>CASH HUNT</b><small>2 SEGS • BONUS</small><div>BET <span id="bet-CashHunt">0</span></div></div>
-<div class="tile bonus" data-type="Pachinko" onclick="bet('Pachinko')"><b>PACHINKO</b><small>2 SEGS • BONUS</small><div>BET <span id="bet-Pachinko">0</span></div></div>
+<div class="tile bonus" data-type="CoinFlip" onclick="bet('CoinFlip')"><b>COIN FLIP</b><small>4 SEGS</small><div>BET <span id="bet-CoinFlip">0</span></div></div>
+<div class="tile bonus" data-type="CashHunt" onclick="bet('CashHunt')"><b>CASH HUNT</b><small>2 SEGS</small><div>BET <span id="bet-CashHunt">0</span></div></div>
+<div class="tile bonus" data-type="Pachinko" onclick="bet('Pachinko')"><b>PACHINKO</b><small>2 SEGS</small><div>BET <span id="bet-Pachinko">0</span></div></div>
 <div class="tile bonus" data-type="CrazyTime" onclick="bet('CrazyTime')"><b>CRAZY TIME</b><small>1 SEG • MEGA</small><div>BET <span id="bet-CrazyTime">0</span></div></div>
 </div>
 <div style="padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px"><button class="btnSpin" id="spinBtn" onclick="spin()">SPIN - PLACE BETS</button><button style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:12px; font-family:'Orbitron'; font-size:11px; cursor:pointer" onclick="clearBets()">CLEAR</button></div>
 </div>
 <div class="right">
-<div class="card"><div class="cardHead"><span>🎡 3D STUDIO • LIVE RESULTS</span><span id="timer">NEXT 8s</span></div><div class="recent" id="recent"></div></div>
-<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 FLOOR • <span id="liveCount">0</span> BETS</span><span>ERROR 69%</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chatBox"><div class="chatLog" id="chatLog"><div><b>System:</b> 3D Futuristic Crazy Time loaded. Wheel is Three.js real cylinder. 69% predictor error. Demo only.</div></div><div class="chatIn"><input id="chatIn" placeholder="Chat..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; padding:6px 8px"><button style="background:var(--gold); color:#000; border:0; border-radius:8px; padding:6px 12px; font-family:'Orbitron'; font-weight:700; cursor:pointer" onclick="sendChat()">Send</button></div></div></div>
-<div class="card"><div class="cardHead"><span>📊 FUTURISTIC STATS • ERROR 69%</span></div><div style="padding:10px; font-size:11px; line-height:1.5"><div style="display:grid; grid-template-columns:1fr 1fr; gap:6px"><div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; text-align:center"><small style="opacity:.5">ENGINE</small><br><b style="font-family:'Orbitron'; color:var(--cyan)">Three.js r160</b></div><div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; text-align:center"><small style="opacity:.5">ACCURACY</small><br><b style="font-family:'Orbitron'; color:var(--pink)">31% ONLY</b></div></div><div style="margin-top:8px; background:linear-gradient(90deg, rgba(255,42,109,0.15), rgba(0,240,255,0.15)); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px"><b style="color:var(--gold)">INTEGRATED SYSTEM:</b> 3D wheel synced with live floor, top slot, 4 bonus portals, deposit STK, sign-up. Error 69% = wheel is provably random, no prediction. <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; display:flex"><div style="width:69%; background:var(--pink)"></div><div style="width:31%; background:var(--green)"></div></div></div></div></div>
+<div class="card"><div class="cardHead"><span>🎡 LIVE RESULTS • 3D WHEEL FIXED</span><span id="timer">NEXT 8s</span></div><div class="recent" id="recent"></div></div>
+<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 FLOOR • <span id="liveCount">0</span> BETS</span><span>ERROR 69%</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chatBox"><div class="chatLog" id="chatLog"><div><b>System:</b> 3D wheel fixed - now vertical, centered, rim segments intact, pointer at top.</div></div><div style="display:flex; gap:4px; padding:6px"><input id="chatIn" placeholder="Chat..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; padding:6px 8px"><button style="background:var(--gold); color:#000; border:0; border-radius:8px; padding:6px 12px; font-family:'Orbitron'; font-weight:700; cursor:pointer" onclick="sendChat()">Send</button></div></div></div>
+<div class="card"><div class="cardHead"><span>📊 INTEGRATED • 69% ERROR</span></div><div style="padding:10px; font-size:11px; line-height:1.5"><div style="background:linear-gradient(90deg, rgba(255,42,109,0.15), rgba(0,240,255,0.15)); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px"><b style="color:var(--gold)">FIXED 3D:</b> Wheel vertical, camera 35deg, pointer locked, rim texture 2048px, pedestal + floor shadow, 69% error bar.<div style="height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; display:flex"><div style="width:69%; background:var(--pink)"></div><div style="width:31%; background:#00ff88"></div></div></div></div></div>
 </div>
 </div>
-
-<div class="bonus3D" id="bonusModal"><div class="bonusBox"><h2 id="bTitle" style="font-family:'Orbitron'; font-size:32px; margin-bottom:10px">BONUS!</h2><div id="bContent" style="font-size:16px; opacity:.8; margin-bottom:12px"></div><canvas id="bonusCanvas" width="400" height="200" style="width:100%; background:rgba(0,0,0,0.4); border-radius:12px; margin-bottom:12px"></canvas><div id="bWin" style="font-family:'Orbitron'; font-size:36px; color:var(--gold); margin-bottom:12px">+0</div><button class="btnSpin" onclick="closeBonus()">COLLECT & CONTINUE</button></div></div>
+<div class="bonus3D" id="bonusModal"><div class="bonusBox"><h2 id="bTitle" style="font-family:'Orbitron'; font-size:30px">BONUS!</h2><div id="bContent" style="font-size:15px; opacity:.8; margin:8px 0"></div><div id="bWin" style="font-family:'Orbitron'; font-size:36px; color:var(--gold); margin:12px 0">+0</div><button class="btnSpin" onclick="closeBonus()">COLLECT & CONTINUE</button></div></div>
 
 <script type="module">
 import * as THREE from 'three';
 const canvas=document.getElementById('three');
 const scene=new THREE.Scene();
-scene.fog=new THREE.Fog(0x05000a, 8, 18);
-const camera=new THREE.PerspectiveCamera(35, canvas.clientWidth/canvas.clientHeight, 0.1, 100);
-camera.position.set(0, 2.5, 6);
-const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-renderer.setPixelRatio(window.devicePixelRatio);
+scene.background=new THREE.Color(0x05000a);
+scene.fog=new THREE.Fog(0x05000a, 9, 18);
+const camera=new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+camera.position.set(0, 1.2, 6.2);
+camera.lookAt(0,0.2,0);
+const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+function resize(){const w=canvas.clientWidth||canvas.parentElement.clientWidth; const h=canvas.clientHeight||400; if(w===0||h===0) return; camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h,false);} 
+const ro=new ResizeObserver(resize); ro.observe(canvas); resize();
 
-// Lights - studio
-const ambient=new THREE.AmbientLight(0x444466, 0.6); scene.add(ambient);
-const spot1=new THREE.SpotLight(0xffffff, 2, 20, Math.PI/6, 0.3); spot1.position.set(4,6,4); spot1.castShadow=true; scene.add(spot1);
-const spot2=new THREE.SpotLight(0xffcc00, 1.5, 15, Math.PI/5, 0.4); spot2.position.set(-4,5,2); scene.add(spot2);
-const rim=new THREE.PointLight(0x00f0ff, 1.2, 10); rim.position.set(0,2,-4); scene.add(rim);
+// Lights
+const amb=new THREE.AmbientLight(0x666688, 0.7); scene.add(amb);
+const key=new THREE.DirectionalLight(0xffffff, 1.8); key.position.set(4,6,5); key.castShadow=true; key.shadow.mapSize.set(1024,1024); scene.add(key);
+const fill=new THREE.DirectionalLight(0x8888ff, 0.6); fill.position.set(-4,3,2); scene.add(fill);
+const rimLight=new THREE.PointLight(0x00f0ff, 1.2, 12); rimLight.position.set(0,2,-5); scene.add(rimLight);
+const goldSpot=new THREE.SpotLight(0xffcc00, 2, 12, Math.PI/6, 0.4); goldSpot.position.set(0,5,2); goldSpot.target.position.set(0,0,0); scene.add(goldSpot); scene.add(goldSpot.target);
 
-// Wheel Group
-const wheelGroup=new THREE.Group(); scene.add(wheelGroup);
-wheelGroup.rotation.x=0.15;
+// Wheel - VERTICAL like real Crazy Time
+const wheelGroup=new THREE.Group(); wheelGroup.position.set(0,0.25,0); scene.add(wheelGroup);
 
-// Build 54 segments texture
-function makeSegmentTexture(){
-  const c=document.createElement('canvas'); c.width=2048; c.height=128; const ctx=c.getContext('2d');
-  const segs=[]; const cfg=[{type:'1',count:21,color:'#3a8fff'},{type:'2',count:13,color:'#ffef00'},{type:'5',count:7,color:'#ff5aff'},{type:'10',count:4,color:'#ff3355'},{type:'CoinFlip',count:4,color:'#00ff88'},{type:'CashHunt',count:2,color:'#00f0ff'},{type:'Pachinko',count:2,color:'#ff8800'},{type:'CrazyTime',count:1,color:'#ff0000'}];
-  cfg.forEach(o=>{for(let i=0;i<o.count;i++)segs.push(o)});
-  // shuffle a bit
-  for(let i=segs.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1)); [segs[i],segs[j]]=[segs[j],segs[i]]}
-  window._segments=segs;
+// Build segments in order around wheel
+let segments=[]; const cfg=[{type:'1',count:21,color:'#3a8fff'},{type:'2',count:13,color:'#ffef00'},{type:'5',count:7,color:'#ff5aff'},{type:'10',count:4,color:'#ff3355'},{type:'CoinFlip',count:4,color:'#00ff88'},{type:'CashHunt',count:2,color:'#00f0ff'},{type:'Pachinko',count:2,color:'#ff8800'},{type:'CrazyTime',count:1,color:'#ff0000'}];
+cfg.forEach(o=>{for(let i=0;i<o.count;i++)segments.push(o)});
+// Shuffle for authentic look
+for(let i=segments.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1)); [segments[i],segments[j]]=[segments[j],segments[i]]}
+window._segments=segments;
+
+// Texture for side (rim)
+function makeRimTexture(){
+  const c=document.createElement('canvas'); c.width=4096; c.height=256; const ctx=c.getContext('2d');
   const segW=c.width/54;
-  segs.forEach((s,i)=>{ctx.fillStyle=s.color; ctx.fillRect(i*segW,0,segW,c.height); ctx.fillStyle='#000'; ctx.font='bold 20px Orbitron'; ctx.textAlign='center'; ctx.fillText(s.type, i*segW+segW/2, c.height/2+6); ctx.strokeStyle='rgba(0,0,0,0.5)'; ctx.strokeRect(i*segW,0,segW,c.height)});
-  return new THREE.CanvasTexture(c);
+  segments.forEach((s,i)=>{
+    // gradient
+    let grad=ctx.createLinearGradient(i*segW,0,i*segW, c.height);
+    grad.addColorStop(0, s.color); grad.addColorStop(1, '#000');
+    ctx.fillStyle=grad; ctx.fillRect(i*segW,0,segW,c.height);
+    // border
+    ctx.strokeStyle='rgba(0,0,0,0.8)'; ctx.lineWidth=4; ctx.strokeRect(i*segW,0,segW,c.height);
+    // text upright
+    ctx.save(); ctx.translate(i*segW+segW/2, c.height/2); ctx.rotate(-Math.PI/2);
+    ctx.fillStyle=s.type.length>5?'#fff':'#000'; ctx.font='bold 32px Orbitron'; ctx.textAlign='center'; ctx.fillText(s.type,0,8);
+    ctx.restore();
+  });
+  const tex=new THREE.CanvasTexture(c); tex.wrapS=THREE.RepeatWrapping; tex.anisotropy=8; tex.colorSpace=THREE.SRGBColorSpace; return tex;
 }
-const tex=makeSegmentTexture();
-tex.wrapS=THREE.RepeatWrapping; tex.anisotropy=8;
+const rimTex=makeRimTexture();
 
-// Cylinder wheel
-const radius=2.6, height=0.55;
-const geo=new THREE.CylinderGeometry(radius, radius, height, 54, 1, false);
-const mat=new THREE.MeshStandardMaterial({map:tex, metalness:0.3, roughness:0.4});
-const wheelMesh=new THREE.Mesh(geo, mat);
-wheelMesh.rotation.y=0;
+// Main wheel - cylinder standing vertical: axis = Z, so rotate 90deg around X
+const radius=2.45, thick=0.42;
+const wheelGeo=new THREE.CylinderGeometry(radius, radius, thick, 54, 1, false);
+const wheelMat=new THREE.MeshStandardMaterial({map:rimTex, metalness:0.2, roughness:0.35});
+const wheelMesh=new THREE.Mesh(wheelGeo, wheelMat);
+wheelMesh.rotation.x=Math.PI/2; // make axis Z, faces point forward/back
 wheelMesh.castShadow=true; wheelMesh.receiveShadow=true;
 wheelGroup.add(wheelMesh);
 
-// Rims
-const rimGeo=new THREE.TorusGeometry(radius, 0.08, 16, 100);
-const rimMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.8, roughness:0.2});
-const topRim=new THREE.Mesh(rimGeo, rimMat); topRim.rotation.x=Math.PI/2; topRim.position.y=height/2; wheelGroup.add(topRim);
-const botRim=new THREE.Mesh(rimGeo, rimMat); botRim.rotation.x=Math.PI/2; botRim.position.y=-height/2; wheelGroup.add(botRim);
+// Front and back faces with dark center
+const faceGeo=new THREE.CircleGeometry(radius-0.05, 64);
+const faceMat=new THREE.MeshStandardMaterial({color:0x111122, metalness:0.4, roughness:0.6});
+const front=new THREE.Mesh(faceGeo, faceMat); front.position.z=thick/2+0.001; wheelGroup.add(front);
+const back=new THREE.Mesh(faceGeo, faceMat); back.position.z=-thick/2-0.001; back.rotation.y=Math.PI; wheelGroup.add(back);
 
-// Pointer
-const pointerGeo=new THREE.ConeGeometry(0.18,0.5,12);
-const pointerMat=new THREE.MeshStandardMaterial({color:0xffcc00, emissive:0xffcc00, emissiveIntensity:0.5});
-const pointer=new THREE.Mesh(pointerGeo, pointerMat);
-pointer.position.set(0,0.8, radius+0.2);
-pointer.rotation.x=Math.PI;
-scene.add(pointer);
+// Center hub
+const hubGeo=new THREE.CylinderGeometry(0.38,0.38,thick+0.1, 32);
+const hubMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.9, roughness:0.15, emissive:0x332200, emissiveIntensity:0.2});
+const hub=new THREE.Mesh(hubGeo, hubMat); hub.rotation.x=Math.PI/2; hub.castShadow=true; wheelGroup.add(hub);
+
+// Gold rims
+const torusGeo=new THREE.TorusGeometry(radius, 0.07, 16, 120);
+const goldMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.85, roughness:0.2});
+const rim1=new THREE.Mesh(torusGeo, goldMat); rim1.position.z=thick/2; wheelGroup.add(rim1);
+const rim2=new THREE.Mesh(torusGeo, goldMat); rim2.position.z=-thick/2; wheelGroup.add(rim2);
+
+// Pedestal
+const pedGeo=new THREE.CylinderGeometry(0.15,0.3,3, 16);
+const pedMat=new THREE.MeshStandardMaterial({color:0x222233, metalness:0.6, roughness:0.4});
+const ped=new THREE.Mesh(pedGeo, pedMat); ped.position.y=-1.6; ped.receiveShadow=true; scene.add(ped);
+
+// Floor
+const floorGeo=new THREE.PlaneGeometry(20,20);
+const floorMat=new THREE.MeshStandardMaterial({color:0x0a0a14, metalness:0.2, roughness:0.8});
+const floor=new THREE.Mesh(floorGeo, floorMat); floor.rotation.x=-Math.PI/2; floor.position.y=-3.1; floor.receiveShadow=true; scene.add(floor);
+
+// Pointer - fixed at top
+const pointerGroup=new THREE.Group(); pointerGroup.position.set(0, radius+0.85, 0.5); scene.add(pointerGroup);
+const pGeo=new THREE.ConeGeometry(0.22,0.55, 3);
+const pMat=new THREE.MeshStandardMaterial({color:0xffcc00, emissive:0xffcc00, emissiveIntensity:0.6, metalness:0.5});
+const pointer=new THREE.Mesh(pGeo, pMat); pointer.rotation.x=Math.PI; pointerGroup.add(pointer);
+const pLight=new THREE.PointLight(0xffcc00, 1.5, 3); pointerGroup.add(pLight);
 
 // Particles
-const particles=new THREE.BufferGeometry();
-const pCount=200; const pos=new Float32Array(pCount*3);
-for(let i=0;i<pCount*3;i++) pos[i]=(Math.random()-0.5)*10;
-particles.setAttribute('position', new THREE.BufferAttribute(pos,3));
-const pMat=new THREE.PointsMaterial({color:0xffcc00, size:0.02, transparent:true, opacity:0.6});
-const points=new THREE.Points(particles, pMat); scene.add(points);
+const starGeo=new THREE.BufferGeometry(); const starCount=150; const starPos=new Float32Array(starCount*3);
+for(let i=0;i<starCount*3;i++) starPos[i]=(Math.random()-0.5)*12;
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos,3));
+const starMat=new THREE.PointsMaterial({color:0xffcc00, size:0.03, transparent:true, opacity:0.5});
+const stars=new THREE.Points(starGeo, starMat); scene.add(stars);
 
-let currentY=0;
-function renderLoop(){requestAnimationFrame(renderLoop); wheelGroup.rotation.y+= (targetY - wheelGroup.rotation.y)*0.04; points.rotation.y+=0.001; renderer.render(scene,camera)} 
-let targetY=currentY;
-renderLoop();
-window.addEventListener('resize',()=>{camera.aspect=canvas.clientWidth/canvas.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(canvas.clientWidth, canvas.clientHeight, false)});
+let targetZ=0, currentZ=0;
+function animate(){requestAnimationFrame(animate); currentZ += (targetZ - currentZ)*0.06; wheelGroup.rotation.z=currentZ; stars.rotation.y+=0.0005; renderer.render(scene,camera);} animate();
 
 // Game logic
 let balance=50000, bets={}, history=[], phase='betting', timeLeft=8, liveBets=[], displayName='GUEST', round=181710;
-window._segments=window._segments||[];
 function fmt(n){return n.toLocaleString('en-KE',{minimumFractionDigits:2})}
 window.bet=(type)=>{if(phase!=='betting'){addChat('System: Betting closed');return} let amt=100; if(!bets[type]) bets[type]=0; bets[type]+=amt; if(balance<bets[type]){bets[type]-=amt; return} document.getElementById('bet-'+type).textContent=bets[type]; document.querySelector(`[data-type="${type}"]`).classList.add('active'); balance-=amt; document.getElementById('bal').textContent=fmt(balance); genBots()}
 window.clearBets=()=>{let t=Object.values(bets).reduce((a,b)=>a+b,0); balance+=t; bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); document.getElementById('bal').textContent=fmt(balance)}
-function genBots(){liveBets=[]; let names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<14;i++){let on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(bets).forEach(k=>{if(bets[k]>0) liveBets.push({name:displayName+' (YOU)', on:k, win:0})}); renderFloor()}
+function genBots(){liveBets=[]; let names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<12;i++){let on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(bets).forEach(k=>{if(bets[k]>0) liveBets.push({name:displayName+' (YOU)', on:k, win:0})}); renderFloor()}
 function renderFloor(){document.getElementById('liveList').innerHTML=liveBets.map(b=>`<div class="row"><span>${b.name}</span><span>${b.on}</span><span style="color:${b.win>0?'#00ff88':'#888'}">${b.win>0?'KES '+b.win:'-'}</span></div>`).join(''); document.getElementById('liveCount').textContent=liveBets.length}
 function addChat(t){let d=document.createElement('div'); d.innerHTML=t; let log=document.getElementById('chatLog'); log.appendChild(d); log.scrollTop=log.scrollHeight}
-function renderRecent(){document.getElementById('recent').innerHTML=history.slice(0,18).map(v=>`<span class="chip" style="background:${v==='1'?'#3a8fff33':v==='2'?'#ffef0033':v==='5'?'#ff5aff33':v==='10'?'#ff335533':'linear-gradient(90deg,#ff2a6d,#ffcc00)'}; color:${v==='1'?'#6af':v==='2'?'#ffef00':v==='5'?'#ff8aff':v==='10'?'#ff8888':'#000'}">${v}</span>`).join('')}
+function renderRecent(){document.getElementById('recent').innerHTML=history.slice(0,18).map(v=>{let bg=v==='1'?'#3a8fff':v==='2'?'#ffef00':v==='5'?'#ff5aff':v==='10'?'#ff3355':v==='CoinFlip'?'#00ff88':v==='CashHunt'?'#00f0ff':v==='Pachinko'?'#ff8800':'#ff0000'; let col=['1','CoinFlip'].includes(v)?'#fff':'#000'; return `<span class="chip" style="background:${bg}; color:${col}">${v}</span>`}).join('')}
 let timerInt=null;
-function startBetting(){phase='betting'; timeLeft=8; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; document.getElementById('hub').textContent='PLACE BETS'; document.getElementById('spinBtn').disabled=false; document.getElementById('spinBtn').textContent='SPIN - PLACE BETS'; genBots(); let top1=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; let top2=[2,3,5,10,15,25,50][Math.floor(Math.random()*7)]; document.getElementById('top1').textContent=top1; document.getElementById('top2').textContent=top2+'x'; document.getElementById('top1').className='slotBox'; document.getElementById('top2').className='slotBox'; if(Math.random()>0.6){document.getElementById('top1').classList.add('win'); document.getElementById('top2').classList.add('win'); window._topMult={type:top1,mult:top2}} else window._topMult=null; timerInt=setInterval(()=>{timeLeft-=0.1; document.getElementById('timer').textContent=`NEXT ${timeLeft.toFixed(1)}s`; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; if(timeLeft<=0){clearInterval(timerInt); spin()}},100)}
-window.spin=()=>{if(phase!=='betting')return; if(Object.keys(bets).length===0){addChat('<b>System:</b> No bets - demo spin');} phase='spinning'; clearInterval(timerInt); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('spinBtn').disabled=true; let winnerIdx=Math.floor(Math.random()*54); let winner=window._segments[winnerIdx]; let anglePer=2*Math.PI/54; let targetAngle= -winnerIdx*anglePer; let extra=4+Math.random()*3; targetY=currentY + extra*2*Math.PI + (targetAngle - (currentY % (2*Math.PI))); let start=performance.now(); let dur=4500; let startY=currentY; function anim(t){let p=Math.min((t-start)/dur,1); let ease=1-Math.pow(1-p,4); currentY=startY + (targetY-startY)*ease; wheelGroup.rotation.y=currentY; if(p<1) requestAnimationFrame(anim); else finish(winner)} requestAnimationFrame(anim)}
+function startBetting(){phase='betting'; timeLeft=8; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; document.getElementById('hub').textContent='PLACE BETS'; document.getElementById('spinBtn').disabled=false; document.getElementById('spinBtn').textContent='SPIN - PLACE BETS'; genBots(); let top1=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; let top2=[2,3,5,10,15,25,50][Math.floor(Math.random()*7)]; document.getElementById('top1').textContent=top1; document.getElementById('top2').textContent=top2+'x'; document.getElementById('top1').className='sBox'; document.getElementById('top2').className='sBox'; if(Math.random()>0.6){document.getElementById('top1').classList.add('win'); document.getElementById('top2').classList.add('win'); window._topMult={type:top1,mult:top2}} else window._topMult=null; timerInt=setInterval(()=>{timeLeft-=0.1; document.getElementById('timer').textContent=`NEXT ${timeLeft.toFixed(1)}s`; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; if(timeLeft<=0){clearInterval(timerInt); spin()}},100)}
+window.spin=()=>{if(phase!=='betting')return; phase='spinning'; clearInterval(timerInt); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('spinBtn').disabled=true; let winnerIdx=Math.floor(Math.random()*54); let winner=window._segments[winnerIdx]; let anglePer=2*Math.PI/54; // pointer at top = -PI/2? Actually wheelGroup rotation Z, top is PI/2
+ let pointerAngle=Math.PI/2; let targetAngle=pointerAngle - winnerIdx*anglePer; let extra=4+Math.random()*3; targetZ=currentZ + extra*2*Math.PI + (targetAngle - (currentZ % (2*Math.PI))); let start=performance.now(); let dur=4800; let startZ=currentZ; function anim(t){let p=Math.min((t-start)/dur,1); let ease=1-Math.pow(1-p,4); currentZ=startZ + (targetZ-startZ)*ease; wheelGroup.rotation.z=currentZ; if(p<1) requestAnimationFrame(anim); else finish(winner)} requestAnimationFrame(anim)}
 function finish(winner){let topMult=window._topMult && window._topMult.type===winner.type ? window._topMult.mult : 1; let base={ '1':1,'2':2,'5':5,'10':10, 'CoinFlip':5,'CashHunt':10,'Pachinko':10,'CrazyTime':20 }[winner.type]||1; let totalWin=0; history.unshift(winner.type); renderRecent(); if(history.length>30) history.pop(); Object.keys(bets).forEach(k=>{if(k===winner.type){let w=Math.floor(bets[k]*base*topMult); totalWin+=w; balance+=w; liveBets.forEach(b=>{if(b.on===k) b.win=w})}}); document.getElementById('bal').textContent=fmt(balance); document.getElementById('lastWin').textContent=winner.type+(topMult>1?` ${topMult}x`:'' ); document.getElementById('hub').textContent=`WIN ${winner.type} ${topMult>1?topMult+'x':''}`; addChat(`<b>System:</b> WINNER ${winner.type}${topMult>1?` Top Slot ${topMult}x`:''} - You ${totalWin>0?'won KES '+totalWin:'lost'}`); renderFloor(); if(['CoinFlip','CashHunt','Pachinko','CrazyTime'].includes(winner.type)){setTimeout(()=>openBonus(winner.type, totalWin, topMult),700)} else {setTimeout(()=>{bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); round++; document.getElementById('rnd').textContent=round; startBetting()},2500)}}
-function openBonus(type, win, top){let m=document.getElementById('bonusModal'); document.getElementById('bTitle').textContent=type.toUpperCase()+' BONUS!'; document.getElementById('bContent').textContent=type==='CoinFlip'?`Coin Flip - Red vs Blue! ${5*top}x - ${10*top}x` : type==='CashHunt'?`Cash Hunt - Shoot! 108 multipliers` : type==='Pachinko'?`Pachinko - Drop puck!` : `CRAZY TIME - MEGA WHEEL up to 200x!`; document.getElementById('bWin').textContent=`+ KES ${win||Math.floor(200*top)}`; let bc=document.getElementById('bonusCanvas'); let ctx=bc.getContext('2d'); ctx.clearRect(0,0,bc.width,bc.height); ctx.fillStyle='#ffcc00'; ctx.font='bold 24px Orbitron'; ctx.textAlign='center'; ctx.fillText(`${type} ${top>1?top+'x':''}`, bc.width/2, bc.height/2); m.classList.add('open')}
+function openBonus(type, win, top){let m=document.getElementById('bonusModal'); document.getElementById('bTitle').textContent=type.toUpperCase()+' BONUS!'; document.getElementById('bContent').textContent=type==='CoinFlip'?`Coin Flip - Red vs Blue! ${5*top}x - ${10*top}x` : type==='CashHunt'?`Cash Hunt - Shoot! 108 multipliers` : type==='Pachinko'?`Pachinko - Drop puck!` : `CRAZY TIME - MEGA WHEEL up to 200x!`; document.getElementById('bWin').textContent=`+ KES ${win||Math.floor(200*top)}`; m.classList.add('open')}
 window.closeBonus=()=>{document.getElementById('bonusModal').classList.remove('open'); bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); round++; document.getElementById('rnd').textContent=round; startBetting()}
 window.deposit=()=>{let a=prompt('Deposit KES demo:','500'); if(a){let v=parseInt(a); if(v>0){balance+=v; document.getElementById('bal').textContent=fmt(balance); addChat(`<b>System:</b> Demo deposit KES ${v}`)}}}
 window.sign=()=>{let n=prompt('Display name:'); if(n){displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('signBtn').textContent=n.toUpperCase(); addChat(`<b>System:</b> Welcome ${n}!`)}}

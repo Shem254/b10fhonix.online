@@ -2,117 +2,174 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRAZY TIME - b10fhonix.online | ULTIMATE WHEEL</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+<title>CRAZY TIME 3D FUTURISTIC | b10fhonix.online</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;800&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
 <style>
-:root{--cyan:#00f0ff;--gold:#ffcc00;--pink:#ff2a6d;--green:#00ff88;--blue:#2a7fff}
+:root{--gold:#ffcc00;--pink:#ff2a6d;--cyan:#00f0ff}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:radial-gradient(ellipse at top,#1a0a3a 0%, #050510 50%, #000 100%); color:#fff; font-family:'Rajdhani'; height:100vh; display:flex; flex-direction:column; overflow:hidden}
-header{height:54px; background:rgba(10,10,30,0.9); backdrop-filter:blur(20px); border-bottom:2px solid var(--gold); display:flex; justify-content:space-between; align-items:center; padding:0 12px; z-index:10}
-.logo{font-family:'Orbitron'; font-weight:900; letter-spacing:2px; display:flex; align-items:center; gap:8px; font-size:13px}
-.logo b{width:32px;height:32px;background:conic-gradient(from 0deg,var(--gold),var(--pink),var(--cyan),var(--gold));border-radius:50%;display:grid;place-items:center;color:#000;animation:spin 3s linear infinite}
+body{background:#000; color:#fff; font-family:'Rajdhani'; height:100vh; overflow:hidden; display:flex; flex-direction:column}
+header{height:56px; background:linear-gradient(90deg, rgba(10,10,20,0.95), rgba(30,10,40,0.95)); border-bottom:2px solid var(--gold); display:flex; justify-content:space-between; align-items:center; padding:0 14px; z-index:20; backdrop-filter:blur(20px)}
+.logo{font-family:'Orbitron'; font-weight:900; letter-spacing:2px; font-size:13px; display:flex; align-items:center; gap:10px}
+.logo i{width:32px;height:32px;background:conic-gradient(var(--gold),var(--pink),var(--cyan),var(--gold));border-radius:50%;display:grid;place-items:center;color:#000;animation:spin 2s linear infinite; box-shadow:0 0 15px var(--gold)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.balBox{display:flex; gap:6px}
-.pill{background:rgba(0,0,0,0.6); border:1px solid rgba(255,204,0,0.4); border-radius:20px; padding:6px 12px; font-size:12px; font-weight:800}
-.pill b{color:var(--gold); font-family:'Orbitron'}
-.main{flex:1; display:grid; grid-template-columns:1.2fr 0.8fr; gap:8px; padding:8px; overflow:hidden}
+.pill{background:rgba(0,0,0,0.6); border:1px solid var(--gold); border-radius:20px; padding:6px 12px; font-size:12px; font-weight:800} .pill b{color:var(--gold); font-family:'Orbitron'}
+.main{flex:1; display:grid; grid-template-columns:1.3fr 0.7fr; gap:8px; padding:8px; overflow:hidden; position:relative}
 @media(max-width:1000px){.main{grid-template-columns:1fr; overflow:auto}}
-.left{display:flex; flex-direction:column; gap:8px}
-.topSlot{height:80px; background:linear-gradient(90deg,#111,#222); border:2px solid var(--gold); border-radius:14px; display:grid; grid-template-columns:1fr 60px 1fr; align-items:center; padding:0 10px; text-align:center; box-shadow:0 0 20px rgba(255,204,0,0.3)}
-.topSlot .slotBox{background:#000; border:1px solid #333; border-radius:8px; padding:8px; font-family:'Orbitron'; font-weight:900; font-size:18px; min-height:50px; display:grid; place-items:center}
-.topSlot .slotBox.win{background:var(--gold); color:#000; box-shadow:0 0 15px var(--gold)}
-.topSlot .x{font-size:24px; color:var(--gold)}
-.wheelWrap{flex:1; position:relative; background:radial-gradient(circle at 50% 50%, #1a1030, #000 70%); border:1px solid rgba(255,255,255,0.1); border-radius:18px; min-height:420px; display:grid; place-items:center; overflow:hidden}
-#wheel{width:min(88vw, 520px); height:min(88vw, 520px); border-radius:50%; box-shadow:0 0 60px rgba(255,204,0,0.2), inset 0 0 30px rgba(0,0,0,0.8); transition:transform 4s cubic-bezier(0.15,0,0.15,1)}
-.pointer{position:absolute; top:8px; left:50%; transform:translateX(-50%); width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:32px solid var(--gold); filter:drop-shadow(0 0 10px var(--gold)); z-index:5}
-.centerHub{position:absolute; width:110px; height:110px; background:radial-gradient(circle,#ffcc00,#8a6a00); border-radius:50%; border:4px solid #fff; display:grid; place-items:center; font-family:'Orbitron'; font-weight:900; color:#000; font-size:11px; text-align:center; box-shadow:0 0 30px var(--gold); z-index:4}
-.betBoard{display:grid; grid-template-columns:repeat(8,1fr); gap:6px; padding:8px; background:rgba(10,10,30,0.8); border:1px solid rgba(255,255,255,0.08); border-radius:14px}
-@media(max-width:600px){.betBoard{grid-template-columns:repeat(4,1fr)}}
-.betTile{background:linear-gradient(180deg,#1a1a3a,#0e0e20); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:8px 4px; text-align:center; cursor:pointer; transition:.15s; position:relative}
-.betTile:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5); border-color:var(--gold)}
-.betTile.active{border-color:var(--gold); background:linear-gradient(180deg,#2a2210,#1a1508); box-shadow:0 0 15px rgba(255,204,0,0.4)}
-.betTile b{display:block; font-family:'Orbitron'; font-size:16px; margin-bottom:2px}
-.betTile small{font-size:9px; opacity:.6; letter-spacing:1px}
-.betTile .odd{font-size:9px; background:rgba(255,255,255,0.1); border-radius:6px; padding:2px 4px; margin-top:4px; display:inline-block}
-.betTile[data-type="1"] b{color:#3af} .betTile[data-type="2"] b{color:#ff8} .betTile[data-type="5"] b{color:#f8f} .betTile[data-type="10"] b{color:#f55}
-.betTile.bonus{border-color:var(--pink)} .betTile.bonus b{color:var(--pink)}
-.right{display:flex; flex-direction:column; gap:8px; overflow:hidden}
-.card{background:rgba(14,14,32,0.9); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden; backdrop-filter:blur(10px)}
-.cardHead{height:34px; background:linear-gradient(90deg,#1a1a3a,#101028); border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:space-between; padding:0 10px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px}
-.recent{height:36px; display:flex; gap:4px; padding:0 8px; align-items:center; overflow-x:auto; background:rgba(0,0,0,0.3)}
-.chip{font-size:10px; padding:4px 8px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); white-space:nowrap; font-family:'Orbitron'; font-weight:700}
-.chip.b1{background:#3a8fff33; color:#6af} .chip.b2{background:#ffef0033; color:#ffef00} .chip.b5{background:#ff5aff33; color:#ff8aff} .chip.b10{background:#ff335533; color:#ff8888} .chip.bonus{background:linear-gradient(90deg,#ff2a6d,#ffcc00); color:#000}
-.list{flex:1; overflow:auto; max-height:180px; font-size:11px; font-family:'Rajdhani'}
-.row{display:grid; grid-template-columns:1fr 50px 60px; padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.04)}
-.chatBox{height:140px; display:flex; flex-direction:column; background:rgba(0,0,0,0.3); border-top:1px solid rgba(255,255,255,0.06)}
-.chatLog{flex:1; overflow:auto; padding:6px; font-size:11px; display:flex; flex-direction:column; gap:3px}
-.chatIn{display:flex; gap:4px; padding:6px; border-top:1px solid rgba(255,255,255,0.06)}
-.chatIn input{flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; padding:6px 8px; font-size:11px; outline:none}
-.btn{border:0; border-radius:20px; padding:7px 12px; font-family:'Orbitron'; font-weight:700; font-size:10px; cursor:pointer}
-.btnGold{background:linear-gradient(180deg,var(--gold),#8a6a00); color:#000}
-.btnSpin{width:100%; padding:14px; background:linear-gradient(180deg,#ffcc00,#ff8800); color:#000; font-family:'Orbitron'; font-weight:900; font-size:14px; letter-spacing:1px; border-radius:12px; border:0; cursor:pointer; box-shadow:0 0 20px rgba(255,204,0,0.5)}
+.stage{position:relative; background:radial-gradient(ellipse at center, #1a0a2a 0%, #05000a 60%, #000 100%); border:1px solid rgba(255,204,0,0.15); border-radius:18px; overflow:hidden; min-height:520px; display:flex; flex-direction:column}
+#three{flex:1; width:100%; height:100%; display:block}
+.topSlot3D{height:72px; background:linear-gradient(90deg,#0a0a1a,#1a1a2a); border-bottom:1px solid rgba(255,204,0,0.3); display:grid; grid-template-columns:1fr 50px 1fr 100px; align-items:center; gap:8px; padding:0 12px; z-index:5}
+.slotBox{background:#000; border:2px solid #333; border-radius:10px; padding:6px; text-align:center; font-family:'Orbitron'; font-weight:900; font-size:20px; min-height:50px; display:grid; place-items:center; box-shadow:inset 0 0 15px rgba(0,0,0,0.8)}
+.slotBox.win{border-color:var(--gold); background:var(--gold); color:#000; box-shadow:0 0 20px var(--gold), inset 0 0 10px rgba(0,0,0,0.3); animation:flash .4s infinite alternate}
+@keyframes flash{0%{transform:scale(1)}100%{transform:scale(1.05)}}
+.hud{position:absolute; bottom:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:end; z-index:10; pointer-events:none}
+.hudBox{background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:8px 12px; pointer-events:auto}
+.betBoard{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:8px; background:rgba(10,10,20,0.9); border-radius:14px; border:1px solid rgba(255,255,255,0.08)}
+@media(max-width:600px){.betBoard{grid-template-columns:repeat(2,1fr)}}
+.tile{background:linear-gradient(180deg,#1e1e3a,#12122a); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:8px; text-align:center; cursor:pointer; transition:.15s; position:relative; overflow:hidden}
+.tile::before{content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transition:.5s}
+.tile:hover::before{left:100%} .tile:hover{transform:translateY(-3px); border-color:var(--gold); box-shadow:0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,204,0,0.2)}
+.tile.active{border-color:var(--gold); background:linear-gradient(180deg,#2a2210,#1a1508); box-shadow:0 0 20px rgba(255,204,0,0.4)}
+.tile b{font-family:'Orbitron'; font-size:15px; display:block} .tile.bonus b{color:var(--pink)}
+.btnSpin{width:100%; padding:14px; background:linear-gradient(180deg,#ffcc00,#ff8800); color:#000; font-family:'Orbitron'; font-weight:900; font-size:14px; border-radius:12px; border:0; cursor:pointer; box-shadow:0 0 25px rgba(255,204,0,0.5); letter-spacing:1px}
 .btnSpin:disabled{background:#222; color:#555; box-shadow:none}
-.bonusModal{position:fixed; inset:0; background:rgba(0,0,0,0.9); backdrop-filter:blur(15px); display:none; place-items:center; z-index:100; padding:20px}
-.bonusModal.open{display:grid}
-.bonusBox{background:radial-gradient(circle,#2a1040,#0a0014); border:2px solid var(--pink); border-radius:20px; padding:24px; width:min(500px,95%); text-align:center; box-shadow:0 0 50px var(--pink)}
+.right{display:flex; flex-direction:column; gap:8px; overflow:hidden}
+.card{background:rgba(14,14,32,0.9); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden; backdrop-filter:blur(12px)}
+.cardHead{height:34px; background:linear-gradient(90deg,#1a1a3a,#101028); border-bottom:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; padding:0 10px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px}
+.chip{font-size:10px; padding:4px 8px; border-radius:10px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); white-space:nowrap; font-weight:700}
+.recent{height:38px; display:flex; gap:4px; padding:0 8px; align-items:center; overflow-x:auto; background:rgba(0,0,0,0.3)}
+.list{flex:1; overflow:auto; max-height:200px; font-size:11px} .row{display:grid; grid-template-columns:1fr 60px 60px; padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.04)}
+.chatBox{height:150px; display:flex; flex-direction:column; background:rgba(0,0,0,0.3); border-top:1px solid rgba(255,255,255,0.06)} .chatLog{flex:1; overflow:auto; padding:6px; font-size:11px; display:flex; flex-direction:column; gap:3px} .chatIn{display:flex; gap:4px; padding:6px}
+.bonus3D{position:fixed; inset:0; background:rgba(0,0,0,0.92); backdrop-filter:blur(20px); display:none; place-items:center; z-index:100; padding:20px}
+.bonus3D.open{display:grid}
+.bonusBox{background:radial-gradient(circle at top, #3a1040, #0a0014); border:2px solid var(--pink); border-radius:24px; padding:28px; width:min(560px,95%); text-align:center; box-shadow:0 0 60px var(--pink), inset 0 0 30px rgba(255,42,109,0.2)}
 </style>
 </head>
 <body>
-<header><div class="logo"><b>Z</b> b10fhonix CRAZY TIME <span style="font-size:9px; background:var(--pink); color:#fff; padding:2px 6px; border-radius:8px">LIVE</span></div><div class="balBox"><div class="pill">DEMO <b id="bal">50,000.00</b></div><button class="btn btnGold" onclick="openDep()">DEPOSIT</button><button class="btn" style="background:rgba(255,255,255,0.1); color:#fff" onclick="openSign()" id="signBtn">SIGN UP</button></div></header>
+<header><div class="logo"><i>Z</i> b10fhonix • CRAZY TIME 3D <span style="background:var(--pink); color:#fff; padding:2px 6px; border-radius:8px; font-size:9px; margin-left:6px">FUTURISTIC</span></div><div style="display:flex; gap:8px; align-items:center"><div class="pill">DEMO <b id="bal">50,000.00</b></div><button class="pill" style="background:linear-gradient(180deg,var(--gold),#8a6a00); color:#000; border:0; font-family:'Orbitron'; cursor:pointer" onclick="deposit()">DEPOSIT</button><button class="pill" style="background:rgba(255,255,255,0.08); cursor:pointer" onclick="sign()" id="signBtn">SIGN UP</button></div></header>
 <div class="main">
-<div class="left">
-<div class="topSlot"><div class="slotBox" id="top1">?</div><div class="x">X</div><div class="slotBox" id="top2">?</div><div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--gold); color:#000; font-family:'Orbitron'; font-size:9px; padding:2px 8px; border-radius:10px">TOP SLOT</div></div>
-<div class="wheelWrap"><div class="pointer"></div><canvas id="wheel" width="520" height="520"></canvas><div class="centerHub"><span id="hub">BETTING<br>8.0s</span></div></div>
+<div class="stage">
+<div class="topSlot3D"><div class="slotBox" id="top1">?</div><div style="text-align:center; font-family:'Orbitron'; color:var(--gold); font-size:20px">X</div><div class="slotBox" id="top2">?</div><div class="hudBox" style="text-align:center"><div style="font-size:9px; opacity:.5; letter-spacing:1px">TOP SLOT</div><div id="phase" style="font-family:'Orbitron'; font-size:11px; color:var(--green)">BETTING 8.0s</div></div></div>
+<canvas id="three"></canvas>
+<div class="hud"><div class="hudBox"><div style="font-size:9px; opacity:.5">LAST WIN</div><div id="lastWin" style="font-family:'Orbitron'; color:var(--gold)">-</div></div><div class="hudBox" style="text-align:right"><div style="font-size:9px; opacity:.5">ROUND #<span id="rnd">181710</span></div><div id="hub" style="font-family:'Orbitron'; font-size:12px">PLACE BETS</div></div></div>
 <div class="betBoard" id="betBoard">
-<div class="betTile" data-type="1" onclick="toggleBet('1')"><b>1</b><small>21 SEGS</small><div class="odd">1:1 PAYS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-1">0</span></div></div>
-<div class="betTile" data-type="2" onclick="toggleBet('2')"><b>2</b><small>13 SEGS</small><div class="odd">2:1 PAYS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-2">0</span></div></div>
-<div class="betTile" data-type="5" onclick="toggleBet('5')"><b>5</b><small>7 SEGS</small><div class="odd">5:1 PAYS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-5">0</span></div></div>
-<div class="betTile" data-type="10" onclick="toggleBet('10')"><b>10</b><small>4 SEGS</small><div class="odd">10:1 PAYS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-10">0</span></div></div>
-<div class="betTile bonus" data-type="CoinFlip" onclick="toggleBet('CoinFlip')"><b>COIN FLIP</b><small>4 SEGS</small><div class="odd">BONUS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-CoinFlip">0</span></div></div>
-<div class="betTile bonus" data-type="CashHunt" onclick="toggleBet('CashHunt')"><b>CASH HUNT</b><small>2 SEGS</small><div class="odd">BONUS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-CashHunt">0</span></div></div>
-<div class="betTile bonus" data-type="Pachinko" onclick="toggleBet('Pachinko')"><b>PACHINKO</b><small>2 SEGS</small><div class="odd">BONUS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-Pachinko">0</span></div></div>
-<div class="betTile bonus" data-type="CrazyTime" onclick="toggleBet('CrazyTime')"><b>CRAZY TIME</b><small>1 SEG</small><div class="odd">MEGA BONUS</div><div style="font-size:10px; margin-top:4px">BET: <span id="bet-CrazyTime">0</span></div></div>
+<div class="tile" data-type="1" onclick="bet('1')"><b style="color:#3af">1</b><small>21 SEGS • 1:1</small><div>BET <span id="bet-1">0</span></div></div>
+<div class="tile" data-type="2" onclick="bet('2')"><b style="color:#ffef00">2</b><small>13 SEGS • 2:1</small><div>BET <span id="bet-2">0</span></div></div>
+<div class="tile" data-type="5" onclick="bet('5')"><b style="color:#ff5aff">5</b><small>7 SEGS • 5:1</small><div>BET <span id="bet-5">0</span></div></div>
+<div class="tile" data-type="10" onclick="bet('10')"><b style="color:#ff3355">10</b><small>4 SEGS • 10:1</small><div>BET <span id="bet-10">0</span></div></div>
+<div class="tile bonus" data-type="CoinFlip" onclick="bet('CoinFlip')"><b>COIN FLIP</b><small>4 SEGS • BONUS</small><div>BET <span id="bet-CoinFlip">0</span></div></div>
+<div class="tile bonus" data-type="CashHunt" onclick="bet('CashHunt')"><b>CASH HUNT</b><small>2 SEGS • BONUS</small><div>BET <span id="bet-CashHunt">0</span></div></div>
+<div class="tile bonus" data-type="Pachinko" onclick="bet('Pachinko')"><b>PACHINKO</b><small>2 SEGS • BONUS</small><div>BET <span id="bet-Pachinko">0</span></div></div>
+<div class="tile bonus" data-type="CrazyTime" onclick="bet('CrazyTime')"><b>CRAZY TIME</b><small>1 SEG • MEGA</small><div>BET <span id="bet-CrazyTime">0</span></div></div>
 </div>
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px"><button class="btnSpin" id="spinBtn" onclick="spin()">SPIN - PLACE BETS FIRST</button><button class="btn" style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2)" onclick="clearBets()">CLEAR ALL</button></div>
+<div style="padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px"><button class="btnSpin" id="spinBtn" onclick="spin()">SPIN - PLACE BETS</button><button style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:12px; font-family:'Orbitron'; font-size:11px; cursor:pointer" onclick="clearBets()">CLEAR</button></div>
 </div>
 <div class="right">
-<div class="card"><div class="cardHead"><span>🎡 LAST RESULTS</span><span id="phase">BETTING OPEN</span></div><div class="recent" id="recent"></div></div>
-<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 LIVE PLAYERS • <span id="liveCount">0</span> BETS</span><span id="timer">NEXT 8s</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chatBox"><div class="chatLog" id="chatLog"><div><b>System:</b> Crazy Time! 54 segments wheel. Bet on numbers or bonus games. Top Slot gives multipliers!</div></div><div class="chatIn"><input id="chatIn" placeholder="Chat..."><button class="btn btnGold" style="padding:6px 10px" onclick="sendChat()">Send</button></div></div></div>
-<div class="card"><div class="cardHead"><span>📊 STATS DASHBOARD • PREDICTOR ERROR 69%</span></div><div style="padding:10px; font-size:11px; line-height:1.6"><div style="display:grid; grid-template-columns:1fr 1fr; gap:6px"><div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:8px; text-align:center"><small style="opacity:.5">MOST HIT</small><br><b style="font-family:'Orbitron'; color:var(--gold)" id="mostHit">1 (38%)</b></div><div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:8px; text-align:center"><small style="opacity:.5">BONUS RATE</small><br><b style="font-family:'Orbitron'; color:var(--pink)">16.6%</b></div></div><div style="margin-top:8px; background:rgba(255,42,109,0.1); border:1px solid rgba(255,42,109,0.3); border-radius:8px; padding:8px"><b style="color:var(--pink)">PREDICTOR ERROR 69%:</b> Wheel is RNG certified. Top Slot multiplier prediction 31% accuracy only. Don't chase bonuses - they hit 1 in 6 spins.<br><div style="height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; display:flex"><div style="width:69%; background:var(--pink)"></div><div style="width:31%; background:var(--green)"></div></div><div style="display:flex; justify-content:space-between; font-size:9px; margin-top:4px"><span>ERROR 69%</span><span>ACC 31%</span></div></div></div></div>
+<div class="card"><div class="cardHead"><span>🎡 3D STUDIO • LIVE RESULTS</span><span id="timer">NEXT 8s</span></div><div class="recent" id="recent"></div></div>
+<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 FLOOR • <span id="liveCount">0</span> BETS</span><span>ERROR 69%</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chatBox"><div class="chatLog" id="chatLog"><div><b>System:</b> 3D Futuristic Crazy Time loaded. Wheel is Three.js real cylinder. 69% predictor error. Demo only.</div></div><div class="chatIn"><input id="chatIn" placeholder="Chat..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; padding:6px 8px"><button style="background:var(--gold); color:#000; border:0; border-radius:8px; padding:6px 12px; font-family:'Orbitron'; font-weight:700; cursor:pointer" onclick="sendChat()">Send</button></div></div></div>
+<div class="card"><div class="cardHead"><span>📊 FUTURISTIC STATS • ERROR 69%</span></div><div style="padding:10px; font-size:11px; line-height:1.5"><div style="display:grid; grid-template-columns:1fr 1fr; gap:6px"><div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; text-align:center"><small style="opacity:.5">ENGINE</small><br><b style="font-family:'Orbitron'; color:var(--cyan)">Three.js r160</b></div><div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; text-align:center"><small style="opacity:.5">ACCURACY</small><br><b style="font-family:'Orbitron'; color:var(--pink)">31% ONLY</b></div></div><div style="margin-top:8px; background:linear-gradient(90deg, rgba(255,42,109,0.15), rgba(0,240,255,0.15)); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px"><b style="color:var(--gold)">INTEGRATED SYSTEM:</b> 3D wheel synced with live floor, top slot, 4 bonus portals, deposit STK, sign-up. Error 69% = wheel is provably random, no prediction. <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; display:flex"><div style="width:69%; background:var(--pink)"></div><div style="width:31%; background:var(--green)"></div></div></div></div></div>
 </div>
 </div>
 
-<div class="bonusModal" id="bonusModal"><div class="bonusBox"><h2 id="bonusTitle" style="font-family:'Orbitron'; font-size:28px; margin-bottom:10px">BONUS!</h2><div id="bonusContent" style="font-size:18px; margin-bottom:16px">You hit bonus!</div><div style="font-size:48px; font-family:'Orbitron'; color:var(--gold)" id="bonusWin">+0</div><button class="btnSpin" onclick="closeBonus()">COLLECT & CONTINUE</button></div></div>
+<div class="bonus3D" id="bonusModal"><div class="bonusBox"><h2 id="bTitle" style="font-family:'Orbitron'; font-size:32px; margin-bottom:10px">BONUS!</h2><div id="bContent" style="font-size:16px; opacity:.8; margin-bottom:12px"></div><canvas id="bonusCanvas" width="400" height="200" style="width:100%; background:rgba(0,0,0,0.4); border-radius:12px; margin-bottom:12px"></canvas><div id="bWin" style="font-family:'Orbitron'; font-size:36px; color:var(--gold); margin-bottom:12px">+0</div><button class="btnSpin" onclick="closeBonus()">COLLECT & CONTINUE</button></div></div>
 
-<script>
-const canvas=document.getElementById('wheel'), ctx=canvas.getContext('2d'); let W=520,H=520;
-let segments=[]; function buildWheel(){segments=[]; let cfg=[{type:'1',count:21,color:'#3a8fff'},{type:'2',count:13,color:'#ffef00'},{type:'5',count:7,color:'#ff5aff'},{type:'10',count:4,color:'#ff3355'},{type:'CoinFlip',count:4,color:'#00ff88'},{type:'CashHunt',count:2,color:'#00f0ff'},{type:'Pachinko',count:2,color:'#ff8800'},{type:'CrazyTime',count:1,color:'#ff0000'}]; cfg.forEach(c=>{for(let i=0;i<c.count;i++)segments.push(c)}); // shuffle for crazy time look
- for(let i=segments.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1)); [segments[i],segments[j]]=[segments[j],segments[i]]}
+<script type="module">
+import * as THREE from 'three';
+const canvas=document.getElementById('three');
+const scene=new THREE.Scene();
+scene.fog=new THREE.Fog(0x05000a, 8, 18);
+const camera=new THREE.PerspectiveCamera(35, canvas.clientWidth/canvas.clientHeight, 0.1, 100);
+camera.position.set(0, 2.5, 6);
+const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+// Lights - studio
+const ambient=new THREE.AmbientLight(0x444466, 0.6); scene.add(ambient);
+const spot1=new THREE.SpotLight(0xffffff, 2, 20, Math.PI/6, 0.3); spot1.position.set(4,6,4); spot1.castShadow=true; scene.add(spot1);
+const spot2=new THREE.SpotLight(0xffcc00, 1.5, 15, Math.PI/5, 0.4); spot2.position.set(-4,5,2); scene.add(spot2);
+const rim=new THREE.PointLight(0x00f0ff, 1.2, 10); rim.position.set(0,2,-4); scene.add(rim);
+
+// Wheel Group
+const wheelGroup=new THREE.Group(); scene.add(wheelGroup);
+wheelGroup.rotation.x=0.15;
+
+// Build 54 segments texture
+function makeSegmentTexture(){
+  const c=document.createElement('canvas'); c.width=2048; c.height=128; const ctx=c.getContext('2d');
+  const segs=[]; const cfg=[{type:'1',count:21,color:'#3a8fff'},{type:'2',count:13,color:'#ffef00'},{type:'5',count:7,color:'#ff5aff'},{type:'10',count:4,color:'#ff3355'},{type:'CoinFlip',count:4,color:'#00ff88'},{type:'CashHunt',count:2,color:'#00f0ff'},{type:'Pachinko',count:2,color:'#ff8800'},{type:'CrazyTime',count:1,color:'#ff0000'}];
+  cfg.forEach(o=>{for(let i=0;i<o.count;i++)segs.push(o)});
+  // shuffle a bit
+  for(let i=segs.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1)); [segs[i],segs[j]]=[segs[j],segs[i]]}
+  window._segments=segs;
+  const segW=c.width/54;
+  segs.forEach((s,i)=>{ctx.fillStyle=s.color; ctx.fillRect(i*segW,0,segW,c.height); ctx.fillStyle='#000'; ctx.font='bold 20px Orbitron'; ctx.textAlign='center'; ctx.fillText(s.type, i*segW+segW/2, c.height/2+6); ctx.strokeStyle='rgba(0,0,0,0.5)'; ctx.strokeRect(i*segW,0,segW,c.height)});
+  return new THREE.CanvasTexture(c);
 }
-function drawWheel(rot=0){ctx.clearRect(0,0,W,H); let cx=W/2,cy=H/2, r=W/2-10; let anglePer=2*Math.PI/54; segments.forEach((s,i)=>{let a0=i*anglePer+rot, a1=a0+anglePer; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,a0,a1); ctx.closePath(); ctx.fillStyle=s.color; ctx.fill(); ctx.strokeStyle='#000'; ctx.lineWidth=2; ctx.stroke(); ctx.save(); ctx.translate(cx,cy); ctx.rotate(a0+anglePer/2); ctx.textAlign='right'; ctx.fillStyle='#000'; ctx.font='bold 13px Rajdhani'; ctx.fillText(s.type, r-14, 4); ctx.restore()}); ctx.beginPath(); ctx.arc(cx,cy,40,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill(); ctx.strokeStyle='#fff'; ctx.lineWidth=3; ctx.stroke()}
-buildWheel(); let currentRot=0; drawWheel(currentRot);
-let balance=50000, bets={}, history=[], phase='betting', timeLeft=8, liveBets=[], displayName='GUEST';
+const tex=makeSegmentTexture();
+tex.wrapS=THREE.RepeatWrapping; tex.anisotropy=8;
+
+// Cylinder wheel
+const radius=2.6, height=0.55;
+const geo=new THREE.CylinderGeometry(radius, radius, height, 54, 1, false);
+const mat=new THREE.MeshStandardMaterial({map:tex, metalness:0.3, roughness:0.4});
+const wheelMesh=new THREE.Mesh(geo, mat);
+wheelMesh.rotation.y=0;
+wheelMesh.castShadow=true; wheelMesh.receiveShadow=true;
+wheelGroup.add(wheelMesh);
+
+// Rims
+const rimGeo=new THREE.TorusGeometry(radius, 0.08, 16, 100);
+const rimMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.8, roughness:0.2});
+const topRim=new THREE.Mesh(rimGeo, rimMat); topRim.rotation.x=Math.PI/2; topRim.position.y=height/2; wheelGroup.add(topRim);
+const botRim=new THREE.Mesh(rimGeo, rimMat); botRim.rotation.x=Math.PI/2; botRim.position.y=-height/2; wheelGroup.add(botRim);
+
+// Pointer
+const pointerGeo=new THREE.ConeGeometry(0.18,0.5,12);
+const pointerMat=new THREE.MeshStandardMaterial({color:0xffcc00, emissive:0xffcc00, emissiveIntensity:0.5});
+const pointer=new THREE.Mesh(pointerGeo, pointerMat);
+pointer.position.set(0,0.8, radius+0.2);
+pointer.rotation.x=Math.PI;
+scene.add(pointer);
+
+// Particles
+const particles=new THREE.BufferGeometry();
+const pCount=200; const pos=new Float32Array(pCount*3);
+for(let i=0;i<pCount*3;i++) pos[i]=(Math.random()-0.5)*10;
+particles.setAttribute('position', new THREE.BufferAttribute(pos,3));
+const pMat=new THREE.PointsMaterial({color:0xffcc00, size:0.02, transparent:true, opacity:0.6});
+const points=new THREE.Points(particles, pMat); scene.add(points);
+
+let currentY=0;
+function renderLoop(){requestAnimationFrame(renderLoop); wheelGroup.rotation.y+= (targetY - wheelGroup.rotation.y)*0.04; points.rotation.y+=0.001; renderer.render(scene,camera)} 
+let targetY=currentY;
+renderLoop();
+window.addEventListener('resize',()=>{camera.aspect=canvas.clientWidth/canvas.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(canvas.clientWidth, canvas.clientHeight, false)});
+
+// Game logic
+let balance=50000, bets={}, history=[], phase='betting', timeLeft=8, liveBets=[], displayName='GUEST', round=181710;
+window._segments=window._segments||[];
 function fmt(n){return n.toLocaleString('en-KE',{minimumFractionDigits:2})}
-function renderRecent(){document.getElementById('recent').innerHTML=history.slice(0,20).map(v=>{let cls=v==='1'?'b1':v==='2'?'b2':v==='5'?'b5':v==='10'?'b10':'bonus'; return `<span class="chip ${cls}">${v}</span>`}).join('')}
-function renderFloor(){document.getElementById('liveList').innerHTML=liveBets.map(b=>`<div class="row"><span>${b.name}</span><span>${b.on}</span><span style="color:${b.win>0?'var(--green)':'#888'}">${b.win>0?'KES '+b.win:'-'}</span></div>`).join(''); document.getElementById('liveCount').textContent=liveBets.length}
+window.bet=(type)=>{if(phase!=='betting'){addChat('System: Betting closed');return} let amt=100; if(!bets[type]) bets[type]=0; bets[type]+=amt; if(balance<bets[type]){bets[type]-=amt; return} document.getElementById('bet-'+type).textContent=bets[type]; document.querySelector(`[data-type="${type}"]`).classList.add('active'); balance-=amt; document.getElementById('bal').textContent=fmt(balance); genBots()}
+window.clearBets=()=>{let t=Object.values(bets).reduce((a,b)=>a+b,0); balance+=t; bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); document.getElementById('bal').textContent=fmt(balance)}
+function genBots(){liveBets=[]; let names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<14;i++){let on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(bets).forEach(k=>{if(bets[k]>0) liveBets.push({name:displayName+' (YOU)', on:k, win:0})}); renderFloor()}
+function renderFloor(){document.getElementById('liveList').innerHTML=liveBets.map(b=>`<div class="row"><span>${b.name}</span><span>${b.on}</span><span style="color:${b.win>0?'#00ff88':'#888'}">${b.win>0?'KES '+b.win:'-'}</span></div>`).join(''); document.getElementById('liveCount').textContent=liveBets.length}
 function addChat(t){let d=document.createElement('div'); d.innerHTML=t; let log=document.getElementById('chatLog'); log.appendChild(d); log.scrollTop=log.scrollHeight}
-function genBots(){liveBets=[]; let names=['Diamond','Mwangi','Otieno','PesaPlug','Jambo','Kevo','Bonga','Trader','Sky','Beta']; for(let i=0;i<12;i++){let on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(bets).forEach(k=>{if(bets[k]>0) liveBets.push({name:displayName+' (YOU)', on:k, win:0})}); renderFloor()}
-function toggleBet(type){if(phase!=='betting'){addChat('<b>System:</b> Betting closed!');return} let amt=100; if(!bets[type]) bets[type]=0; bets[type]+=amt; if(balance<bets[type]){bets[type]-=amt; addChat('<b>System:</b> Low balance'); return} document.getElementById('bet-'+type).textContent=bets[type]; document.querySelector(`[data-type="${type}"]`).classList.add('active'); balance-=amt; document.getElementById('bal').textContent=fmt(balance); genBots()}
-function clearBets(){let total=Object.values(bets).reduce((a,b)=>a+b,0); balance+=total; bets={}; document.querySelectorAll('[id^="bet-"]').forEach(el=>el.textContent='0'); document.querySelectorAll('.betTile').forEach(el=>el.classList.remove('active')); document.getElementById('bal').textContent=fmt(balance); liveBets=[]; renderFloor()}
-let autoTimer=null;
-function startBetting(){phase='betting'; timeLeft=8; document.getElementById('phase').textContent='BETTING OPEN'; document.getElementById('hub').innerHTML=`BETTING<br>${timeLeft.toFixed(1)}s`; document.getElementById('spinBtn').textContent='PLACE BETS THEN SPIN'; document.getElementById('spinBtn').disabled=false; genBots(); autoTimer=setInterval(()=>{timeLeft-=0.1; document.getElementById('timer').textContent=`NEXT ${timeLeft.toFixed(1)}s`; document.getElementById('hub').innerHTML=`BETTING<br>${timeLeft.toFixed(1)}s`; if(timeLeft<=0){clearInterval(autoTimer); if(Object.keys(bets).length>0) spin(); else {addChat('<b>System:</b> No bets - spinning demo'); spin()}}},100); let top1=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; let top2=[2,3,5,10,15,20,25,50][Math.floor(Math.random()*8)]; document.getElementById('top1').textContent=top1; document.getElementById('top2').textContent=top2+'x'; document.getElementById('top1').className='slotBox'; document.getElementById('top2').className='slotBox'; if(Math.random()>0.6){document.getElementById('top1').classList.add('win'); document.getElementById('top2').classList.add('win'); window._topMult={type:top1,mult:top2}} else window._topMult=null; let mh=['1 (38%)','2 (24%)','5 (13%)','10 (7%)']; document.getElementById('mostHit').textContent=mh[Math.floor(Math.random()*mh.length)]}
-function spin(){if(phase!=='betting') return; if(Object.keys(bets).length===0 && liveBets.length<2){addChat('<b>System:</b> Place at least one bet!'); return} phase='spinning'; clearInterval(autoTimer); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('hub').innerHTML='SPINNING...'; document.getElementById('spinBtn').disabled=true; let winnerIdx=Math.floor(Math.random()*54); let winner=segments[winnerIdx]; let targetRot= - (winnerIdx* (2*Math.PI/54) + (2*Math.PI/54)/2); let extraSpins=4 + Math.random()*3; let finalRot=currentRot + extraSpins*2*Math.PI + (targetRot - (currentRot % (2*Math.PI))); // normalize
- let start=performance.now(); let duration=4000; function anim(t){let p=Math.min((t-start)/duration,1); let ease=1-Math.pow(1-p,3); let rot=currentRot + (finalRot-currentRot)*ease; drawWheel(rot); if(p<1) requestAnimationFrame(anim); else {currentRot=finalRot % (2*Math.PI); drawWheel(currentRot); finishSpin(winner)} } requestAnimationFrame(anim)}
-function finishSpin(winner){let topMult=window._topMult && window._topMult.type===winner.type ? window._topMult.mult : 1; let multMap={ '1':1,'2':2,'5':5,'10':10, 'CoinFlip':5,'CashHunt':10,'Pachinko':10,'CrazyTime':20 }; let base=multMap[winner.type]||1; let totalWin=0; history.unshift(winner.type); renderRecent(); if(history.length>30) history.pop(); Object.keys(bets).forEach(k=>{if(k===winner.type){let win=Math.floor(bets[k]*base*topMult); totalWin+=win; balance+=win; liveBets.forEach(b=>{if(b.on===k) b.win=win})}}); document.getElementById('bal').textContent=fmt(balance); document.getElementById('hub').innerHTML=`WINNER<br>${winner.type}${topMult>1?` ${topMult}x`:''}`; addChat(`<b>System:</b> WINNER ${winner.type}${topMult>1?` with Top Slot ${topMult}x`:''} - ${totalWin>0?`You won KES ${totalWin}`:'No win'}`); renderFloor(); if(['CoinFlip','CashHunt','Pachinko','CrazyTime'].includes(winner.type)){setTimeout(()=>openBonus(winner.type, totalWin, topMult),800)} else {setTimeout(()=>{bets={}; document.querySelectorAll('[id^="bet-"]').forEach(el=>el.textContent='0'); document.querySelectorAll('.betTile').forEach(el=>el.classList.remove('active')); roundEnd()},2000)}}
-function roundEnd(){setTimeout(()=>{startBetting()},2500)}
-function openBonus(type, win, top){let modal=document.getElementById('bonusModal'); document.getElementById('bonusTitle').textContent=type.toUpperCase()+' BONUS!'; let content=''; if(type==='CoinFlip') content=`Coin Flip - Red vs Blue! Multiplier ${5*top}x - ${10*top}x`; if(type==='CashHunt') content=`Cash Hunt - Shoot the target! 108 multipliers hidden!`; if(type==='Pachinko') content=`Pachinko - Drop the puck! Up to 100x!`; if(type==='CrazyTime') content=`CRAZY TIME! MEGA WHEEL! Up to 200x + Doubles!`; document.getElementById('bonusContent').textContent=content; document.getElementById('bonusWin').textContent=`+ KES ${win||Math.floor(100*top)}`; modal.classList.add('open')}
-function closeBonus(){document.getElementById('bonusModal').classList.remove('open'); bets={}; document.querySelectorAll('[id^="bet-"]').forEach(el=>el.textContent='0'); document.querySelectorAll('.betTile').forEach(el=>el.classList.remove('active')); roundEnd()}
-function openSign(){let n=prompt('Enter display name:'); if(n){displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('signBtn').textContent=n.toUpperCase(); addChat(`<b>System:</b> Welcome ${n}!`)}}
-function openDep(){let amt=prompt('Deposit amount KES (demo STK):','500'); if(amt){let a=parseInt(amt); if(a>0){balance+=a; document.getElementById('bal').textContent=fmt(balance); addChat(`<b>System:</b> Demo deposit KES ${a} - New bal ${fmt(balance)}`)}}}
-function sendChat(){let i=document.getElementById('chatIn'); if(!i.value.trim())return; addChat(`<b>${displayName}:</b> ${i.value}`); i.value=''}
+function renderRecent(){document.getElementById('recent').innerHTML=history.slice(0,18).map(v=>`<span class="chip" style="background:${v==='1'?'#3a8fff33':v==='2'?'#ffef0033':v==='5'?'#ff5aff33':v==='10'?'#ff335533':'linear-gradient(90deg,#ff2a6d,#ffcc00)'}; color:${v==='1'?'#6af':v==='2'?'#ffef00':v==='5'?'#ff8aff':v==='10'?'#ff8888':'#000'}">${v}</span>`).join('')}
+let timerInt=null;
+function startBetting(){phase='betting'; timeLeft=8; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; document.getElementById('hub').textContent='PLACE BETS'; document.getElementById('spinBtn').disabled=false; document.getElementById('spinBtn').textContent='SPIN - PLACE BETS'; genBots(); let top1=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; let top2=[2,3,5,10,15,25,50][Math.floor(Math.random()*7)]; document.getElementById('top1').textContent=top1; document.getElementById('top2').textContent=top2+'x'; document.getElementById('top1').className='slotBox'; document.getElementById('top2').className='slotBox'; if(Math.random()>0.6){document.getElementById('top1').classList.add('win'); document.getElementById('top2').classList.add('win'); window._topMult={type:top1,mult:top2}} else window._topMult=null; timerInt=setInterval(()=>{timeLeft-=0.1; document.getElementById('timer').textContent=`NEXT ${timeLeft.toFixed(1)}s`; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; if(timeLeft<=0){clearInterval(timerInt); spin()}},100)}
+window.spin=()=>{if(phase!=='betting')return; if(Object.keys(bets).length===0){addChat('<b>System:</b> No bets - demo spin');} phase='spinning'; clearInterval(timerInt); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('spinBtn').disabled=true; let winnerIdx=Math.floor(Math.random()*54); let winner=window._segments[winnerIdx]; let anglePer=2*Math.PI/54; let targetAngle= -winnerIdx*anglePer; let extra=4+Math.random()*3; targetY=currentY + extra*2*Math.PI + (targetAngle - (currentY % (2*Math.PI))); let start=performance.now(); let dur=4500; let startY=currentY; function anim(t){let p=Math.min((t-start)/dur,1); let ease=1-Math.pow(1-p,4); currentY=startY + (targetY-startY)*ease; wheelGroup.rotation.y=currentY; if(p<1) requestAnimationFrame(anim); else finish(winner)} requestAnimationFrame(anim)}
+function finish(winner){let topMult=window._topMult && window._topMult.type===winner.type ? window._topMult.mult : 1; let base={ '1':1,'2':2,'5':5,'10':10, 'CoinFlip':5,'CashHunt':10,'Pachinko':10,'CrazyTime':20 }[winner.type]||1; let totalWin=0; history.unshift(winner.type); renderRecent(); if(history.length>30) history.pop(); Object.keys(bets).forEach(k=>{if(k===winner.type){let w=Math.floor(bets[k]*base*topMult); totalWin+=w; balance+=w; liveBets.forEach(b=>{if(b.on===k) b.win=w})}}); document.getElementById('bal').textContent=fmt(balance); document.getElementById('lastWin').textContent=winner.type+(topMult>1?` ${topMult}x`:'' ); document.getElementById('hub').textContent=`WIN ${winner.type} ${topMult>1?topMult+'x':''}`; addChat(`<b>System:</b> WINNER ${winner.type}${topMult>1?` Top Slot ${topMult}x`:''} - You ${totalWin>0?'won KES '+totalWin:'lost'}`); renderFloor(); if(['CoinFlip','CashHunt','Pachinko','CrazyTime'].includes(winner.type)){setTimeout(()=>openBonus(winner.type, totalWin, topMult),700)} else {setTimeout(()=>{bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); round++; document.getElementById('rnd').textContent=round; startBetting()},2500)}}
+function openBonus(type, win, top){let m=document.getElementById('bonusModal'); document.getElementById('bTitle').textContent=type.toUpperCase()+' BONUS!'; document.getElementById('bContent').textContent=type==='CoinFlip'?`Coin Flip - Red vs Blue! ${5*top}x - ${10*top}x` : type==='CashHunt'?`Cash Hunt - Shoot! 108 multipliers` : type==='Pachinko'?`Pachinko - Drop puck!` : `CRAZY TIME - MEGA WHEEL up to 200x!`; document.getElementById('bWin').textContent=`+ KES ${win||Math.floor(200*top)}`; let bc=document.getElementById('bonusCanvas'); let ctx=bc.getContext('2d'); ctx.clearRect(0,0,bc.width,bc.height); ctx.fillStyle='#ffcc00'; ctx.font='bold 24px Orbitron'; ctx.textAlign='center'; ctx.fillText(`${type} ${top>1?top+'x':''}`, bc.width/2, bc.height/2); m.classList.add('open')}
+window.closeBonus=()=>{document.getElementById('bonusModal').classList.remove('open'); bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); round++; document.getElementById('rnd').textContent=round; startBetting()}
+window.deposit=()=>{let a=prompt('Deposit KES demo:','500'); if(a){let v=parseInt(a); if(v>0){balance+=v; document.getElementById('bal').textContent=fmt(balance); addChat(`<b>System:</b> Demo deposit KES ${v}`)}}}
+window.sign=()=>{let n=prompt('Display name:'); if(n){displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('signBtn').textContent=n.toUpperCase(); addChat(`<b>System:</b> Welcome ${n}!`)}}
+window.sendChat=()=>{let i=document.getElementById('chatIn'); if(!i.value.trim())return; addChat(`<b>${displayName}:</b> ${i.value}`); i.value=''}
 let saved=localStorage.getItem('b10f_name'); if(saved){displayName=saved; document.getElementById('signBtn').textContent=saved.toUpperCase()}
-buildWheel(); drawWheel(0); startBetting(); renderRecent();
-document.getElementById('chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+startBetting(); renderRecent();
+document.getElementById('chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')window.sendChat()});
 </script>
 </body>
 </html>

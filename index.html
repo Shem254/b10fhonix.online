@@ -1,132 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPACE-X AVIATOR - b10fhonix.online | DEMO</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WALLET - SPACE-X | b10fhonix.online</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--cyan:#00f0ff;--gold:#e6c75a;--bg:#04081a}
+:root{--gold:#e6c75a;--gold2:#b8911f;--dark:#0f1f0f;--cyan:#00f0ff}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:'JetBrains Mono',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-header{height:52px;background:linear-gradient(180deg,#0a1030,#050a1a);border-bottom:1px solid #00f0ff33;display:flex;align-items:center;justify-content:space-between;padding:0 14px;gap:8px}
-.brand{font-family:'Orbitron';font-weight:900;letter-spacing:2px;font-size:15px}
-.brand span{color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
-.hdrRight{display:flex;align-items:center;gap:8px}
-.badge{font-size:10px;padding:4px 10px;border-radius:14px;border:1px solid #00f0ff55;background:#00f0ff12}
-.bal{background:#000;border:1px solid #e6c75a;color:#e6c75a;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700}
-.btn{border:0;border-radius:20px;padding:7px 14px;font-family:'Orbitron';font-weight:900;cursor:pointer;letter-spacing:1px}
-.btnDep{background:linear-gradient(180deg,#e6c75a,#b8911f);color:#000}
-.btnLogin{background:#ffffff14;border:1px solid #ffffff30;color:#fff;font-size:11px}
-.main{flex:1;display:grid;grid-template-columns:1fr 340px;overflow:hidden}
-@media(max-width:900px){.main{grid-template-columns:1fr}.floor{position:fixed;inset:0;z-index:10;background:#000e;display:none}.floor.open{display:flex}}
-.left{display:flex;flex-direction:column;overflow:hidden}
-.topbar{height:38px;background:#0a1030cc;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #ffffff10}
-.topbar h2{font-family:'Orbitron';font-size:12px;color:#e6c75a;letter-spacing:1px}
-.recent{height:34px;background:#050a1a;display:flex;align-items:center;gap:5px;padding:0 10px;overflow-x:auto;border-bottom:1px solid #ffffff0e}
-.chip{font-size:11px;padding:3px 7px;border-radius:12px;border:1px solid #ffffff15;background:#ffffff08;white-space:nowrap}
-.chip.hot{background:#e6c75a;color:#000;font-weight:900}.chip.crash{background:#ff3355;color:#fff}
-.gameWrap{flex:1;position:relative;background:radial-gradient(ellipse at 50% 120%,#0a1a3a,#000 70%)}
-canvas{position:absolute;inset:0;width:100%;height:100%}
-.center{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;text-align:center}
-#multi{font-family:'Orbitron';font-size:clamp(56px,10vw,96px);font-weight:900;text-shadow:0 0 30px var(--cyan)}
-#multi.crash{color:#ff3355;text-shadow:0 0 30px #ff3355}
-#state{letter-spacing:3px;font-size:11px;opacity:.7;margin-bottom:6px}
-#count{font-size:22px;color:var(--gold)}
-#count b{font-size:32px}
-.betGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;background:#070c1f;border-top:1px solid #00f0ff22}
-@media(max-width:700px){.betGrid{grid-template-columns:1fr}}
-.box{background:linear-gradient(180deg,#111a33,#0a1020);border:1px solid #ffffff14;border-radius:14px;padding:10px}
-.boxHead{display:flex;justify-content:space-between;font-size:10px;opacity:.6;letter-spacing:1px;margin-bottom:6px}
-.amtRow{display:flex;gap:6px;margin-bottom:6px}
-.amt{flex:1;padding:7px;border-radius:14px;border:1px solid #00f0ff33;background:#00f0ff11;color:#00f0ff;cursor:pointer;font-weight:700}
-.amt.active{background:#00f0ff;color:#000}
-.stake{width:100%;background:#0008;border:1px solid #ffffff20;border-radius:8px;color:#fff;padding:8px;font-family:'Orbitron';font-weight:700;margin-bottom:6px}
-.place{width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(180deg,#00f0ff,#0090aa);color:#000;font-family:'Orbitron';font-weight:900;cursor:pointer}
-.place:disabled{background:#222;color:#555}
-.cash{width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(180deg,#ffcc00,#ff9900);color:#000;font-family:'Orbitron';font-weight:900;cursor:pointer;display:none}
-.autoRow{font-size:10px;display:flex;justify-content:space-between;align-items:center;opacity:.7;margin:6px 0}
-.floor{background:linear-gradient(180deg,#0a1020,#050a14);border-left:1px solid #00f0ff22;display:flex;flex-direction:column;overflow:hidden}
-.floorHead{padding:10px;text-align:center;font-family:'Orbitron';font-size:11px;letter-spacing:2px;color:var(--gold);border-bottom:1px solid #ffffff10}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px}
-.tab{padding:6px;border-radius:14px;background:#ffffff08;border:1px solid #ffffff15;text-align:center;font-size:11px;cursor:pointer}
-.tab.active{background:#e6c75a;color:#000;font-weight:900}
-.listHead{display:grid;grid-template-columns:1fr 50px 70px 70px;font-size:9px;opacity:.5;padding:6px 8px}
-.list{flex:1;overflow:auto}
-.row{display:grid;grid-template-columns:1fr 50px 70px 70px;font-size:11px;padding:6px 8px;border-bottom:1px solid #ffffff08;align-items:center}
-.row.live{animation:blink .8s}
-@keyframes blink{0%{background:#00f0ff22}}
-.row .win{color:#00ff88}.row .loss{color:#ff5577}
-.chat{height:150px;border-top:1px solid #ffffff10;background:#0008;display:flex;flex-direction:column}
-.chatLog{flex:1;overflow:auto;padding:6px;font-size:11px;display:flex;flex-direction:column;gap:3px}
-.chatIn{display:flex;gap:4px;padding:6px;border-top:1px solid #ffffff10}
-.chatIn input{flex:1;background:#111;border:1px solid #ffffff20;border-radius:6px;color:#fff;padding:6px;font-size:11px}
-.modal{position:fixed;inset:0;background:#000d;backdrop-filter:blur(8px);display:none;place-items:center;z-index:20}
-.modal.open{display:grid}
-.modalBox{background:#0f1733;border:1px solid #00f0ff55;border-radius:16px;padding:20px;width:min(360px,92%);box-shadow:0 0 40px #00f0ff33}
-.modalBox h3{font-family:'Orbitron';margin-bottom:10px}
-.modalBox input{width:100%;padding:10px;border-radius:8px;border:1px solid #ffffff20;background:#000;color:#fff;margin-bottom:10px}
+body{background:#050a05;color:#e8e8c8;font-family:'JetBrains Mono',monospace;min-height:100vh;display:flex;flex-direction:column}
+header{height:52px;background:linear-gradient(180deg,#122712,#0a1a0a);border-bottom:2px solid #e6c75a33;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.logo{font-family:'Orbitron';font-weight:900;letter-spacing:1px;display:flex;align-items:center;gap:10px}
+.logo .z{width:32px;height:32px;border-radius:50%;background:radial-gradient(var(--gold),var(--gold2));display:grid;place-items:center;color:#000}
+.balBox{background:linear-gradient(180deg,#2a2210,#1a1508);border:1px solid var(--gold);border-radius:22px;padding:6px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+.btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;border:0;border-radius:22px;padding:8px 16px;font-family:'Orbitron';font-weight:900;cursor:pointer}
+.wrap{max-width:780px;margin:20px auto;width:92%;display:flex;flex-direction:column;gap:14px}
+.topCard{background:linear-gradient(180deg,#132a14,#0f1f0f);border:1px solid #ffffff15;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.topCard h2{font-family:'Orbitron';letter-spacing:3px;color:var(--gold);font-size:16px}
+.balGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.balGrid{grid-template-columns:1fr}}
+.cardA{background:linear-gradient(180deg,#1a3a1e,#122712);border:2px solid var(--gold);border-radius:14px;padding:16px}
+.cardB{background:#0f1f0f;border:1px solid #ffffff15;border-radius:14px;padding:16px;opacity:.8}
+.cardA b,.cardB b{font-family:'Orbitron';font-size:22px;color:var(--gold);display:block;margin-top:4px}
+.small{font-size:10px;letter-spacing:2px;opacity:.6}
+.tabs2{background:#0a1a0a;border:1px solid #ffffff15;border-radius:22px;display:grid;grid-template-columns:1fr 1fr 1fr;padding:4px}
+.tab{padding:8px;border-radius:18px;text-align:center;font-size:12px;cursor:pointer}
+.tab.active{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#000;font-weight:900}
+.form{background:linear-gradient(180deg,#132a14,#0f1f0f);border:1px solid #ffffff15;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
+label{font-size:12px;opacity:.8}
+.inputRow{display:flex;background:#000;border:1px solid #ffffff20;border-radius:22px;overflow:hidden}
+.inputRow span{background:#111;padding:10px 12px;font-size:13px;border-right:1px solid #ffffff20}
+.inputRow input{flex:1;background:transparent;border:0;color:#fff;padding:10px;font-family:'Orbitron';outline:none}
+.amount{width:100%;background:#000;border:1px solid #e6c75a55;border-radius:22px;color:#fff;padding:12px;font-family:'Orbitron';font-weight:700}
+.quick{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.quick button{padding:10px;border-radius:22px;border:0;background:linear-gradient(180deg,var(--gold),var(--gold2));font-weight:900;cursor:pointer}
+.send{width:100%;padding:14px;border-radius:22px;border:0;background:linear-gradient(180deg,#d1b24a,#8a6a0a);font-family:'Orbitron';font-weight:900;letter-spacing:1px;cursor:pointer;opacity:.7}
+.send.active{opacity:1;box-shadow:0 0 20px #e6c75a66}
+.status{font-size:11px;padding:8px;background:#0008;border-radius:8px;min-height:30px}
+a{color:var(--cyan);text-decoration:none}
 </style>
 </head>
 <body>
-<header>
-<div class="brand">b10fhonix.<span>ONLINE</span> // SPACE-X</div>
-<div class="hdrRight">
-<div class="badge" id="phaseBadge">BETTING OPEN</div>
-<div class="bal">KES <b id="bal">50,000.00</b> <span style="font-size:10px;background:#5a1a1a;padding:2px 6px;border-radius:8px;border:1px solid #ff5555">GUEST</span></div>
-<button class="btn btnDep" onclick="openDeposit()">DEPOSIT</button>
-<button class="btn btnLogin" onclick="openLogin()" id="loginBtn">SIGN IN</button>
-<button class="btn btnLogin" onclick="document.querySelector('.floor').classList.toggle('open')" style="display:none" id="floorToggle">☰ FLOOR</button>
+<header><div class="logo"><div class="z">Z</div>ZENI PESA <span style="font-size:9px;opacity:.5">WALLET</span></div><div style="display:flex;gap:8px;align-items:center"><div class="balBox">KES <b id="demoBal">50,000.00</b> GUEST</div><button class="btn-gold" onclick="location.href='index.html'">◀ BACK TO GAME</button></div></header>
+<div class="wrap">
+<div class="topCard"><h2>📁 WALLET</h2><span style="font-size:11px;border:1px solid #ffffff20;padding:4px 10px;border-radius:14px">📄 House rules</span></div>
+<div class="balGrid"><div class="cardA"><div class="small">🔗 DEMO (GUEST)</div><b>KES 50,000.00</b><div class="small" style="margin-top:6px">Active for betting</div></div><div class="cardB"><div class="small">♔ REAL BALANCE</div><b id="realBal">KES 0.00</b><div class="small" style="margin-top:6px">Sign in to access real balance</div></div></div>
+<div class="tabs2"><div class="tab active">⊕ Deposit</div><div class="tab" onclick="alert('Withdraw - Coming after Daraja B2C approved (demo)')">⊕ Withdraw</div><div class="tab" onclick="alert('Transactions history - will show Daraja callback logs')">↻ Transactions</div></div>
+<div class="form">
+<label>M-Pesa phone number</label><div class="inputRow"><span>+254</span><input id="phone" placeholder="7XXXXXXXX or 1XXXXXXXXX" value="7"></div>
+<label>Amount (KES)</label><input id="amt" class="amount" type="number" value="500"><div class="small">Min 300 · Max 1,000,000 KES</div>
+<div class="quick"><button onclick="setAmt(300)">300</button><button onclick="setAmt(500)">500</button><button onclick="setAmt(1000)">1000</button><button onclick="setAmt(5000)">5000</button></div>
+<button id="stkBtn" class="send" onclick="sendStk()">SEND STK PUSH</button>
+<div id="stkStatus" class="status">Ready. Enter phone like 712345678 and amount. This will trigger real M-Pesa prompt if backend is connected.</div>
+<div style="font-size:10px;opacity:.4;margin-top:6px">DEMO: No real money charged until you connect Daraja backend. Code for backend below. b10fhonix.online research-hub - Play responsibly 18+.</div>
 </div>
-</header>
-<div class="main">
-<div class="left">
-<div class="topbar"><h2>CRASH • ROUND #<span id="rnd">181710</span> • <span id="phaseTxt">BETTING</span></h2><div style="font-size:10px;opacity:.7" id="nextDeal">NEXT DEAL IN 8.0s</div></div>
-<div class="recent" id="recent"></div>
-<div class="gameWrap"><canvas id="game"></canvas><div class="center"><div><div id="state">PLACE BET • ROCKET ON PAD</div><div id="multi">1.00x</div><div id="count"><b>8.0s</b></div></div></div></div>
-<div class="betGrid">
-<div class="box"><div class="boxHead"><span>BOX 1</span><span id="box1State">READY</span></div><div class="amtRow"><button class="amt active" onclick="setAmt(1,100)">100</button><button class="amt" onclick="setAmt(1,500)">500</button><button class="amt" onclick="setAmt(1,1000)">1000</button></div><input id="s1" class="stake" value="100"><div class="autoRow"><span>Auto cash-out <input type="number" id="auto1" placeholder="e.g 2.00" style="width:60px;background:#000;border:1px solid #ffffff20;color:#fff;padding:2px 4px;border-radius:4px;margin-left:6px"></span></div><button id="b1" class="place" onclick="place(1)">PLACE BET</button><button id="c1" class="cash" onclick="cash(1)">CASH OUT 1.00x</button></div>
-<div class="box"><div class="boxHead"><span>BOX 2</span><span id="box2State">READY</span></div><div class="amtRow"><button class="amt active" onclick="setAmt(2,100)">100</button><button class="amt" onclick="setAmt(2,500)">500</button><button class="amt" onclick="setAmt(2,1000)">1000</button></div><input id="s2" class="stake" value="100"><div class="autoRow"><span>Auto cash-out <input type="number" id="auto2" placeholder="e.g 5.00" style="width:60px;background:#000;border:1px solid #ffffff20;color:#fff;padding:2px 4px;border-radius:4px;margin-left:6px"></span></div><button id="b2" class="place" onclick="place(2)">PLACE BET</button><button id="c2" class="cash" onclick="cash(2)">CASH OUT 1.00x</button></div>
+<div style="text-align:center"><a href="/">← Back to Space-X Aviator (Synced V4)</a> is main game. Wallet is separate page. To make wallet default deposit modal, we link it.</div>
 </div>
-</div>
-<div class="floor" id="floor"><div class="floorHead">♔ THE FLOOR — LIVE <span onclick="this.closest('.floor').classList.remove('open')" style="float:right;cursor:pointer">✕</span></div><div class="tabs"><div class="tab active" id="tabLive" onclick="switchTab('live')">Live <span id="liveCount">0</span></div><div class="tab" id="tabHist" onclick="switchTab('hist')">History</div></div><div class="listHead"><span>PLAYER</span><span>BOX</span><span>STAKE</span><span>PAYOUT</span></div><div class="list" id="list"></div><div class="chat"><div class="chatLog" id="chatLog"><div>System: Welcome! Betting open 8s — demo KES 50,000</div></div><div class="chatIn"><input id="chatIn" placeholder="Say something..."><button class="btn btnDep" style="padding:6px 10px;font-size:11px" onclick="sendChat()">Send</button></div></div></div>
-</div>
-<div class="modal" id="loginModal"><div class="modalBox"><h3>SIGN IN (DEMO)</h3><input id="userName" placeholder="Enter display name e.g Mwangi73"><input id="userPhone" placeholder="Phone (demo only)"><button class="place" onclick="doLogin()">JOIN THE FLOOR</button><div style="font-size:10px;opacity:.5;margin-top:8px">No real money — demo account with KES 50,000 PTS. Stored locally.</div><button class="btn btnLogin" style="width:100%;margin-top:8px" onclick="closeLogin()">Close</button></div></div>
-<div class="modal" id="depModal"><div class="modalBox"><h3>DEPOSIT (DEMO)</h3><p style="font-size:11px;opacity:.7;margin-bottom:8px">Add demo points. No M-Pesa real transaction.</p><input id="depAmt" type="number" value="1000"><button class="place" onclick="doDeposit()">ADD POINTS</button><button class="btn btnLogin" style="width:100%;margin-top:8px" onclick="closeDeposit()">Close</button></div></div>
 <script>
-const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'); let W,H; function rs(){W=canvas.width=canvas.offsetWidth*2;H=canvas.height=canvas.offsetHeight*2} addEventListener('resize',rs); rs();
-let balance=50000, displayName='GUEST', round=181710, history=[3.98,1.66,7.95,1.99,1.89,4.03,3.70,1.43,1.09,2.00,12.20,1.23,1.01,137.75,1.39,2.58], phase='betting', timeLeft=8, crash=0, mult=1, bets={1:null,2:null}, liveBets=[], raf=null, start=0, smoke=[];
-const multiEl=document.getElementById('multi'), stateEl=document.getElementById('state'), countEl=document.getElementById('count'), phaseBadge=document.getElementById('phaseBadge'), phaseTxt=document.getElementById('phaseTxt'), nextDeal=document.getElementById('nextDeal'), rndEl=document.getElementById('rnd'), balEl=document.getElementById('bal'), recentEl=document.getElementById('recent'), listEl=document.getElementById('list'), chatLog=document.getElementById('chatLog');
-function genCrash(){let r=Math.random(); let c=0.99/(1-r); if(c<1.05)c=1.05; if(c>200)c=60+Math.random()*140; if(r>0.967)c=1.05+Math.random()*0.6; return c}
-function fmt(n){return n.toLocaleString('en-KE',{minimumFractionDigits:2})}
-function renderRecent(){recentEl.innerHTML=history.slice(0,20).map(v=>`<span class="chip ${v>=10?'hot':v<2?'crash':''}">${v.toFixed(2)}x</span>`).join('')}
-function renderFloor(){if(phase==='betting'){listEl.innerHTML=liveBets.map(b=>`<div class="row live"><span>${b.name}</span><span>BOX${b.box}</span><span>${b.stake}</span><span>${b.cashed?'<span class=win>'+b.payout.toFixed(2)+'x</span>':'BET'}</span></div>`).join('')}else if(phase==='flying'){listEl.innerHTML=liveBets.map(b=>`<div class="row live"><span>${b.name}</span><span>BOX${b.box}</span><span>${b.stake}</span><span>${b.cashed?'<span class=win>'+b.payout.toFixed(2)+'x</span>':b.busted?'<span class=loss>BUST</span>':'<span class=win>'+mult.toFixed(2)+'x</span>'}</span></div>`).join('')}else{listEl.innerHTML=history.map((v,i)=>`<div class="row"><span>Round ${round-i-1}</span><span>-</span><span>-</span><span class="${v<2?'loss':'win'}">${v.toFixed(2)}x</span></div>`).join('')} document.getElementById('liveCount').textContent=liveBets.length}
-function addChat(t){let d=document.createElement('div'); d.textContent=new Date().toLocaleTimeString().slice(0,5)+' '+t; chatLog.appendChild(d); chatLog.scrollTop=chatLog.scrollHeight}
-function addBotBets(){liveBets=[]; let names=['DiamondD','Mwangi73','Otieno37','PesaPlug','Jambo44','KevoBet','Bonga','Trader','SkyRckt','BetaKE']; let count=8+Math.floor(Math.random()*6); for(let i=0;i<count;i++){liveBets.push({name:names[Math.floor(Math.random()*names.length)], box:Math.random()>0.5?1:2, stake: [50,100,200,500,1000,2000][Math.floor(Math.random()*6)], cashed:false, busted:false, payout:0, auto: (1.2+Math.random()*5)})} if(bets[1]) liveBets.push({name:displayName, box:1, stake:bets[1].stake, cashed:false, busted:false, payout:0, isMe:true, auto:parseFloat(document.getElementById('auto1').value)||0}); if(bets[2]) liveBets.push({name:displayName, box:2, stake:bets[2].stake, cashed:false, busted:false, payout:0, isMe:true, auto:parseFloat(document.getElementById('auto2').value)||0}); renderFloor()}
-function setAmt(box,v){document.getElementById('s'+box).value=v; document.querySelectorAll(`#s${box}`).forEach(()=>{}); let row=document.querySelectorAll('.box')[box-1].querySelectorAll('.amt'); row.forEach(b=>b.classList.toggle('active',b.textContent==v))}
-function place(box){if(phase!=='betting'){addChat('Betting closed! Wait next round');return} let stake=parseFloat(document.getElementById('s'+box).value)||0; if(stake<=0)return; if(balance<stake){addChat('Insufficient demo balance');return} balance-=stake; fmtBal(); bets[box]={stake, cashed:false, win:0}; document.getElementById('b'+box).style.display='none'; document.getElementById('c'+box).style.display='block'; document.getElementById('box'+box+'State').textContent='BET PLACED'; addChat(`${displayName} placed BOX${box} KES ${stake}`); addBotBets();}
-function cash(box){if(!bets[box]||bets[box].cashed||phase!=='flying')return; let win=Math.floor(bets[box].stake*mult); balance+=win; bets[box].cashed=true; bets[box].win=win; fmtBal(); document.getElementById('b'+box).style.display='block'; document.getElementById('c'+box).style.display='none'; document.getElementById('b'+box).textContent=`WON ${win}`; setTimeout(()=>document.getElementById('b'+box).textContent='PLACE BET',1500); let me=liveBets.find(l=>l.isMe&&l.box===box); if(me){me.cashed=true; me.payout=mult} addChat(`${displayName} cashed BOX${box} ${mult.toFixed(2)}x KES ${win}`)}
-function fmtBal(){balEl.textContent=fmt(balance)}
-// GAME LOOP
-function startBetting(){phase='betting'; timeLeft=8; crash=genCrash(); mult=1; smoke=[]; rndEl.textContent=round; phaseBadge.textContent='BETTING OPEN'; phaseBadge.style.background='#00ff8815'; phaseBadge.style.borderColor='#00ff8855'; phaseTxt.textContent='BETTING'; stateEl.textContent='PLACE BET • ROCKET ON PAD'; multiEl.textContent='1.00x'; multiEl.classList.remove('crash'); countEl.innerHTML=`<b>${timeLeft.toFixed(1)}s</b>`; document.querySelectorAll('.place').forEach(b=>b.disabled=false); bets={1:null,2:null}; document.getElementById('b1').style.display='block'; document.getElementById('c1').style.display='none'; document.getElementById('b2').style.display='block'; document.getElementById('c2').style.display='none'; document.getElementById('box1State').textContent='READY'; document.getElementById('box2State').textContent='READY'; addBotBets(); renderFloor(); let iv=setInterval(()=>{timeLeft-=0.1; if(phase!=='betting'){clearInterval(iv);return} countEl.innerHTML=`<b>${timeLeft.toFixed(1)}s</b>`; nextDeal.textContent=`NEXT DEAL IN ${timeLeft.toFixed(1)}s`; multiEl.textContent='1.00x'; if(timeLeft<=0){clearInterval(iv); startFlying()}},100)}
-function startFlying(){phase='flying'; phaseBadge.textContent='FLYING • '+crash.toFixed(2)+'x TARGET'; phaseBadge.style.background='#e6c75a22'; phaseTxt.textContent='FLYING'; stateEl.textContent='ASCENT • CASH OUT NOW'; document.querySelectorAll('.place').forEach(b=>b.disabled=true); start=Date.now(); loop()}
-function loop(){if(phase!=='flying')return; let e=(Date.now()-start)/1000; mult=Math.pow(1.082,e*6); if(mult>=crash){endCrash();return} multiEl.textContent=mult.toFixed(2)+'x'; countEl.innerHTML=`<b>${mult.toFixed(2)}x</b>`; document.querySelectorAll('.cash').forEach((btn,i)=>{let b=i+1; if(bets[b]&&!bets[b].cashed) btn.textContent=`CASH OUT ${mult.toFixed(2)}x`}); // bot auto cash
-liveBets.forEach(b=>{if(!b.cashed&&!b.busted&&b.auto>0&&mult>=b.auto){b.cashed=true; b.payout=mult; if(!b.isMe) addChat(`${b.name} cashed BOX${b.box} ${mult.toFixed(2)}x`)}}); renderFloor(); draw(mult,false); raf=requestAnimationFrame(loop)}
-function endCrash(){phase='crashed'; mult=crash; multiEl.textContent=crash.toFixed(2)+'x'; multiEl.classList.add('crash'); stateEl.textContent=`BUSTED AT ${crash.toFixed(2)}x`; countEl.innerHTML=`<b style="color:#ff3355">BUSTED</b>`; phaseBadge.textContent=`CRASHED ${crash.toFixed(2)}x`; history.unshift(crash); renderRecent(); liveBets.forEach(b=>{if(!b.cashed){b.busted=true}}); renderFloor(); draw(crash,true); setTimeout(()=>{round++; startBetting()},3000)}
-function draw(m,isCrash){ctx.clearRect(0,0,W,H); let grad=ctx.createRadialGradient(W*0.5,H*0.9,0,W*0.5,H*0.9,W); grad.addColorStop(0,'#0a1a3a'); grad.addColorStop(1,'#000'); ctx.fillStyle=grad; ctx.fillRect(0,0,W,H); let p=phase==='betting'?0:Math.min(m/12,1); let rx=W*0.12+p*W*0.68, ry=H*0.88-Math.pow(p,0.7)*H*0.6; if(phase==='flying'){smoke.push({x:rx-8,y:ry+10,a:1}); if(smoke.length>70)smoke.shift(); smoke.forEach(s=>s.a-=0.018)} else smoke=[]; if(phase!=='betting'){ctx.strokeStyle=isCrash?'#ff3355':'#00f0ff'; ctx.lineWidth=3; ctx.shadowColor=isCrash?'#ff3355':'#00f0ff'; ctx.shadowBlur=16; ctx.beginPath(); ctx.moveTo(W*0.05,H*0.88); ctx.quadraticCurveTo(rx*0.45,H*0.88-p*H*0.2,rx,ry); ctx.stroke(); ctx.shadowBlur=0; smoke.forEach(s=>{ctx.fillStyle=`rgba(${isCrash?'255,50,80':'0,240,255'},${s.a*0.3})`; ctx.beginPath(); ctx.arc(s.x,s.y,Math.random()*6+2,0,Math.PI*2); ctx.fill()})} ctx.save(); ctx.translate(rx,ry); ctx.rotate(-p*0.8); let g=ctx.createLinearGradient(-6,-20,6,20); g.addColorStop(0,'#fff'); g.addColorStop(1,'#9aa'); ctx.fillStyle=g; ctx.fillRect(-6,-22,12,44); ctx.fillStyle='#00f0ff'; ctx.fillRect(-7,-24,14,4); ctx.fillStyle='#ff3b30'; ctx.beginPath(); ctx.moveTo(-6,18); ctx.lineTo(-12,28); ctx.lineTo(0,22); ctx.fill(); ctx.beginPath(); ctx.moveTo(6,18); ctx.lineTo(12,28); ctx.lineTo(0,22); ctx.fill(); if(phase==='flying'&&!isCrash){ctx.fillStyle=`rgba(255,${100+Math.random()*120},0,${0.8+Math.random()*0.2})`; ctx.beginPath(); ctx.moveTo(-4,22); ctx.lineTo(0,34+Math.random()*10); ctx.lineTo(4,22); ctx.fill()} ctx.restore(); if(isCrash){ctx.fillStyle='rgba(255,0,50,0.18)'; ctx.fillRect(0,0,W,H); for(let i=0;i<18;i++){ctx.fillStyle=`rgba(255,${Math.random()*100},0,${Math.random()})`; ctx.beginPath(); ctx.arc(rx+(Math.random()-0.5)*100, ry+(Math.random()-0.5)*60, Math.random()*8,0,Math.PI*2); ctx.fill()}}}
-// modals
-function openLogin(){document.getElementById('loginModal').classList.add('open')}
-function closeLogin(){document.getElementById('loginModal').classList.remove('open')}
-function doLogin(){let n=document.getElementById('userName').value.trim(); if(!n){alert('Enter name');return} displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('loginBtn').textContent=n.toUpperCase(); closeLogin(); addChat(`Welcome ${n}! You joined floor with KES ${fmt(balance)}`)}
-function openDeposit(){document.getElementById('depModal').classList.add('open')}
-function closeDeposit(){document.getElementById('depModal').classList.remove('open')}
-function doDeposit(){let v=parseFloat(document.getElementById('depAmt').value); if(isNaN(v)||v<=0)return; balance+=v; fmtBal(); closeDeposit(); addChat(`DEMO Deposit +KES ${v} new bal ${fmt(balance)}`)}
-function sendChat(){let i=document.getElementById('chatIn'); if(!i.value.trim())return; addChat(`${displayName}: ${i.value}`); i.value=''}
-function switchTab(t){document.getElementById('tabLive').classList.toggle('active',t==='live'); document.getElementById('tabHist').classList.toggle('active',t==='hist'); if(t==='hist'){phase='history'; renderFloor()} else {phase='betting'; renderFloor(); startBetting();} }
-let saved=localStorage.getItem('b10f_name'); if(saved){displayName=saved; document.getElementById('loginBtn').textContent=saved.toUpperCase()}
-renderRecent(); fmtBal(); startBetting(); draw(1,false);
-document.getElementById('chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
-document.getElementById('floorToggle').style.display='block';
+let realBal=0; const demoEl=document.getElementById('demoBal'); const realEl=document.getElementById('realBal'); const statusEl=document.getElementById('stkStatus'); const btn=document.getElementById('stkBtn');
+function setAmt(v){document.getElementById('amt').value=v; check()}
+function check(){let p=document.getElementById('phone').value.trim(), a=parseFloat(document.getElementById('amt').value); let ok=/^(7|1)\d{8,9}$/.test(p) && a>=10; btn.classList.toggle('active',ok)}
+document.getElementById('phone').addEventListener('input',check); document.getElementById('amt').addEventListener('input',check); check();
+async function sendStk(){
+ let phone=document.getElementById('phone').value.trim(); let amount=parseInt(document.getElementById('amt').value);
+ if(!/^(7|1)\d{8,9}$/.test(phone)){statusEl.textContent='❌ Invalid phone. Use 7XXXXXXXX';return}
+ if(amount<10){statusEl.textContent='❌ Min 10 for demo, 300 for real';return}
+ let fullPhone='254'+phone.replace(/^0/,'');
+ statusEl.textContent='⏳ Sending STK Push to '+fullPhone+' KES '+amount+'... Check your phone.';
+ btn.textContent='SENDING...'; btn.disabled=true;
+ try{
+   // This endpoint you will create on backend (see shamba.py below)
+   const res=await fetch('/api/stkpush',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fullPhone,amount})});
+   const data=await res.json();
+   if(data.success||data.ResponseCode==='0'){statusEl.textContent='✅ STK Sent! Check phone '+fullPhone+' enter PIN. '+ (data.CustomerMessage||''); 
+     setTimeout(()=>{realBal+=amount; realEl.textContent='KES '+realBal.toLocaleString('en-KE',{minimumFractionDigits:2}); statusEl.textContent+=' (Demo credited to REAL BALANCE. Real M-Pesa will confirm via callback)';},2000);
+   } else {statusEl.textContent='❌ Failed: '+(data.error||data.errorMessage||'Backend not connected - using demo mode'); // fallback demo
+     realBal+=amount; realEl.textContent='KES '+realBal.toLocaleString('en-KE',{minimumFractionDigits:2}); statusEl.textContent+=' | DEMO credited (connect backend for real)'}
+ } catch(e){
+   statusEl.textContent='⚠️ Backend not yet deployed (expected). DEMO credit applied: KES '+amount+' to REAL BALANCE. To enable real STK, deploy shamba.py backend.';
+   realBal+=amount; realEl.textContent='KES '+realBal.toLocaleString('en-KE',{minimumFractionDigits:2});
+ }
+ btn.textContent='SEND STK PUSH'; btn.disabled=false;
+}
 </script>
 </body>
 </html>

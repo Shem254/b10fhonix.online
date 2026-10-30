@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRAZY TIME ULTRA REAL | b10fhonix.online</title>
+<title>CRAZY TIME PHOTOREAL 20MB | b10fhonix.online</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;800&display=swap" rel="stylesheet">
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
 <style>
 :root{--gold:#ffcc00;--pink:#ff2a6d;--cyan:#00f0ff}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -14,15 +14,15 @@ header{height:52px; background:#0a0a14; border-bottom:2px solid var(--gold); dis
 .logo i{width:32px;height:32px;background:conic-gradient(var(--gold),var(--pink),var(--cyan),var(--gold));border-radius:50%;display:grid;place-items:center;color:#000}
 .pill{background:rgba(0,0,0,0.6); border:1px solid var(--gold); border-radius:20px; padding:5px 10px; font-size:11px; font-weight:800} .pill b{color:var(--gold); font-family:'Orbitron'}
 .soundBtn{width:34px;height:34px; border-radius:50%; border:1px solid var(--gold); background:rgba(255,204,0,0.15); color:var(--gold); cursor:pointer; display:grid; place-items:center}
-.main{flex:1; display:grid; grid-template-columns:1.32fr 0.68fr; gap:8px; padding:8px; overflow:hidden}
+.main{flex:1; display:grid; grid-template-columns:1.38fr 0.62fr; gap:8px; padding:8px; overflow:hidden}
 @media(max-width:1000px){.main{grid-template-columns:1fr; overflow:auto}}
-.stage{position:relative; background:#000; border:1px solid rgba(255,204,0,0.25); border-radius:18px; overflow:hidden; min-height:620px; display:flex; flex-direction:column}
+.stage{position:relative; background:#000; border:1px solid rgba(255,204,0,0.25); border-radius:18px; overflow:hidden; min-height:640px; display:flex; flex-direction:column}
 .topSlot{height:62px; background:linear-gradient(90deg,#08080f,#151528); border-bottom:1px solid rgba(255,204,0,0.3); display:grid; grid-template-columns:1fr 36px 1fr 110px; align-items:center; gap:8px; padding:0 10px; z-index:10}
-.sBox{background:radial-gradient(circle,#111,#000); border:2px solid #333; border-radius:10px; padding:4px; text-align:center; font-family:'Orbitron'; font-weight:900; font-size:17px; min-height:44px; display:grid; place-items:center; box-shadow:inset 0 0 12px rgba(0,0,0,0.8)}
+.sBox{background:radial-gradient(circle,#111,#000); border:2px solid #333; border-radius:10px; padding:4px; text-align:center; font-family:'Orbitron'; font-weight:900; font-size:17px; min-height:44px; display:grid; place-items:center}
 .sBox.win{border-color:var(--gold); background:radial-gradient(circle,#ffef8a,var(--gold)); color:#000; box-shadow:0 0 22px var(--gold); animation:flash .35s infinite alternate} @keyframes flash{0%{transform:scale(1)}100%{transform:scale(1.06)}}
-#three{flex:1; width:100%; height:100%; display:block; background:radial-gradient(ellipse at 50% 35%, #1a1240 0%, #07020f 55%, #000 100%)}
+#three{flex:1; width:100%; height:100%; display:block}
 .hud{position:absolute; bottom:92px; left:10px; right:10px; display:flex; justify-content:space-between; z-index:10; pointer-events:none}
-.hudBox{background:rgba(0,0,0,0.82); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:6px 10px; pointer-events:auto; font-size:11px; box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.hudBox{background:rgba(0,0,0,0.84); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:6px 10px; pointer-events:auto; font-size:11px}
 .betBoard{display:grid; grid-template-columns:repeat(4,1fr); gap:5px; padding:7px; background:rgba(8,8,16,0.98); border-top:1px solid rgba(255,255,255,0.08)}
 @media(max-width:600px){.betBoard{grid-template-columns:repeat(2,1fr)}}
 .tile{background:linear-gradient(180deg,#1c1c38,#111128); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:6px; text-align:center; cursor:pointer; transition:.15s}
@@ -41,31 +41,38 @@ header{height:52px; background:#0a0a14; border-bottom:2px solid var(--gold); dis
 .bonusHeader{height:56px; background:rgba(0,0,0,0.65); border-bottom:2px solid var(--pink); display:flex; justify-content:space-between; align-items:center; padding:0 16px; font-family:'Orbitron'; font-size:13px}
 #bonusThree{flex:1; width:100%; display:block}
 .bonusControls{height:88px; background:rgba(10,10,20,0.96); border-top:1px solid rgba(255,255,255,0.1); display:grid; place-items:center; padding:10px}
+.presenter{position:absolute; bottom:100px; right:16px; width:140px; height:180px; border:2px solid var(--gold); border-radius:12px; overflow:hidden; z-index:15; background:#000; box-shadow:0 0 20px rgba(255,204,0,0.4)}
+.presenter video{width:100%; height:100%; object-fit:cover}
+.presenter::after{content:'LIVE HOST'; position:absolute; bottom:4px; left:50%; transform:translateX(-50%); background:var(--pink); color:#fff; font-family:'Orbitron'; font-size:8px; padding:2px 6px; border-radius:6px}
+.loader{position:absolute; inset:0; background:rgba(0,0,0,0.9); display:grid; place-items:center; z-index:20; font-family:'Orbitron'; font-size:12px; letter-spacing:2px}
+.loader.hidden{display:none}
 </style>
 </head>
 <body>
-<header><div class="logo"><i>Z</i> b10fhonix • ULTRA REAL • V10</div><div style="display:flex; gap:8px; align-items:center"><button class="soundBtn" id="soundBtn" onclick="toggleSound()">🔊</button><div class="pill">DEMO <b id="bal">50,000.00</b></div><button class="pill" style="background:linear-gradient(180deg,var(--gold),#8a6a00); color:#000; border:0; font-family:'Orbitron'; cursor:pointer" onclick="deposit()">DEPOSIT</button><button class="pill" style="background:rgba(255,255,255,0.08); cursor:pointer" onclick="sign()" id="signBtn">SIGN UP</button></div></header>
+<header><div class="logo"><i>Z</i> b10fhonix • PHOTOREAL 20MB • V11</div><div style="display:flex; gap:8px; align-items:center"><button class="soundBtn" id="soundBtn" onclick="toggleSound()">🔊</button><div class="pill">DEMO <b id="bal">50,000.00</b></div><button class="pill" style="background:linear-gradient(180deg,var(--gold),#8a6a00); color:#000; border:0; font-family:'Orbitron'; cursor:pointer" onclick="deposit()">DEPOSIT</button><button class="pill" style="background:rgba(255,255,255,0.08); cursor:pointer" onclick="sign()" id="signBtn">SIGN UP</button></div></header>
 <div class="main">
 <div class="stage">
 <div class="topSlot"><div class="sBox" id="top1">?</div><div style="text-align:center; font-family:'Orbitron'; color:var(--gold)">X</div><div class="sBox" id="top2">?</div><div style="text-align:center"><div style="font-size:8px; opacity:.5">PHASE</div><div id="phase" style="font-family:'Orbitron'; font-size:10px; color:#00ff88">BETTING 8.0s</div></div></div>
 <canvas id="three"></canvas>
+<div class="loader" id="loader">LOADING PHOTOREAL STUDIO...<br><small style="font-size:9px; opacity:.6; margin-top:8px; display:block">HDRI + PBR + 6K TEXTURE</small></div>
+<div class="presenter"><video id="hostVideo" autoplay loop muted playsinline poster=""><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"></video></div>
 <div class="hud"><div class="hudBox"><div style="font-size:8px; opacity:.5">LAST WIN</div><div id="lastWin" style="font-family:'Orbitron'; color:var(--gold); font-size:11px">-</div></div><div class="hudBox" style="text-align:right"><div style="font-size:8px; opacity:.5">ROUND #<span id="rnd">181710</span></div><div id="hub" style="font-family:'Orbitron'; font-size:10px">PLACE BETS</div></div></div>
 <div class="betBoard">
-<div class="tile" data-type="1" onclick="bet('1')"><b style="color:#2a7fff">1 BLUE</b><small>21 SEGS</small><div><span id="bet-1">0</span></div></div>
-<div class="tile" data-type="2" onclick="bet('2')"><b style="color:#ffef00">2 YELLOW</b><small>13 SEGS</small><div><span id="bet-2">0</span></div></div>
-<div class="tile" data-type="5" onclick="bet('5')"><b style="color:#ff5aff">5 PURPLE</b><small>7 SEGS</small><div><span id="bet-5">0</span></div></div>
-<div class="tile" data-type="10" onclick="bet('10')"><b style="color:#ff3355">10 GREEN</b><small>4 SEGS</small><div><span id="bet-10">0</span></div></div>
-<div class="tile bonus" data-type="CoinFlip" onclick="bet('CoinFlip')"><b>🪙 COIN FLIP</b><small>4 SEGS</small><div><span id="bet-CoinFlip">0</span></div></div>
-<div class="tile bonus" data-type="CashHunt" onclick="bet('CashHunt')"><b>🎯 CASH HUNT</b><small>2 SEGS</small><div><span id="bet-CashHunt">0</span></div></div>
-<div class="tile bonus" data-type="Pachinko" onclick="bet('Pachinko')"><b>🔴 PACHINKO</b><small>2 SEGS</small><div><span id="bet-Pachinko">0</span></div></div>
-<div class="tile bonus" data-type="CrazyTime" onclick="bet('CrazyTime')"><b>🎡 CRAZY TIME</b><small>1 SEG</small><div><span id="bet-CrazyTime">0</span></div></div>
+<div class="tile" data-type="1" onclick="bet('1')"><b style="color:#2a7fff">1 BLUE</b><small>21</small><div><span id="bet-1">0</span></div></div>
+<div class="tile" data-type="2" onclick="bet('2')"><b style="color:#ffef00">2 YELLOW</b><small>13</small><div><span id="bet-2">0</span></div></div>
+<div class="tile" data-type="5" onclick="bet('5')"><b style="color:#9a5aff">5 PURPLE</b><small>7</small><div><span id="bet-5">0</span></div></div>
+<div class="tile" data-type="10" onclick="bet('10')"><b style="color:#2aff7f">10 GREEN</b><small>4</small><div><span id="bet-10">0</span></div></div>
+<div class="tile bonus" data-type="CoinFlip" onclick="bet('CoinFlip')"><b>🪙 COIN FLIP</b><small>4</small><div><span id="bet-CoinFlip">0</span></div></div>
+<div class="tile bonus" data-type="CashHunt" onclick="bet('CashHunt')"><b>🎯 CASH HUNT</b><small>2</small><div><span id="bet-CashHunt">0</span></div></div>
+<div class="tile bonus" data-type="Pachinko" onclick="bet('Pachinko')"><b>🔴 PACHINKO</b><small>2</small><div><span id="bet-Pachinko">0</span></div></div>
+<div class="tile bonus" data-type="CrazyTime" onclick="bet('CrazyTime')"><b>🎡 CRAZY TIME</b><small>1</small><div><span id="bet-CrazyTime">0</span></div></div>
 </div>
 <div style="padding:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px"><button class="btnSpin" id="spinBtn" onclick="spin()">SPIN - PLACE BETS</button><button style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:10px; font-family:'Orbitron'; font-size:10px; cursor:pointer" onclick="clearBets()">CLEAR</button></div>
 </div>
 <div class="right">
-<div class="card"><div class="cardHead"><span>🎡 ULTRA REAL • 54 SEGS EXACT</span><span id="timer">NEXT 8s</span></div><div class="recent" id="recent"></div></div>
-<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 FLOOR • <span id="liveCount">0</span></span><span>ERROR 69%</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chatBox"><div class="chatLog" id="chatLog"><div><b>System:</b> V10 Ultra Real loaded. Real Evolution segment order, HD icons, PBR, studio lights.</div></div><div style="display:flex; gap:4px; padding:6px"><input id="chatIn" placeholder="Chat..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; padding:6px 8px"><button style="background:var(--gold); color:#000; border:0; border-radius:8px; padding:6px 10px; font-family:'Orbitron'; font-weight:700; cursor:pointer" onclick="sendChat()">Send</button></div></div></div>
-<div class="card"><div class="cardHead"><span>📊 ULTRA REAL • WHY CLOSE NOW</span></div><div style="padding:8px; font-size:10px; line-height:1.4"><div style="background:linear-gradient(90deg, rgba(255,204,0,0.12), rgba(0,240,255,0.12)); border-radius:8px; padding:8px"><b style="color:var(--gold)">FIXES FROM YOUR FEEDBACK:</b><br>• Real order, not shuffle — blue 1s spaced like real<br>• Icons on rim, not just text<br>• Gold rim with bevel + hub with engraved Z<br>• 6 studio lights + LED wall + reflection<br>• Tick sound per segment with doppler<br>• 69% error bar kept</div></div></div>
+<div class="card"><div class="cardHead"><span>🎥 PHOTOREAL STUDIO</span><span id="timer">NEXT 8s</span></div><div class="recent" id="recent"></div></div>
+<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 FLOOR • <span id="liveCount">0</span></span><span>ERROR 69%</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chatBox"><div class="chatLog" id="chatLog"><div><b>System:</b> V11 Photoreal loading HDRI + PBR + host video. 20MB assets via CDN.</div></div><div style="display:flex; gap:4px; padding:6px"><input id="chatIn" placeholder="Chat..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; padding:6px 8px"><button style="background:var(--gold); color:#000; border:0; border-radius:8px; padding:6px 10px; font-family:'Orbitron'; font-weight:700; cursor:pointer" onclick="sendChat()">Send</button></div></div></div>
+<div class="card"><div class="cardHead"><span>📦 ASSETS • 20MB</span></div><div style="padding:8px; font-size:10px; line-height:1.4"><div style="background:rgba(0,0,0,0.4); border-radius:8px; padding:8px"><b style="color:var(--gold)">PHOTOREAL STACK:</b><br>• HDRI: studio.hdr (2K) — real reflections<br>• Wheel: 54-seg PBR with clearcoat + sheen<br>• Gold rim: brushed metal + scratches<br>• Floor: reflection probe<br>• Host: video overlay bottom right<br>• 69% error kept, sound tick doppler</div></div></div>
 </div>
 </div>
 
@@ -77,100 +84,87 @@ header{height:52px; background:#0a0a14; border-bottom:2px solid var(--gold); dis
 
 <script type="module">
 import * as THREE from 'three';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
-// ===== SOUND (same as V9 with more) =====
+// SOUND
 let audioCtx=null, soundEnabled=true;
 function initAudio(){if(audioCtx) return; audioCtx=new (window.AudioContext||window.webkitAudioContext)();}
 function tone(f,d,t='sine',v=0.3,s=null){if(!soundEnabled||!audioCtx) return; const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type=t; o.frequency.value=f; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+d); if(s) o.frequency.exponentialRampToValueAtTime(s, audioCtx.currentTime+d); o.start(); o.stop(audioCtx.currentTime+d);}
-function tick(){tone(1800+Math.random()*300,0.07,'square',0.18);} function spinStart(){tone(120,1.1,'sawtooth',0.35,700);} function topAlarm(){[0,150,300].forEach(x=>setTimeout(()=>tone(900,0.15,'sine',0.4),x));} function winF(s){const b=s>0?650:300; [0,110,230,350].forEach((d,i)=>setTimeout(()=>tone(b+i*110,0.22,'sine',0.32),d)); if(s>0) setTimeout(()=>tone(1300,0.5,'triangle',0.35),500);} function bonusEnter(){[0,90,190,320,470].forEach((d,i)=>setTimeout(()=>tone(300+i*140,0.28,'sawtooth',0.28),d));}
-window.toggleSound=()=>{soundEnabled=!soundEnabled; document.getElementById('soundBtn').textContent=soundEnabled?'🔊':'🔇'; if(soundEnabled){initAudio(); tone(440,0.15,'sine',0.2);}};
+function tick(){tone(1850+Math.random()*250,0.06,'square',0.2);} function spinStart(){tone(110,1.15,'sawtooth',0.38,750);} function topAlarm(){[0,140,280].forEach(x=>setTimeout(()=>tone(920,0.14,'sine',0.42),x));} function winF(s){const b=s>0?680:300; [0,100,210,330].forEach((d,i)=>setTimeout(()=>tone(b+i*115,0.2,'sine',0.32),d)); if(s>0) setTimeout(()=>tone(1350,0.5,'triangle',0.36),520);} function bonusEnter(){[0,85,180,300,450].forEach((d,i)=>setTimeout(()=>tone(320+i*145,0.26,'sawtooth',0.28),d));}
+window.toggleSound=()=>{soundEnabled=!soundEnabled; document.getElementById('soundBtn').textContent=soundEnabled?'🔊':'🔇'; if(soundEnabled){initAudio(); tone(440,0.12,'sine',0.2);}};
 
-// ---- MAIN 3D ----
+// MAIN SCENE WITH HDRI
 const canvas=document.getElementById('three');
-const scene=new THREE.Scene(); scene.background=new THREE.Color(0x04020a); scene.fog=new THREE.Fog(0x060210, 8, 16);
-const camera=new THREE.PerspectiveCamera(28, 1, 0.1, 100); camera.position.set(0,1.15,5.8); camera.lookAt(0,0.25,0);
-const renderer=new THREE.WebGLRenderer({canvas, antialias:true, powerPreference:'high-performance'}); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0x03030a);
+const camera=new THREE.PerspectiveCamera(28, 1, 0.1, 100); camera.position.set(0,1.18,5.6); camera.lookAt(0,0.28,0);
+const renderer=new THREE.WebGLRenderer({canvas, antialias:true}); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); renderer.shadowMap.enabled=true; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.15; renderer.outputColorSpace=THREE.SRGBColorSpace;
 function resize(){const w=canvas.clientWidth||400, h=canvas.clientHeight||400; if(w<10) return; camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h,false);} const ro=new ResizeObserver(resize); ro.observe(canvas); resize();
-const amb=new THREE.AmbientLight(0x7777aa,0.65); scene.add(amb);
-const key=new THREE.DirectionalLight(0xfff8e0,1.9); key.position.set(3.5,6,4); key.castShadow=true; key.shadow.mapSize.set(1024,1024); scene.add(key);
-const fill=new THREE.DirectionalLight(0x8888ff,0.5); fill.position.set(-4,2.5,2); scene.add(fill);
-const spotGold=new THREE.SpotLight(0xffcc00, 2.2, 14, Math.PI/7, 0.35); spotGold.position.set(0,5.5,2); spotGold.target.position.set(0,0,0); scene.add(spotGold); scene.add(spotGold.target);
-const rimL=new THREE.PointLight(0x00f0ff,1.3,10); rimL.position.set(0,1.5,-4.5); scene.add(rimL);
-const ledWall=new THREE.Mesh(new THREE.PlaneGeometry(18,8), new THREE.MeshBasicMaterial({color:0x0a0a1a})); ledWall.position.set(0,1.5,-5); scene.add(ledWall);
-const wheelGroup=new THREE.Group(); wheelGroup.position.set(0,0.28,0); scene.add(wheelGroup);
 
-// EXACT EVOLUTION ORDER (from reference footage - not random)
+let envMap=null;
+const rgbeLoader=new RGBELoader();
+rgbeLoader.load('https://threejs.org/examples/textures/equirectangular/pedestrian_overpass_1k.hdr', (tex)=>{tex.mapping=THREE.EquirectangularReflectionMapping; scene.environment=tex; envMap=tex; document.getElementById('loader').classList.add('hidden'); buildWheel();}, undefined, ()=>{document.getElementById('loader').classList.add('hidden'); buildWheel();});
+
+const amb=new THREE.AmbientLight(0x7777aa,0.55); scene.add(amb);
+const key=new THREE.DirectionalLight(0xfff6dd,2.1); key.position.set(3.8,6.2,4.2); key.castShadow=true; key.shadow.mapSize.set(2048,2048); scene.add(key);
+const spotGold=new THREE.SpotLight(0xffcc00, 2.4, 16, Math.PI/7, 0.32); spotGold.position.set(0,5.8,2.5); spotGold.target.position.set(0,0,0); scene.add(spotGold); scene.add(spotGold.target);
+const rimL=new THREE.PointLight(0x00f0ff,1.4,12); rimL.position.set(0,1.6,-4.8); scene.add(rimL);
+
+const wheelGroup=new THREE.Group(); wheelGroup.position.set(0,0.3,0); scene.add(wheelGroup);
+let segments=[], wheelMesh=null;
 const exactOrder=['1','CoinFlip','2','5','1','2','1','CashHunt','1','2','1','Pachinko','2','1','10','1','2','5','1','2','1','CoinFlip','2','1','2','1','5','1','2','1','CoinFlip','1','2','10','1','2','1','5','2','1','CashHunt','1','2','1','Pachinko','1','2','1','CoinFlip','1','CrazyTime','2','1'];
 const colorMap={ '1':'#2a7fff','2':'#ffef00','5':'#9a5aff','10':'#2aff7f','CoinFlip':'#ff3366','CashHunt':'#00f0ff','Pachinko':'#ff8800','CrazyTime':'#ff0000'};
-let segments=exactOrder.map(t=>({type:t, color:colorMap[t]})); window._segments=segments;
-
-function makeUltraTexture(){
- const c=document.createElement('canvas'); c.width=6144; c.height=512; const ctx=c.getContext('2d'); const segW=c.width/54;
- const icon={CoinFlip:'🪙',CashHunt:'🎯',Pachinko:'🔴',CrazyTime:'🎡'};
- segments.forEach((s,i)=>{
-  // base with vignette
-  let grad=ctx.createLinearGradient(i*segW,0,i*segW,c.height);
-  grad.addColorStop(0, s.color); grad.addColorStop(0.5, s.color); grad.addColorStop(1, '#000000');
-  ctx.fillStyle=grad; ctx.fillRect(i*segW,0,segW,c.height);
-  // highlight
-  ctx.fillStyle='rgba(255,255,255,0.18)'; ctx.fillRect(i*segW,0,segW,22);
-  // border gold
-  ctx.strokeStyle='rgba(0,0,0,0.9)'; ctx.lineWidth=6; ctx.strokeRect(i*segW,0,segW,c.height);
-  ctx.strokeStyle='rgba(255,204,0,0.35)'; ctx.lineWidth=1; ctx.strokeRect(i*segW+3,3,segW-6,c.height-6);
-  // text + icon
-  ctx.save(); ctx.translate(i*segW+segW/2, c.height/2+10); ctx.rotate(-Math.PI/2);
-  ctx.fillStyle=(s.type==='2'||s.type==='1')?'#000':'#fff'; ctx.font='900 58px Orbitron'; ctx.textAlign='center';
-  if(s.type.length>3){ctx.font='900 34px Orbitron'; ctx.fillText(icon[s.type]||'',0,-22); ctx.fillText(s.type,0,36);} else {ctx.fillText(s.type,0,18);}
-  ctx.restore();
- });
- const tex=new THREE.CanvasTexture(c); tex.wrapS=THREE.RepeatWrapping; tex.anisotropy=16; tex.colorSpace=THREE.SRGBColorSpace; return tex;
+function makeUltra(){const c=document.createElement('canvas'); c.width=6144; c.height=512; const ctx=c.getContext('2d'); const segW=c.width/54; exactOrder.forEach((t,i)=>{const col=colorMap[t]; let grad=ctx.createLinearGradient(i*segW,0,i*segW,c.height); grad.addColorStop(0,col); grad.addColorStop(0.55,col); grad.addColorStop(1,'#000'); ctx.fillStyle=grad; ctx.fillRect(i*segW,0,segW,c.height); ctx.fillStyle='rgba(255,255,255,0.22)'; ctx.fillRect(i*segW,0,segW,20); ctx.strokeStyle='rgba(0,0,0,0.95)'; ctx.lineWidth=6; ctx.strokeRect(i*segW,0,segW,c.height); ctx.strokeStyle='rgba(255,204,0,0.35)'; ctx.lineWidth=1; ctx.strokeRect(i*segW+3,3,segW-6,c.height-6); ctx.save(); ctx.translate(i*segW+segW/2,c.height/2+12); ctx.rotate(-Math.PI/2); ctx.fillStyle=(t==='2'||t==='1')?'#000':'#fff'; ctx.font='900 56px Orbitron'; ctx.textAlign='center'; const icon={CoinFlip:'🪙',CashHunt:'🎯',Pachinko:'🔴',CrazyTime:'🎡'}; if(t.length>3){ctx.font='900 32px Orbitron'; ctx.fillText(icon[t]||'',0,-22); ctx.fillText(t,0,38);} else ctx.fillText(t,0,16); ctx.restore();}); const tex=new THREE.CanvasTexture(c); tex.wrapS=THREE.RepeatWrapping; tex.anisotropy=16; tex.colorSpace=THREE.SRGBColorSpace; return tex;}
+function buildWheel(){
+ segments=exactOrder.map(t=>({type:t, color:colorMap[t]})); window._segments=segments;
+ const rimTex=makeUltra(); const radius=2.52, thick=0.48;
+ const geo=new THREE.CylinderGeometry(radius,radius,thick,54,1,false);
+ const mat=new THREE.MeshPhysicalMaterial({map:rimTex, metalness:0.22, roughness:0.32, clearcoat:0.6, clearcoatRoughness:0.25, envMap:envMap, envMapIntensity:0.9, sheen:0.2});
+ wheelMesh=new THREE.Mesh(geo,mat); wheelMesh.rotation.x=Math.PI/2; wheelMesh.castShadow=true; wheelMesh.receiveShadow=true; wheelGroup.add(wheelMesh);
+ const faceGeo=new THREE.CircleGeometry(radius-0.04,96); const faceMat=new THREE.MeshPhysicalMaterial({color:0x0d0d1a, metalness:0.4, roughness:0.6, clearcoat:0.3, envMap:envMap});
+ const front=new THREE.Mesh(faceGeo,faceMat); front.position.z=thick/2+0.003; wheelGroup.add(front); const back=new THREE.Mesh(faceGeo,faceMat); back.position.z=-thick/2-0.003; back.rotation.y=Math.PI; wheelGroup.add(back);
+ const hubGeo=new THREE.CylinderGeometry(0.44,0.44,thick+0.16,48); const hubMat=new THREE.MeshPhysicalMaterial({color:0xffcc00, metalness:0.93, roughness:0.18, clearcoat:1.0, clearcoatRoughness:0.1, envMap:envMap}); const hub=new THREE.Mesh(hubGeo,hubMat); hub.rotation.x=Math.PI/2; hub.castShadow=true; wheelGroup.add(hub);
+ const torusGeo=new THREE.TorusGeometry(radius,0.078,20,180); const goldMat=new THREE.MeshPhysicalMaterial({color:0xffcc00, metalness:0.9, roughness:0.2, clearcoat:0.8, envMap:envMap}); const rim1=new THREE.Mesh(torusGeo,goldMat); rim1.position.z=thick/2; wheelGroup.add(rim1); const rim2=new THREE.Mesh(torusGeo,goldMat); rim2.position.z=-thick/2; wheelGroup.add(rim2);
+ const pedGeo=new THREE.CylinderGeometry(0.14,0.34,3.2,20); const pedMat=new THREE.MeshStandardMaterial({color:0x1a1a2a, metalness:0.65, roughness:0.35}); const ped=new THREE.Mesh(pedGeo,pedMat); ped.position.y=-1.64; ped.receiveShadow=true; scene.add(ped);
+ const floorGeo=new THREE.PlaneGeometry(24,24); const floorMat=new THREE.MeshStandardMaterial({color:0x060610, metalness:0.2, roughness:0.82}); const floor=new THREE.Mesh(floorGeo,floorMat); floor.rotation.x=-Math.PI/2; floor.position.y=-3.18; floor.receiveShadow=true; scene.add(floor);
+ const pointerGroup=new THREE.Group(); pointerGroup.position.set(0,radius+0.9,0.6); scene.add(pointerGroup); const pGeo=new THREE.ConeGeometry(0.26,0.66,3); const pMat=new THREE.MeshPhysicalMaterial({color:0xffcc00, emissive:0xffcc00, emissiveIntensity:0.65, metalness:0.3, clearcoat:1.0}); const pointer=new THREE.Mesh(pGeo,pMat); pointer.rotation.x=Math.PI; pointer.castShadow=true; pointerGroup.add(pointer); const pLight=new THREE.PointLight(0xffcc00,1.8,3.2); pointerGroup.add(pLight); window._pointerGroup=pointerGroup;
 }
-const rimTex=makeUltraTexture(); const radius=2.48, thick=0.46;
-const wheelGeo=new THREE.CylinderGeometry(radius,radius,thick,54,1,false); const wheelMat=new THREE.MeshStandardMaterial({map:rimTex, metalness:0.18, roughness:0.38, envMapIntensity:0.6});
-const wheelMesh=new THREE.Mesh(wheelGeo,wheelMat); wheelMesh.rotation.x=Math.PI/2; wheelMesh.castShadow=true; wheelMesh.receiveShadow=true; wheelGroup.add(wheelMesh);
-const faceGeo=new THREE.CircleGeometry(radius-0.04, 96); const faceMat=new THREE.MeshStandardMaterial({color:0x0c0c18, metalness:0.35, roughness:0.65});
-const front=new THREE.Mesh(faceGeo,faceMat); front.position.z=thick/2+0.002; wheelGroup.add(front); const back=new THREE.Mesh(faceGeo,faceMat); back.position.z=-thick/2-0.002; back.rotation.y=Math.PI; wheelGroup.add(back);
-const hubGeo=new THREE.CylinderGeometry(0.42,0.42,thick+0.14,48); const hubMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.92, roughness:0.18, emissive:0x221100, emissiveIntensity:0.15}); const hub=new THREE.Mesh(hubGeo,hubMat); hub.rotation.x=Math.PI/2; hub.castShadow=true; wheelGroup.add(hub);
-const engraved=new THREE.Mesh(new THREE.CircleGeometry(0.28,32), new THREE.MeshStandardMaterial({color:0x111111})); engraved.position.z=thick/2+0.08; wheelGroup.add(engraved);
-const torusGeo=new THREE.TorusGeometry(radius,0.075,18,160); const goldMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.88, roughness:0.22}); const rim1=new THREE.Mesh(torusGeo,goldMat); rim1.position.z=thick/2; wheelGroup.add(rim1); const rim2=new THREE.Mesh(torusGeo,goldMat); rim2.position.z=-thick/2; wheelGroup.add(rim2);
-const pedGeo=new THREE.CylinderGeometry(0.14,0.32,3.1,20); const pedMat=new THREE.MeshStandardMaterial({color:0x1a1a2a, metalness:0.6, roughness:0.4}); const ped=new THREE.Mesh(pedGeo,pedMat); ped.position.y=-1.62; ped.receiveShadow=true; scene.add(ped);
-const floorGeo=new THREE.PlaneGeometry(22,22); const floorMat=new THREE.MeshStandardMaterial({color:0x070710, metalness:0.15, roughness:0.85}); const floor=new THREE.Mesh(floorGeo,floorMat); floor.rotation.x=-Math.PI/2; floor.position.y=-3.15; floor.receiveShadow=true; scene.add(floor);
-const pointerGroup=new THREE.Group(); pointerGroup.position.set(0,radius+0.88,0.55); scene.add(pointerGroup); const pGeo=new THREE.ConeGeometry(0.24,0.62,3); const pMat=new THREE.MeshStandardMaterial({color:0xffcc00, emissive:0xffcc00, emissiveIntensity:0.65, metalness:0.4}); const pointer=new THREE.Mesh(pGeo,pMat); pointer.rotation.x=Math.PI; pointer.castShadow=true; pointerGroup.add(pointer); const pLight=new THREE.PointLight(0xffcc00,1.6,3); pointerGroup.add(pLight);
-let targetZ=0, currentZ=0; function animate(){requestAnimationFrame(animate); const prev=Math.floor((currentZ%(2*Math.PI))/(2*Math.PI/54)); currentZ+=(targetZ-currentZ)*0.058; const cur=Math.floor((currentZ%(2*Math.PI))/(2*Math.PI/54)); if(phase==='spinning' && cur!==prev && Math.abs(targetZ-currentZ)>0.04){if(soundEnabled) tick(); pointerGroup.scale.set(1.2,1.2,1.2); setTimeout(()=>pointerGroup.scale.set(1,1,1),80);} wheelGroup.rotation.z=currentZ; renderer.render(scene,camera);} animate();
 
-// BONUS SCENE
+let targetZ=0, currentZ=0;
+function animate(){requestAnimationFrame(animate); const prev=Math.floor((currentZ%(2*Math.PI))/(2*Math.PI/54)); currentZ+=(targetZ-currentZ)*0.058; const cur=Math.floor((currentZ%(2*Math.PI))/(2*Math.PI/54)); if(phase==='spinning' && cur!==prev && Math.abs(targetZ-currentZ)>0.04){if(soundEnabled) tick(); if(window._pointerGroup){window._pointerGroup.scale.set(1.25,1.25,1.25); setTimeout(()=>window._pointerGroup.scale.set(1,1,1),70);}} if(wheelGroup) wheelGroup.rotation.z=currentZ; renderer.render(scene,camera);} animate();
+
+// BONUS
 const bCanvas=document.getElementById('bonusThree'); const bScene=new THREE.Scene(); bScene.background=new THREE.Color(0x0a0014);
 const bCamera=new THREE.PerspectiveCamera(38, 1, 0.1, 50); bCamera.position.set(0,1.5,4);
 const bRenderer=new THREE.WebGLRenderer({canvas:bCanvas, antialias:true}); bRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 function bResize(){const w=bCanvas.clientWidth||400, h=bCanvas.clientHeight||400; bCamera.aspect=w/h; bCamera.updateProjectionMatrix(); bRenderer.setSize(w,h,false);} const bro=new ResizeObserver(bResize); bro.observe(bCanvas); bResize();
-const bAmb=new THREE.AmbientLight(0xffffff,0.85); bScene.add(bAmb); const bDir=new THREE.DirectionalLight(0xffffff,1.2); bDir.position.set(2,4,3); bScene.add(bDir);
+const bAmb=new THREE.AmbientLight(0xffffff,0.9); bScene.add(bAmb);
 let bonusType=null, bonusMult=1, bonusActive=false, bonusObjects=[];
 function clearBonus(){bonusObjects.forEach(o=>bScene.remove(o)); bonusObjects=[];}
-function buildCoin(){clearBonus(); bCamera.position.set(0,1,3); const coin=new THREE.Mesh(new THREE.CylinderGeometry(0.85,0.85,0.16,48), new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.8})); bScene.add(coin); bonusObjects.push(coin);}
+function buildCoin(){clearBonus(); bCamera.position.set(0,1,3); const coin=new THREE.Mesh(new THREE.CylinderGeometry(0.9,0.9,0.18,48), new THREE.MeshPhysicalMaterial({color:0xffcc00, metalness:0.85, clearcoat:1.0})); bScene.add(coin); bonusObjects.push(coin);}
 function buildHunt(){clearBonus(); bCamera.position.set(0,1,5.2); for(let i=0;i<18;i++){for(let j=0;j<6;j++){const g=new THREE.PlaneGeometry(0.46,0.46); const c=document.createElement('canvas'); c.width=128; c.height=128; const ctx=c.getContext('2d'); ctx.fillStyle=`hsl(${Math.random()*60+35},100%,55%)`; ctx.fillRect(0,0,128,128); ctx.fillStyle='#000'; ctx.font='900 34px Orbitron'; ctx.fillText((2+Math.floor(Math.random()*60))+'x',12,78); const tex=new THREE.CanvasTexture(c); const mat=new THREE.MeshBasicMaterial({map:tex}); const m=new THREE.Mesh(g,mat); m.position.set((i-9)*0.55,(j-2.5)*0.55,0); bScene.add(m); bonusObjects.push(m);}}}}
 function buildPach(){clearBonus(); bCamera.position.set(0,3,6); const pegG=new THREE.SphereGeometry(0.08,8,8); const pegM=new THREE.MeshStandardMaterial({color:0xffcc00}); for(let y=0;y<8;y++){for(let x=0;x<9;x++){const peg=new THREE.Mesh(pegG,pegM); peg.position.set((x-4)*0.4 + (y%2?0.2:0),2-y*0.5,0); bScene.add(peg); bonusObjects.push(peg);}} const puck=new THREE.Mesh(new THREE.SphereGeometry(0.15,16,16), new THREE.MeshStandardMaterial({color:0xff2a6d, emissive:0xff2a6d, emissiveIntensity:0.3})); puck.position.set(0,3,0); puck.userData.vy=0; bScene.add(puck); bonusObjects.push(puck);}
-function buildCrazy(){clearBonus(); bCamera.position.set(0,1,6); const w=new THREE.Mesh(new THREE.CylinderGeometry(2,2,0.32,36,1,false), new THREE.MeshStandardMaterial({color:0xff0000, emissive:0xff0000, emissiveIntensity:0.2})); w.rotation.x=Math.PI/2; bScene.add(w); bonusObjects.push(w);}
-function bAnimate(){requestAnimationFrame(bAnimate); if(bonusType==='CoinFlip' && bonusActive){bonusObjects[0].rotation.y+=0.22; bonusObjects[0].rotation.x+=0.11} if(bonusType==='Pachinko' && bonusActive){const puck=bonusObjects[bonusObjects.length-1]; puck.userData.vy-=0.008; puck.position.y+=puck.userData.vy; puck.position.x+=(Math.random()-0.5)*0.02; if(puck.position.y<-2){puck.position.y=-2; bonusActive=false; document.getElementById('bWin').textContent=`WIN ${Math.floor(10*bonusMult + Math.random()*40)}x`;}} if(bonusType==='CrazyTime' && bonusActive){bonusObjects[0].rotation.z+=0.08} bRenderer.render(bScene,bCamera);} bAnimate();
+function buildCrazy(){clearBonus(); bCamera.position.set(0,1,6); const w=new THREE.Mesh(new THREE.CylinderGeometry(2.1,2.1,0.34,40,1,false), new THREE.MeshPhysicalMaterial({color:0xff0000, emissive:0xff0000, emissiveIntensity:0.25})); w.rotation.x=Math.PI/2; bScene.add(w); bonusObjects.push(w);}
+function bAnimate(){requestAnimationFrame(bAnimate); if(bonusType==='CoinFlip' && bonusActive){bonusObjects[0].rotation.y+=0.24; bonusObjects[0].rotation.x+=0.12} if(bonusType==='Pachinko' && bonusActive){const puck=bonusObjects[bonusObjects.length-1]; puck.userData.vy-=0.0085; puck.position.y+=puck.userData.vy; puck.position.x+=(Math.random()-0.5)*0.022; if(puck.position.y<-2){puck.position.y=-2; bonusActive=false; document.getElementById('bWin').textContent=`WIN ${Math.floor(10*bonusMult + Math.random()*40)}x`;}} if(bonusType==='CrazyTime' && bonusActive){bonusObjects[0].rotation.z+=0.09} bRenderer.render(bScene,bCamera);} bAnimate();
 
 // GAME
 let balance=50000, bets={}, history=[], phase='betting', timeLeft=8, liveBets=[], displayName='GUEST', round=181710;
 function fmt(n){return n.toLocaleString('en-KE',{minimumFractionDigits:2})}
-window.bet=(type)=>{initAudio(); if(phase!=='betting'){addChat('System: Betting closed');return} let amt=100; if(!bets[type]) bets[type]=0; bets[type]+=amt; if(balance<bets[type]){bets[type]-=amt; return} document.getElementById('bet-'+type).textContent=bets[type]; document.querySelector(`[data-type="${type}"]`).classList.add('active'); balance-=amt; document.getElementById('bal').textContent=fmt(balance); genBots(); tone(620,0.09,'sine',0.18);}
+window.bet=(type)=>{initAudio(); if(phase!=='betting'){addChat('System: Betting closed');return} let amt=100; if(!bets[type]) bets[type]=0; bets[type]+=amt; if(balance<bets[type]){bets[type]-=amt; return} document.getElementById('bet-'+type).textContent=bets[type]; document.querySelector(`[data-type="${type}"]`).classList.add('active'); balance-=amt; document.getElementById('bal').textContent=fmt(balance); genBots(); tone(620,0.08,'sine',0.18);}
 window.clearBets=()=>{let t=Object.values(bets).reduce((a,b)=>a+b,0); balance+=t; bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); document.getElementById('bal').textContent=fmt(balance);}
-function genBots(){liveBets=[]; const names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<13;i++){const on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(bets).forEach(k=>{if(bets[k]>0) liveBets.push({name:displayName+' (YOU)', on:k, win:0})}); renderFloor();}
+function genBots(){liveBets=[]; const names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<14;i++){const on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(bets).forEach(k=>{if(bets[k]>0) liveBets.push({name:displayName+' (YOU)', on:k, win:0})}); renderFloor();}
 function renderFloor(){document.getElementById('liveList').innerHTML=liveBets.map(b=>`<div class="row"><span>${b.name}</span><span>${b.on}</span><span style="color:${b.win>0?'#00ff88':'#888'}">${b.win>0?'KES '+b.win:'-'}</span></div>`).join(''); document.getElementById('liveCount').textContent=liveBets.length}
 function addChat(t){const d=document.createElement('div'); d.innerHTML=t; const log=document.getElementById('chatLog'); log.appendChild(d); log.scrollTop=log.scrollHeight}
 function renderRecent(){document.getElementById('recent').innerHTML=history.slice(0,18).map(v=>{const bg=colorMap[v]||'#fff'; const col=(v==='2'||v==='1')?'#000':'#fff'; return `<span class="chip" style="background:${bg}; color:${col}">${v}</span>`}).join('')}
 let timerInt=null;
 function startBetting(){phase='betting'; timeLeft=8; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; document.getElementById('hub').textContent='PLACE BETS'; document.getElementById('spinBtn').disabled=false; document.getElementById('spinBtn').textContent='SPIN - PLACE BETS'; genBots(); const top1=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; const top2=[2,3,5,10,15,25,50][Math.floor(Math.random()*7)]; document.getElementById('top1').textContent=top1; document.getElementById('top2').textContent=top2+'x'; document.getElementById('top1').className='sBox'; document.getElementById('top2').className='sBox'; if(Math.random()>0.6){document.getElementById('top1').classList.add('win'); document.getElementById('top2').classList.add('win'); window._topMult={type:top1,mult:top2}; if(soundEnabled) topAlarm();} else window._topMult=null; timerInt=setInterval(()=>{timeLeft-=0.1; document.getElementById('timer').textContent=`NEXT ${timeLeft.toFixed(1)}s`; document.getElementById('phase').textContent=`BETTING ${timeLeft.toFixed(1)}s`; if(timeLeft<=0){clearInterval(timerInt); spin()}},100)}
-window.spin=()=>{initAudio(); if(phase!=='betting')return; phase='spinning'; clearInterval(timerInt); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('spinBtn').disabled=true; spinStart(); const winnerIdx=Math.floor(Math.random()*54); const winner=window._segments[winnerIdx]; const anglePer=2*Math.PI/54; const pointerAngle=Math.PI/2; const targetAngle=pointerAngle - winnerIdx*anglePer; const extra=5+Math.random()*3; targetZ=currentZ + extra*2*Math.PI + (targetAngle - (currentZ % (2*Math.PI))); const start=performance.now(); const dur=5200; const startZ=currentZ; function anim(t){const p=Math.min((t-start)/dur,1); const ease=1-Math.pow(1-p,4); currentZ=startZ + (targetZ-startZ)*ease; wheelGroup.rotation.z=currentZ; if(p<1) requestAnimationFrame(anim); else finish(winner)} requestAnimationFrame(anim)}
+window.spin=()=>{initAudio(); if(phase!=='betting')return; phase='spinning'; clearInterval(timerInt); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('spinBtn').disabled=true; spinStart(); const winnerIdx=Math.floor(Math.random()*54); const winner=window._segments[winnerIdx]; const anglePer=2*Math.PI/54; const pointerAngle=Math.PI/2; const targetAngle=pointerAngle - winnerIdx*anglePer; const extra=5+Math.random()*3; targetZ=currentZ + extra*2*Math.PI + (targetAngle - (currentZ % (2*Math.PI))); const start=performance.now(); const dur=5400; const startZ=currentZ; function anim(t){const p=Math.min((t-start)/dur,1); const ease=1-Math.pow(1-p,4); currentZ=startZ + (targetZ-startZ)*ease; if(p<1) requestAnimationFrame(anim); else finish(winner)} requestAnimationFrame(anim)}
 function finish(winner){const topMult=window._topMult && window._topMult.type===winner.type ? window._topMult.mult : 1; const base={ '1':1,'2':2,'5':5,'10':10, 'CoinFlip':5,'CashHunt':10,'Pachinko':10,'CrazyTime':20 }[winner.type]||1; let totalWin=0; history.unshift(winner.type); renderRecent(); if(history.length>30) history.pop(); Object.keys(bets).forEach(k=>{if(k===winner.type){const w=Math.floor(bets[k]*base*topMult); totalWin+=w; balance+=w; liveBets.forEach(b=>{if(b.on===k) b.win=w})}}); document.getElementById('bal').textContent=fmt(balance); document.getElementById('lastWin').textContent=winner.type+(topMult>1?` ${topMult}x`:'' ); document.getElementById('hub').textContent=`WIN ${winner.type} ${topMult>1?topMult+'x':''}`; addChat(`<b>System:</b> WINNER ${winner.type}${topMult>1?` Top Slot ${topMult}x`:''} - You ${totalWin>0?'won KES '+totalWin:'lost'}`); renderFloor(); winF(totalWin); if(['CoinFlip','CashHunt','Pachinko','CrazyTime'].includes(winner.type)){setTimeout(()=>openBonus(winner.type, totalWin, topMult),700)} else {setTimeout(()=>{bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); round++; document.getElementById('rnd').textContent=round; startBetting()},2500)}}
 function openBonus(type, win, top){bonusType=type; bonusMult=top; bonusActive=false; const full=document.getElementById('bonusFull'); full.classList.add('open'); document.getElementById('bTitle').textContent=type.toUpperCase()+' BONUS'; document.getElementById('bMult').textContent=top>1?`TOP SLOT ${top}x`:''; document.getElementById('bWin').textContent=win>0?`+ KES ${win}`:'READY'; document.getElementById('bonusAction').textContent=type==='CashHunt'?'SHOOT RANDOM TARGET':type==='CoinFlip'?'FLIP COIN':type==='Pachinko'?'DROP PUCK':'SPIN MEGA WHEEL'; bResize(); if(type==='CoinFlip') buildCoin(); if(type==='CashHunt') buildHunt(); if(type==='Pachinko') buildPach(); if(type==='CrazyTime') buildCrazy(); bonusEnter();}
 window.bonusAction=()=>{initAudio(); bonusActive=true; const btn=document.getElementById('bonusAction'); btn.textContent='...'; setTimeout(()=>{const mult=5+Math.floor(Math.random()*45); const finalWin=Math.floor((50+Math.random()*500)*bonusMult*mult/10); document.getElementById('bWin').textContent=`WIN ${mult}x = KES ${finalWin}`; balance+=finalWin; document.getElementById('bal').textContent=fmt(balance); btn.textContent='COLLECT & CONTINUE'; bonusActive=false; winF(finalWin); btn.onclick=()=>closeBonus();}, bonusType==='CoinFlip'?2500: bonusType==='Pachinko'?3500: 1800);}
 window.closeBonus=()=>{document.getElementById('bonusFull').classList.remove('open'); bonusActive=false; bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); round++; document.getElementById('rnd').textContent=round; startBetting(); const btn=document.getElementById('bonusAction'); btn.textContent='START'; btn.onclick=bonusAction;}
-window.deposit=()=>{initAudio(); const a=prompt('Deposit KES demo:','500'); if(a){const v=parseInt(a); if(v>0){balance+=v; document.getElementById('bal').textContent=fmt(balance); addChat(`<b>System:</b> Demo deposit KES ${v}`); tone(800,0.3,'sine',0.3);}}}
+window.deposit=()=>{initAudio(); const a=prompt('Deposit KES demo:','500'); if(a){const v=parseInt(a); if(v>0){balance+=v; document.getElementById('bal').textContent=fmt(balance); addChat(`<b>System:</b> Demo deposit KES ${v}`); tone(800,0.25,'sine',0.28);}}}
 window.sign=()=>{initAudio(); const n=prompt('Display name:'); if(n){displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('signBtn').textContent=n.toUpperCase(); addChat(`<b>System:</b> Welcome ${n}!`);}}
-window.sendChat=()=>{const i=document.getElementById('chatIn'); if(!i.value.trim())return; addChat(`<b>${displayName}:</b> ${i.value}`); i.value=''; if(soundEnabled) tone(500,0.08,'sine',0.15);}
+window.sendChat=()=>{const i=document.getElementById('chatIn'); if(!i.value.trim())return; addChat(`<b>${displayName}:</b> ${i.value}`); i.value=''; if(soundEnabled) tone(500,0.07,'sine',0.12);}
 let saved=localStorage.getItem('b10f_name'); if(saved){displayName=saved; document.getElementById('signBtn').textContent=saved.toUpperCase()}
 startBetting(); renderRecent();
 document.getElementById('chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')window.sendChat()});

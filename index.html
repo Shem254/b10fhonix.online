@@ -2,219 +2,236 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRAZY TIME FUTURISTIC V14 | b10fhonix.online</title>
+<title>AVIATOR FUTURISTIC | b10fhonix.online</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;800&display=swap" rel="stylesheet">
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
 <style>
-:root{--gold:#ffcc00;--pink:#ff2a6d;--cyan:#00f0ff;--green:#00ff88;--blue:#2a7fff;--purple:#9a5aff;--bg:#04040c}
+:root{--cyan:#00f0ff;--pink:#ff2a6d;--gold:#ffcc00;--green:#00ff88;--bg:#050510;--red:#ff3355}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg); color:#fff; font-family:'Rajdhani'; height:100vh; display:flex; flex-direction:column; overflow:hidden}
-header{height:56px; background:linear-gradient(90deg,#0a0a1f,#1a0a2a); border-bottom:2px solid var(--cyan); display:flex; align-items:center; justify-content:space-between; padding:0 14px; box-shadow:0 0 20px rgba(0,240,255,0.3); z-index:30}
-.logo{font-family:'Orbitron'; font-weight:900; font-size:12px; letter-spacing:3px; display:flex; align-items:center; gap:10px}
+header{height:56px; background:linear-gradient(90deg,#0a0a1f,#1a0a2a); border-bottom:2px solid var(--cyan); display:flex; align-items:center; justify-content:space-between; padding:0 14px; box-shadow:0 0 20px rgba(0,240,255,0.25)}
+.logo{font-family:'Orbitron'; font-weight:900; font-size:13px; letter-spacing:3px; display:flex; align-items:center; gap:10px}
 .logo i{width:32px;height:32px;background:conic-gradient(var(--cyan),var(--pink),var(--gold),var(--cyan));border-radius:50%;display:grid;place-items:center;color:#000;box-shadow:0 0 12px var(--cyan);animation:rot 3s linear infinite} @keyframes rot{to{transform:rotate(360deg)}}
-.pill{background:rgba(0,0,0,0.6); border:1px solid var(--cyan); border-radius:20px; padding:6px 12px; font-size:11px; font-weight:800; box-shadow:0 0 10px rgba(0,240,255,0.2)} .pill b{color:var(--cyan); font-family:'Orbitron'}
-.main{flex:1; display:grid; grid-template-columns:1.35fr 0.65fr; gap:8px; padding:8px; overflow:hidden}
-@media(max-width:1000px){.main{grid-template-columns:1fr; overflow:auto}}
-.stage{position:relative; background:radial-gradient(ellipse at 50% 20%, #15153a 0%, #08081a 40%, #000000 100%); border:1px solid rgba(0,240,255,0.25); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; min-height:580px; box-shadow:inset 0 0 40px rgba(0,240,255,0.08), 0 0 30px rgba(0,0,0,0.8)}
-.topBar{height:56px; background:linear-gradient(90deg, rgba(10,10,30,0.9), rgba(30,10,50,0.9)); border-bottom:1px solid rgba(0,240,255,0.3); display:grid; grid-template-columns:1fr 36px 1fr 130px; align-items:center; gap:8px; padding:0 12px; backdrop-filter:blur(10px)}
-.sBox{background:radial-gradient(circle at top, #1a1a3a, #000); border:2px solid rgba(0,240,255,0.3); border-radius:10px; padding:6px; text-align:center; font-family:'Orbitron'; font-weight:900; font-size:18px; box-shadow:inset 0 0 12px rgba(0,240,255,0.15), 0 0 10px rgba(0,0,0,0.5)}
-.sBox.win{border-color:var(--gold); background:radial-gradient(circle, #ffef8a, var(--gold)); color:#000; box-shadow:0 0 25px var(--gold)}
+.pill{background:rgba(0,0,0,0.6); border:1px solid var(--cyan); border-radius:20px; padding:6px 12px; font-size:11px; font-weight:800} .pill b{color:var(--cyan); font-family:'Orbitron'}
+.main{flex:1; display:grid; grid-template-columns:1fr 340px; gap:8px; padding:8px; overflow:hidden}
+@media(max-width:900px){.main{grid-template-columns:1fr; overflow:auto}}
+.stage{position:relative; background:radial-gradient(ellipse at 30% 20%, #15153a 0%, #050510 60%); border:1px solid rgba(0,240,255,0.25); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; min-height:520px}
 #three{flex:1; width:100%; height:100%; display:block}
-.hud{position:absolute; bottom:92px; left:12px; right:12px; display:flex; justify-content:space-between; pointer-events:none; z-index:10}
-.hudBox{background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(10,10,30,0.85)); backdrop-filter:blur(16px); border:1px solid rgba(0,240,255,0.25); border-radius:12px; padding:7px 12px; pointer-events:auto; box-shadow:0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(0,240,255,0.15)}
-.bets{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:8px; background:linear-gradient(180deg, rgba(10,10,25,0.98), rgba(5,5,15,0.98)); border-top:1px solid rgba(0,240,255,0.15)}
-@media(max-width:600px){.bets{grid-template-columns:repeat(2,1fr)}}
-.tile{position:relative; background:linear-gradient(180deg, #1e1e40, #10102a); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:8px; text-align:center; cursor:pointer; transition:.2s; overflow:hidden}
-.tile::before{content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--cyan), transparent); opacity:0; transition:.2s}
-.tile:hover{transform:translateY(-3px); border-color:var(--cyan); box-shadow:0 6px 20px rgba(0,240,255,0.25)} .tile:hover::before{opacity:1}
-.tile.active{border-color:var(--gold); background:linear-gradient(180deg, #2a2210, #1a1508); box-shadow:0 0 18px rgba(255,204,0,0.4)} .tile.active::before{background:linear-gradient(90deg, transparent, var(--gold), transparent); opacity:1}
-.tile b{font-family:'Orbitron'; font-size:11px; display:block; letter-spacing:1px} .tile small{font-size:9px; opacity:.6}
-.btnSpin{width:100%; padding:12px; background:linear-gradient(90deg, var(--cyan), var(--gold)); color:#000; font-family:'Orbitron'; font-weight:900; font-size:12px; letter-spacing:1px; border:0; border-radius:10px; cursor:pointer; box-shadow:0 0 20px rgba(0,240,255,0.4); transition:.2s}
-.btnSpin:hover{box-shadow:0 0 30px rgba(0,240,255,0.6); transform:translateY(-1px)} .btnSpin:disabled{opacity:.4; cursor:not-allowed}
+.hud{position:absolute; inset:0; pointer-events:none; z-index:10}
+.centerMult{position:absolute; top:46%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none}
+.centerMult #mult{font-family:'Orbitron'; font-weight:900; font-size:72px; color:#fff; text-shadow:0 0 20px var(--cyan), 0 0 40px var(--cyan); line-height:1}
+.centerMult #mult.crash{color:var(--red); text-shadow:0 0 20px var(--red); animation:shake .3s infinite} @keyframes shake{0%,100%{transform:translate(-50%,-50%)}25%{transform:translate(-52%,-50%)}75%{transform:translate(-48%,-50%)}}
+.centerMult #status{font-family:'Orbitron'; font-size:11px; letter-spacing:3px; opacity:.7; margin-top:8px}
+.graph{position:absolute; bottom:0; left:0; right:0; height:180px; pointer-events:none; opacity:.9}
+.controls{padding:10px; background:linear-gradient(180deg, rgba(10,10,25,0.98), rgba(5,5,15,0.98)); border-top:1px solid rgba(0,240,255,0.15); display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.betCard{background:linear-gradient(180deg,#1e1e40,#10102a); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:10px; text-align:center}
+.betCard.active{border-color:var(--cyan); box-shadow:0 0 15px rgba(0,240,255,0.25)}
+.betCard.cashed{border-color:var(--green); background:linear-gradient(180deg,#102a1a,#0a1a12); box-shadow:0 0 15px rgba(0,255,136,0.3)}
+.betCard b{font-family:'Orbitron'; font-size:11px; display:block; letter-spacing:1px}
+.inpRow{display:flex; gap:6px; margin:8px 0}
+.inpRow input{flex:1; background:#000; border:1px solid rgba(255,255,255,0.12); border-radius:8px; color:#fff; padding:8px; font-family:'Orbitron'; font-size:12px; text-align:center}
+.inpRow button{background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:8px; padding:0 10px; font-family:'Orbitron'; font-size:10px; cursor:pointer}
+.btnBet{width:100%; padding:12px; background:linear-gradient(90deg,var(--green),#00cc66); color:#000; font-family:'Orbitron'; font-weight:900; font-size:13px; border:0; border-radius:10px; cursor:pointer; box-shadow:0 0 15px rgba(0,255,136,0.3); transition:.2s}
+.btnBet:hover{transform:translateY(-1px); box-shadow:0 0 25px rgba(0,255,136,0.5)}
+.btnBet.cashout{background:linear-gradient(90deg,var(--gold),#ff8800); box-shadow:0 0 15px rgba(255,204,0,0.4)}
+.btnBet:disabled{opacity:.3; cursor:not-allowed}
 .right{display:flex; flex-direction:column; gap:8px; overflow:hidden}
-.card{background:linear-gradient(180deg, rgba(18,18,42,0.96), rgba(10,10,26,0.96)); border:1px solid rgba(0,240,255,0.12); border-radius:14px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.4)}
-.cardHead{height:34px; background:linear-gradient(90deg, rgba(26,26,58,0.9), rgba(16,16,40,0.9)); border-bottom:1px solid rgba(0,240,255,0.12); display:flex; align-items:center; justify-content:space-between; padding:0 10px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px}
-.recent{height:38px; display:flex; gap:5px; align-items:center; padding:0 8px; overflow-x:auto; background:rgba(0,0,0,0.25)}
-.chip{font-size:10px; padding:4px 9px; border-radius:20px; font-weight:800; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15)}
-.list{flex:1; overflow:auto; max-height:200px; font-size:11px} .row{display:grid; grid-template-columns:1fr 70px 50px; padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.04)}
-.chat{height:130px; display:flex; flex-direction:column; background:rgba(0,0,0,0.2); border-top:1px solid rgba(0,240,255,0.08)} .log{flex:1; overflow:auto; padding:6px; font-size:11px; line-height:1.4}
-.loader{position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%, #15153a 0%, #04040c 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:40; transition:opacity .6s}
+.card{background:linear-gradient(180deg, rgba(18,18,42,0.96), rgba(10,10,26,0.96)); border:1px solid rgba(0,240,255,0.12); border-radius:14px; overflow:hidden}
+.head{height:34px; background:linear-gradient(90deg, rgba(26,26,58,0.9), rgba(16,16,40,0.9)); border-bottom:1px solid rgba(0,240,255,0.12); display:flex; align-items:center; justify-content:space-between; padding:0 10px; font-family:'Orbitron'; font-size:10px}
+.recent{height:40px; display:flex; gap:5px; align-items:center; padding:0 8px; overflow-x:auto; background:rgba(0,0,0,0.25)}
+.chip{font-size:10px; padding:4px 8px; border-radius:20px; font-weight:800; white-space:nowrap; font-family:'Orbitron'}
+.list{flex:1; overflow:auto; max-height:220px; font-size:11px} .row{display:grid; grid-template-columns:1fr 60px 60px; padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.04)}
+.loader{position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%, #15153a 0%, #050510 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:30; transition:opacity .5s}
 .loader.hide{opacity:0; pointer-events:none}
-.bar{width:300px; height:4px; background:rgba(255,255,255,0.06); border-radius:10px; overflow:hidden; margin-top:18px; border:1px solid rgba(0,240,255,0.15)} .fill{height:100%; width:0%; background:linear-gradient(90deg, var(--cyan), var(--pink), var(--gold)); box-shadow:0 0 10px var(--cyan); transition:width .3s cubic-bezier(.4,0,.2,1)}
-.serverBadge{position:absolute; top:10px; left:10px; z-index:20; background:rgba(0,0,0,0.7); border:1px solid rgba(0,255,136,0.3); border-radius:20px; padding:4px 10px; font-family:'Orbitron'; font-size:9px; display:flex; align-items:center; gap:6px}
-.dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 1.5s infinite} @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.bar{width:280px; height:4px; background:rgba(255,255,255,0.06); border-radius:10px; overflow:hidden; margin-top:16px} .fill{height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--pink),var(--gold)); transition:width .3s}
 </style>
 </head>
 <body>
-<header><div class="logo"><i>◉</i> b10fhonix • FUTURISTIC 3D • SERVER INSIDE</div><div style="display:flex; gap:8px; align-items:center"><button onclick="SoundServer.toggle()" id="snd" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--cyan);background:rgba(0,240,255,0.12);color:var(--cyan);cursor:pointer;box-shadow:0 0 10px rgba(0,240,255,0.2)">🔊</button><div class="pill">DEMO <b id="bal">50,000</b></div><button onclick="GameServer.sign()" id="signBtn" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:20px; padding:6px 12px; font-family:'Orbitron'; font-size:10px; cursor:pointer">SIGN UP</button></div></header>
+<header><div class="logo"><i>✈</i> b10fhonix • AVIATOR • FUTURISTIC 3D</div><div style="display:flex; gap:8px; align-items:center"><button onclick="SoundServer.toggle()" id="snd" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--cyan);background:rgba(0,240,255,0.12);color:var(--cyan);cursor:pointer">🔊</button><div class="pill">DEMO <b id="bal">50,000</b></div><button onclick="GameServer.sign()" id="signBtn" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:20px; padding:6px 12px; font-family:'Orbitron'; font-size:10px; cursor:pointer">SIGN UP</button></div></header>
 <div class="main">
 <div class="stage">
-<div class="serverBadge"><div class="dot"></div> SERVER: ONLINE • <span id="serverCalls">0 calls</span></div>
-<div class="topBar"><div class="sBox" id="top1">?</div><div style="text-align:center; font-family:'Orbitron'; color:var(--gold); font-size:18px">×</div><div class="sBox" id="top2">?</div><div style="text-align:center"><div style="font-size:8px; opacity:.5; letter-spacing:1px">PHASE</div><div id="phase" style="font-family:'Orbitron'; font-size:11px; color:var(--green)">BETTING 8.0s</div></div></div>
 <canvas id="three"></canvas>
-<div class="loader" id="loader"><div style="font-family:'Orbitron'; font-size:22px; letter-spacing:4px; text-shadow:0 0 15px var(--cyan)">b10fhonix</div><div style="font-family:'Orbitron'; font-size:10px; letter-spacing:3px; opacity:.5; margin-top:6px">FUTURISTIC 3D • SERVER INSIDE • V14</div><div class="bar"><div class="fill" id="fill"></div></div><div style="margin-top:12px; font-family:'Orbitron'; font-size:26px; color:var(--cyan); text-shadow:0 0 10px var(--cyan)" id="pct">0%</div><div id="step" style="margin-top:8px; font-family:'Rajdhani'; font-size:11px; opacity:.6">Booting internal server...</div></div>
-<div class="hud"><div class="hudBox"><div style="font-size:8px; opacity:.5; letter-spacing:1px">LAST WIN</div><div id="lastWin" style="font-family:'Orbitron'; color:var(--gold); font-size:12px">-</div></div><div class="hudBox" style="text-align:right"><div style="font-size:8px; opacity:.5; letter-spacing:1px">ROUND #<span id="rnd">181710</span></div><div id="hub" style="font-family:'Orbitron'; font-size:11px">PLACE BETS</div></div></div>
-<div class="bets" id="bets"></div>
-<div style="padding:8px; display:grid; grid-template-columns:1fr 100px; gap:8px"><button class="btnSpin" id="spinBtn" onclick="GameServer.spin()">SPIN - PLACE BETS</button><button onclick="GameServer.clearBets()" style="background:rgba(255,255,255,0.06); color:#fff; border:1px solid rgba(255,255,255,0.12); border-radius:10px; font-family:'Orbitron'; font-size:10px; cursor:pointer">CLEAR</button></div>
+<canvas id="graph" class="graph"></canvas>
+<div class="hud">
+<div style="position:absolute; top:12px; left:12px; background:rgba(0,0,0,0.7); border:1px solid rgba(0,255,136,0.3); border-radius:20px; padding:4px 10px; font-family:'Orbitron'; font-size:9px; display:flex; align-items:center; gap:6px"><div style="width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:blink 1.5s infinite"></div> SERVER: AVIATOR ONLINE • <span id="calls">0 calls</span></div>
+<div class="centerMult"><div id="mult">1.00x</div><div id="status">WAITING FOR NEXT ROUND</div></div>
+</div>
+<div class="loader" id="loader"><div style="font-family:'Orbitron'; font-size:22px; letter-spacing:4px; text-shadow:0 0 15px var(--cyan)">AVIATOR</div><div style="font-family:'Orbitron'; font-size:10px; letter-spacing:3px; opacity:.5; margin-top:6px">FUTURISTIC • SERVER INSIDE • V15</div><div class="bar"><div class="fill" id="fill"></div></div><div id="pct" style="margin-top:10px; font-family:'Orbitron'; font-size:22px; color:var(--cyan)">0%</div><div id="step" style="margin-top:6px; font-size:11px; opacity:.6">Booting Aviator server...</div></div>
+<div class="controls">
+<div class="betCard" id="card1"><b>BET 1</b><div class="inpRow"><button onclick="changeBet(1,-10)">-</button><input id="bet1" value="100" type="number"><button onclick="changeBet(1,10)">+</button><button onclick="changeBet(1,100)">+100</button></div><div style="display:flex; gap:6px; margin-bottom:8px"><input id="auto1" placeholder="Auto cashout e.g 2.00" style="flex:1; background:#000; border:1px solid rgba(255,255,255,0.12); border-radius:8px; color:#fff; padding:6px; font-family:'Orbitron'; font-size:10px; text-align:center"><button onclick="toggleAuto(1)" id="autoBtn1" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:8px; padding:6px 10px; font-family:'Orbitron'; font-size:9px; cursor:pointer">AUTO OFF</button></div><button class="btnBet" id="btn1" onclick="GameServer.placeBet(1)">BET 100</button><div style="margin-top:6px; font-size:10px; opacity:.6">Win: <span id="win1">-</span></div></div>
+<div class="betCard" id="card2"><b>BET 2</b><div class="inpRow"><button onclick="changeBet(2,-10)">-</button><input id="bet2" value="200" type="number"><button onclick="changeBet(2,10)">+</button><button onclick="changeBet(2,100)">+100</button></div><div style="display:flex; gap:6px; margin-bottom:8px"><input id="auto2" placeholder="Auto cashout e.g 5.00" style="flex:1; background:#000; border:1px solid rgba(255,255,255,0.12); border-radius:8px; color:#fff; padding:6px; font-family:'Orbitron'; font-size:10px; text-align:center"><button onclick="toggleAuto(2)" id="autoBtn2" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:8px; padding:6px 10px; font-family:'Orbitron'; font-size:9px; cursor:pointer">AUTO OFF</button></div><button class="btnBet" id="btn2" onclick="GameServer.placeBet(2)">BET 200</button><div style="margin-top:6px; font-size:10px; opacity:.6">Win: <span id="win2">-</span></div></div>
+</div>
 </div>
 <div class="right">
-<div class="card"><div class="cardHead"><span>🎡 FUTURISTIC • 54 SEGS</span><span id="timer">NEXT 8s</span></div><div class="recent" id="recent"></div></div>
-<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="cardHead"><span>👥 FLOOR • <span id="liveCount">0</span></span><span style="color:var(--green)">● LIVE</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET ON</span><span>WIN</span></div><div class="list" id="liveList"></div><div class="chat"><div class="log" id="chatLog"><div><b>System:</b> V14 Futuristic server booted. Call GameServer.* from console.</div></div><div style="display:flex; gap:4px; padding:6px"><input id="chatIn" placeholder="Chat or type GameServer.getState() in console..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(0,240,255,0.15); border-radius:8px; color:#fff; padding:6px 8px; font-size:11px"><button onclick="GameServer.sendChat()" style="background:linear-gradient(90deg,var(--cyan),var(--gold)); color:#000; border:0; border-radius:8px; padding:6px 10px; font-family:'Orbitron'; font-weight:700; cursor:pointer">Send</button></div></div></div>
-<div class="card"><div class="cardHead"><span>⚙️ INTERNAL SERVER API</span><span style="color:var(--cyan)">IMPORT READY</span></div><div style="padding:10px; font-size:10px; line-height:1.6; font-family:'Orbitron'"><div style="background:rgba(0,0,0,0.4); border:1px solid rgba(0,240,255,0.15); border-radius:8px; padding:8px; font-size:9px"><span style="color:var(--cyan)">// Use in console or code:</span><br><span style="color:var(--gold)">GameServer</span>.placeBet('10', 500)<br><span style="color:var(--gold)">GameServer</span>.spin()<br><span style="color:var(--gold)">GameServer</span>.getState()<br><span style="color:var(--gold)">GameServer</span>.setBalance(100000)<br><span style="color:var(--gold)">SoundServer</span>.play('win', 500)<br><span style="color:var(--gold)">RenderServer</span>.setColorTheme('neon')<br><span style="color:var(--green)">EventBus</span>.on('win', e=>console.log(e))</div><div style="margin-top:8px; opacity:.7; font-family:'Rajdhani'; font-size:11px">Colors fixed: true Evolution blue #2a7fff, yellow #ffef00, purple #9a5aff, green #2aff7f. Futuristic bloom + emissive rim.</div></div></div>
+<div class="card"><div class="head"><span>📈 HISTORY • MULTIPLIERS</span><span id="round">ROUND #181710</span></div><div class="recent" id="recent"></div></div>
+<div class="card" style="flex:1; display:flex; flex-direction:column"><div class="head"><span>👥 PLAYERS • <span id="liveCount">0</span></span><span style="color:var(--green)">● LIVE</span></div><div class="row" style="opacity:.4; font-size:9px"><span>PLAYER</span><span>BET</span><span>CASHOUT</span></div><div class="list" id="liveList"></div><div style="padding:8px; background:rgba(0,0,0,0.2); border-top:1px solid rgba(0,240,255,0.08)"><div style="font-family:'Orbitron'; font-size:9px; opacity:.6; margin-bottom:6px">SERVER API (call in console):</div><div style="background:rgba(0,0,0,0.4); border:1px solid rgba(0,240,255,0.15); border-radius:8px; padding:6px; font-family:'Orbitron'; font-size:8px; line-height:1.6"><span style="color:var(--cyan)">GameServer</span>.placeBet(1)<br><span style="color:var(--cyan)">GameServer</span>.cashout(1)<br><span style="color:var(--cyan)">GameServer</span>.getState()<br><span style="color:var(--gold)">EventBus</span>.on('crash', e=>console.log(e))</div></div></div>
 </div>
 </div>
 
 <script type="module">
 import * as THREE from 'three';
 
-// ================= INTERNAL SERVER ARCHITECTURE =================
-// EventBus - pub/sub for all modules
-const EventBus = {
- events:{},
- on(evt,fn){(this.events[evt]=this.events[evt]||[]).push(fn)},
- emit(evt,data){(this.events[evt]||[]).forEach(fn=>fn(data))}
-};
-window.EventBus = EventBus;
+// ===== SERVER INSIDE =====
+const EventBus={events:{}, on(e,f){(this.events[e]=this.events[e]||[]).push(f)}, emit(e,d){(this.events[e]||[]).forEach(f=>f(d))}};
+window.EventBus=EventBus;
 
-// SoundServer - all audio via server
-const SoundServer = {
- ctx:null, enabled:true, calls:0,
+const SoundServer={
+ ctx:null, enabled:true,
  init(){if(this.ctx) return; this.ctx=new (window.AudioContext||window.webkitAudioContext)();},
- tone(f,d,t='sine',v=0.25,slide=null){if(!this.enabled||!this.ctx) return; this.calls++; const o=this.ctx.createOscillator(), g=this.ctx.createGain(); o.type=t; o.frequency.value=f; o.connect(g); g.connect(this.ctx.destination); g.gain.setValueAtTime(v, this.ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime+d); if(slide) o.frequency.exponentialRampToValueAtTime(slide, this.ctx.currentTime+d); o.start(); o.stop(this.ctx.currentTime+d);},
- play(name, val=0){
-  this.init();
-  if(name==='tick') this.tone(1900+Math.random()*300,0.06,'square',0.18);
-  if(name==='spin') this.tone(130,1.1,'sawtooth',0.32,750);
-  if(name==='win'){const b=val>0?680:300; [0,100,210,330].forEach((d,i)=>setTimeout(()=>this.tone(b+i*110,0.2,'sine',0.32),d));}
-  if(name==='bet') this.tone(620,0.08,'sine',0.15);
-  if(name==='top') [0,140,280].forEach(x=>setTimeout(()=>this.tone(920,0.14,'sine',0.4),x));
-  EventBus.emit('sound', {name,val});
- },
- toggle(){this.enabled=!this.enabled; document.getElementById('snd').textContent=this.enabled?'🔊':'🔇'; if(this.enabled){this.init(); this.tone(440,0.12,'sine',0.15);}}
+ tone(f,d,t='sine',v=0.2,sl=null){if(!this.enabled||!this.ctx) return; const o=this.ctx.createOscillator(), g=this.ctx.createGain(); o.type=t; o.frequency.value=f; o.connect(g); g.connect(this.ctx.destination); g.gain.setValueAtTime(v, this.ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime+d); if(sl) o.frequency.exponentialRampToValueAtTime(sl, this.ctx.currentTime+d); o.start(); o.stop(this.ctx.currentTime+d);},
+ play(name,val=0){this.init(); if(name==='bet') this.tone(700,0.12,'sine',0.2); if(name==='cashout'){this.tone(600,0.15,'sine',0.3); setTimeout(()=>this.tone(900,0.3,'sine',0.35),120);} if(name==='crash'){this.tone(200,0.8,'sawtooth',0.4,40);} if(name==='tick') this.tone(1200+val*10,0.04,'square',0.08);},
+ toggle(){this.enabled=!this.enabled; document.getElementById('snd').textContent=this.enabled?'🔊':'🔇';}
 };
-window.SoundServer = SoundServer;
+window.SoundServer=SoundServer;
 
-// RenderServer - handles all 3D
-const RenderServer = {
- scene:null, camera:null, renderer:null, wheelGroup:null, pointerGroup:null, tex:null,
- colorMap:{'1':'#2a7fff','2':'#ffef00','5':'#9a5aff','10':'#2aff7f','CoinFlip':'#ff3366','CashHunt':'#00f0ff','Pachinko':'#ff8800','CrazyTime':'#ff0000'},
- order:['1','CoinFlip','2','5','1','2','1','CashHunt','1','2','1','Pachinko','2','1','10','1','2','5','1','2','1','CoinFlip','2','1','2','1','5','1','2','1','CoinFlip','1','2','10','1','2','1','5','2','1','CashHunt','1','2','1','Pachinko','1','2','1','CoinFlip','1','CrazyTime','2','1'],
- init(canvas, onProgress){
-  onProgress(10,'RenderServer: Creating scene...');
-  this.scene=new THREE.Scene(); this.scene.background=new THREE.Color(0x04040c); this.scene.fog=new THREE.Fog(0x04040c, 9, 18);
-  this.camera=new THREE.PerspectiveCamera(30, 1, 0.1, 100); this.camera.position.set(0,1.15,5.2); this.camera.lookAt(0,0.25,0);
-  this.renderer=new THREE.WebGLRenderer({canvas, antialias:true, powerPreference:'high-performance'}); this.renderer.setPixelRatio(Math.min(devicePixelRatio,2)); this.renderer.shadowMap.enabled=true; this.renderer.toneMapping=THREE.ACESFilmicToneMapping; this.renderer.toneMappingExposure=1.2;
-  const resize=()=>{const w=canvas.clientWidth||400, h=canvas.clientHeight||400; if(w<10) return; this.camera.aspect=w/h; this.camera.updateProjectionMatrix(); this.renderer.setSize(w,h,false);}; new ResizeObserver(resize).observe(canvas); resize();
-  const amb=new THREE.AmbientLight(0x6666aa,0.75); this.scene.add(amb);
-  const key=new THREE.DirectionalLight(0xfff2cc,2.0); key.position.set(3.8,6,4); key.castShadow=true; key.shadow.mapSize.set(1024,1024); this.scene.add(key);
-  const cyanSpot=new THREE.SpotLight(0x00f0ff,2.0,16,Math.PI/6,0.3); cyanSpot.position.set(-2,5,2); cyanSpot.target.position.set(0,0,0); this.scene.add(cyanSpot); this.scene.add(cyanSpot.target);
-  const pinkSpot=new THREE.SpotLight(0xff2a6d,1.2,16,Math.PI/6,0.3); pinkSpot.position.set(2,5,-1); pinkSpot.target.position.set(0,0,0); this.scene.add(pinkSpot); this.scene.add(pinkSpot.target);
-  this.wheelGroup=new THREE.Group(); this.wheelGroup.position.set(0,0.28,0); this.scene.add(this.wheelGroup);
-  onProgress(35,'RenderServer: Baking futuristic texture...');
-  this.tex=this.makeTexture();
-  onProgress(65,'RenderServer: Building wheel with emissive...');
-  this.buildWheel();
-  onProgress(85,'RenderServer: Finalizing...');
+const RenderServer={
+ scene:null, camera:null, renderer:null, plane:null, trail:[], mult:1,
+ init(canvas){
+  this.scene=new THREE.Scene(); this.scene.background=new THREE.Color(0x050510); this.scene.fog=new THREE.Fog(0x050510, 6, 14);
+  this.camera=new THREE.PerspectiveCamera(35, 1, 0.1, 100); this.camera.position.set(0,2.5,6); this.camera.lookAt(0,0.5,0);
+  this.renderer=new THREE.WebGLRenderer({canvas, antialias:true}); this.renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const resize=()=>{const w=canvas.clientWidth||400, h=canvas.clientHeight||400; this.camera.aspect=w/h; this.camera.updateProjectionMatrix(); this.renderer.setSize(w,h,false);}; new ResizeObserver(resize).observe(canvas); resize();
+  const amb=new THREE.AmbientLight(0x6666aa,0.8); this.scene.add(amb);
+  const key=new THREE.DirectionalLight(0xffffff,1.5); key.position.set(3,5,4); this.scene.add(key);
+  const cyan=new THREE.PointLight(0x00f0ff,1.5,10); cyan.position.set(-2,2,2); this.scene.add(cyan);
+  const pink=new THREE.PointLight(0xff2a6d,0.8,10); pink.position.set(2,1,-2); this.scene.add(pink);
+  // ground grid futuristic
+  const grid=new THREE.GridHelper(20,20,0x00f0ff,0x1a1a3a); grid.position.y=0; this.scene.add(grid);
+  // plane
+  const planeGeo=new THREE.ConeGeometry(0.18,0.55,3); planeGeo.rotateX(Math.PI/2);
+  const planeMat=new THREE.MeshStandardMaterial({color:0x00f0ff, emissive:0x00f0ff, emissiveIntensity:0.6, metalness:0.2});
+  this.plane=new THREE.Mesh(planeGeo,planeMat); this.plane.position.set(-4,0.5,0); this.scene.add(this.plane);
+  // trail line
+  const trailGeo=new THREE.BufferGeometry(); this.trailMat=new THREE.LineBasicMaterial({color:0x00f0ff, transparent:true, opacity:0.8});
+  this.trailLine=new THREE.Line(trailGeo,this.trailMat); this.scene.add(this.trailLine);
   this.animate();
-  onProgress(100,'RenderServer: Ready');
  },
- makeTexture(){
-  const c=document.createElement('canvas'); c.width=4096; c.height=512; const ctx=c.getContext('2d'); const sw=c.width/54;
-  this.order.forEach((t,i)=>{
-   const col=this.colorMap[t];
-   // futuristic gradient with glow
-   let grad=ctx.createLinearGradient(i*sw,0,i*sw,c.height);
-   grad.addColorStop(0, col); grad.addColorStop(0.4, col); grad.addColorStop(0.7, '#111'); grad.addColorStop(1, '#000');
-   ctx.fillStyle=grad; ctx.fillRect(i*sw,0,sw,c.height);
-   // top glow line
-   ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.fillRect(i*sw,0,sw,4);
-   ctx.fillStyle='rgba(0,240,255,0.25)'; ctx.fillRect(i*sw,8,sw,2);
-   // borders
-   ctx.strokeStyle='rgba(0,0,0,0.9)'; ctx.lineWidth=4; ctx.strokeRect(i*sw,0,sw,c.height);
-   ctx.strokeStyle='rgba(0,240,255,0.4)'; ctx.lineWidth=1; ctx.strokeRect(i*sw+2,2,sw-4,c.height-4);
-   // text with glow
-   ctx.save(); ctx.translate(i*sw+sw/2, c.height/2+8); ctx.rotate(-Math.PI/2);
-   ctx.shadowColor=col; ctx.shadowBlur=18; ctx.fillStyle=(t==='2'||t==='1')?'#000':'#fff';
-   ctx.font='900 52px Orbitron'; ctx.textAlign='center';
-   const icons={CoinFlip:'🪙',CashHunt:'🎯',Pachinko:'●',CrazyTime:'★'};
-   if(t.length>3){ctx.font='900 30px Orbitron'; ctx.fillText(icons[t]||'',0,-20); ctx.fillText(t,0,34);} else ctx.fillText(t,0,12);
-   ctx.restore();
-  });
-  const tex=new THREE.CanvasTexture(c); tex.wrapS=THREE.RepeatWrapping; tex.anisotropy=16; tex.colorSpace=THREE.SRGBColorSpace; return tex;
+ setMult(m, crashed=false){
+  this.mult=m;
+  // move plane along curve
+  const x = -4 + (m-1)*0.9; const y = 0.5 + Math.log(m)*1.8;
+  if(this.plane){ this.plane.position.set(Math.min(x,4), Math.min(y,5), 0); this.plane.rotation.z = Math.atan2(y-0.5, x+4) - Math.PI/2; }
+  // trail
+  this.trail.push(new THREE.Vector3(this.plane.position.x, this.plane.position.y, 0));
+  if(this.trail.length>80) this.trail.shift();
+  this.trailLine.geometry.setFromPoints(this.trail);
+  if(crashed){ this.trailMat.color.set(0xff3355); this.plane.material.color.set(0xff3355); this.plane.material.emissive.set(0xff3355); }
+  else { this.trailMat.color.set(0x00f0ff); this.plane.material.color.set(0x00f0ff); this.plane.material.emissive.set(0x00f0ff); }
  },
- buildWheel(){
-  const radius=2.5, thick=0.44;
-  const geo=new THREE.CylinderGeometry(radius,radius,thick,54,1,false);
-  const mat=new THREE.MeshStandardMaterial({map:this.tex, metalness:0.25, roughness:0.35, emissive:0x111111, emissiveIntensity:0.15});
-  const mesh=new THREE.Mesh(geo,mat); mesh.rotation.x=Math.PI/2; mesh.castShadow=true; this.wheelGroup.add(mesh);
-  const faceGeo=new THREE.CircleGeometry(radius-0.02,64); const faceMat=new THREE.MeshStandardMaterial({color:0x08081a, metalness:0.5, roughness:0.5, emissive:0x001122, emissiveIntensity:0.2});
-  const f1=new THREE.Mesh(faceGeo,faceMat); f1.position.z=thick/2+0.002; this.wheelGroup.add(f1);
-  const f2=new THREE.Mesh(faceGeo,faceMat); f2.position.z=-thick/2-0.002; f2.rotation.y=Math.PI; this.wheelGroup.add(f2);
-  const hubGeo=new THREE.CylinderGeometry(0.42,0.42,thick+0.18,32); const hubMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.9, roughness:0.15, emissive:0xffcc00, emissiveIntensity:0.15}); const hub=new THREE.Mesh(hubGeo,hubMat); hub.rotation.x=Math.PI/2; hub.castShadow=true; this.wheelGroup.add(hub);
-  // futuristic neon rims
-  const torusGeo=new THREE.TorusGeometry(radius,0.08,16,120);
-  const goldMat=new THREE.MeshStandardMaterial({color:0xffcc00, metalness:0.9, roughness:0.15, emissive:0xffcc00, emissiveIntensity:0.25});
-  const cyanMat=new THREE.MeshStandardMaterial({color:0x00f0ff, metalness:0.6, roughness:0.2, emissive:0x00f0ff, emissiveIntensity:0.4});
-  const r1=new THREE.Mesh(torusGeo,goldMat); r1.position.z=thick/2; this.wheelGroup.add(r1);
-  const r2=new THREE.Mesh(torusGeo,cyanMat); r2.position.z=-thick/2; this.wheelGroup.add(r2);
-  const pedGeo=new THREE.CylinderGeometry(0.12,0.3,3,16); const pedMat=new THREE.MeshStandardMaterial({color:0x151530, metalness:0.7, roughness:0.3, emissive:0x00f0ff, emissiveIntensity:0.15}); const ped=new THREE.Mesh(pedGeo,pedMat); ped.position.y=-1.55; this.wheelGroup.parent.add(ped);
-  const floorGeo=new THREE.PlaneGeometry(22,22); const floorMat=new THREE.MeshStandardMaterial({color:0x050510, metalness:0.3, roughness:0.8, emissive:0x001122, emissiveIntensity:0.1}); const floor=new THREE.Mesh(floorGeo,floorMat); floor.rotation.x=-Math.PI/2; floor.position.y=-2.9; floor.receiveShadow=true; this.wheelGroup.parent.add(floor);
-  this.pointerGroup=new THREE.Group(); this.pointerGroup.position.set(0,radius+0.88,0.55); this.wheelGroup.parent.add(this.pointerGroup);
-  const pGeo=new THREE.ConeGeometry(0.26,0.62,3); const pMat=new THREE.MeshStandardMaterial({color:0x00f0ff, emissive:0x00f0ff, emissiveIntensity:0.8, metalness:0.2}); const ptr=new THREE.Mesh(pGeo,pMat); ptr.rotation.x=Math.PI; this.pointerGroup.add(ptr);
-  const pLight=new THREE.PointLight(0x00f0ff,2.0,3); this.pointerGroup.add(pLight);
- },
- setColorTheme(t){ EventBus.emit('theme', t); },
- target:0, current:0,
- animate(){requestAnimationFrame(()=>this.animate()); const prev=Math.floor((this.current%(2*Math.PI))/(2*Math.PI/54)); this.current+=(this.target-this.current)*0.06; const cur=Math.floor((this.current%(2*Math.PI))/(2*Math.PI/54)); if(GameServer.phase==='spinning' && cur!==prev && Math.abs(this.target-this.current)>0.04){SoundServer.play('tick'); this.pointerGroup.scale.set(1.25,1.25,1.25); setTimeout(()=>this.pointerGroup.scale.set(1,1,1),70);} this.wheelGroup.rotation.z=this.current; this.renderer.render(this.scene,this.camera);}
+ reset(){ this.trail=[]; this.trailLine.geometry.setFromPoints([]); this.setMult(1); },
+ animate(){ requestAnimationFrame(()=>this.animate()); this.renderer.render(this.scene,this.camera); }
 };
-window.RenderServer = RenderServer;
+window.RenderServer=RenderServer;
 
-// GameServer - core logic server
-const GameServer = {
- balance:50000, bets:{}, history:[], phase:'betting', timeLeft:8, liveBets:[], displayName:'GUEST', round:181710, calls:0,
+// ===== GAME SERVER AVIATOR =====
+const GameServer={
+ balance:50000, bets:{1:{amount:0, active:false, cashed:false, cashout:0}, 2:{amount:0, active:false, cashed:false, cashout:0}}, history:[], phase:'waiting', mult:1, crashPoint:0, calls:0, displayName:'GUEST',
  init(){
-  // build bet tiles from server
-  const betsEl=document.getElementById('bets');
-  const cfg=[{t:'1',c:'#2a7fff',s:'21'},{t:'2',c:'#ffef00',s:'13'},{t:'5',c:'#9a5aff',s:'7'},{t:'10',c:'#2aff7f',s:'4'},{t:'CoinFlip',c:'#ff3366',s:'4'},{t:'CashHunt',c:'#00f0ff',s:'2'},{t:'Pachinko',c:'#ff8800',s:'2'},{t:'CrazyTime',c:'#ff0000',s:'1'}];
-  betsEl.innerHTML=cfg.map(o=>`<div class="tile" data-type="${o.t}" onclick="GameServer.placeBet('${o.t}',100)"><b style="color:${o.c}">${o.t}</b><small>${o.s} SEGS</small><div>BET <span id="bet-${o.t}">0</span></div></div>`).join('');
-  this.genBots(); this.renderRecent(); this.startBetting();
-  // input listener
-  document.getElementById('chatIn').addEventListener('keydown',e=>{if(e.key==='Enter') this.sendChat()});
+  this.genBots(); this.renderRecent(); this.startWaiting();
   document.body.addEventListener('click',()=>SoundServer.init(),{once:true});
  },
- incCall(){this.calls++; document.getElementById('serverCalls').textContent=`${this.calls} calls`;},
- getState(){this.incCall(); return {balance:this.balance, bets:{...this.bets}, phase:this.phase, history:[...this.history], round:this.round};},
- setBalance(v){this.incCall(); this.balance=v; document.getElementById('bal').textContent=v.toLocaleString('en-KE'); EventBus.emit('balance', v);},
- placeBet(type, amt=100){this.incCall(); SoundServer.init(); if(this.phase!=='betting'){this.addChat('System: Betting closed'); return} if(!this.bets[type]) this.bets[type]=0; this.bets[type]+=amt; if(this.balance<this.bets[type]){this.bets[type]-=amt; return} document.getElementById('bet-'+type).textContent=this.bets[type]; document.querySelector(`[data-type="${type}"]`)?.classList.add('active'); this.balance-=amt; document.getElementById('bal').textContent=this.balance.toLocaleString('en-KE'); this.genBots(); SoundServer.play('bet'); EventBus.emit('bet', {type,amt,total:this.bets[type]});},
- clearBets(){this.incCall(); const tot=Object.values(this.bets).reduce((a,b)=>a+b,0); this.balance+=tot; this.bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); document.getElementById('bal').textContent=this.balance.toLocaleString('en-KE'); EventBus.emit('clear');},
- genBots(){this.liveBets=[]; const names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<10;i++){const on=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; this.liveBets.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), on, win:0})} Object.keys(this.bets).forEach(k=>{if(this.bets[k]>0) this.liveBets.push({name:this.displayName+' (YOU)', on:k, win:0})}); this.renderFloor();},
- renderFloor(){document.getElementById('liveList').innerHTML=this.liveBets.map(b=>`<div class="row"><span>${b.name}</span><span>${b.on}</span><span style="color:${b.win>0?'var(--green)':'#888'}">${b.win>0?'KES '+b.win:'-'}</span></div>`).join(''); document.getElementById('liveCount').textContent=this.liveBets.length},
- addChat(t){const d=document.createElement('div'); d.innerHTML=t; const l=document.getElementById('chatLog'); l.appendChild(d); l.scrollTop=l.scrollHeight},
- renderRecent(){document.getElementById('recent').innerHTML=this.history.slice(0,16).map(v=>{const bg=RenderServer.colorMap[v]||'#fff'; const col=(v==='2'||v==='1')?'#000':'#fff'; return `<span class="chip" style="background:${bg}; color:${col}">${v}</span>`}).join('');},
- startBetting(){this.phase='betting'; this.timeLeft=8; document.getElementById('phase').textContent=`BETTING ${this.timeLeft.toFixed(1)}s`; document.getElementById('hub').textContent='PLACE BETS'; document.getElementById('spinBtn').disabled=false; this.genBots(); const top1=['1','2','5','10','CoinFlip','CashHunt','Pachinko','CrazyTime'][Math.floor(Math.random()*8)]; const top2=[2,3,5,10,15,25,50][Math.floor(Math.random()*7)]; document.getElementById('top1').textContent=top1; document.getElementById('top2').textContent=top2+'x'; document.getElementById('top1').className='sBox'; document.getElementById('top2').className='sBox'; if(Math.random()>0.6){document.getElementById('top1').classList.add('win'); document.getElementById('top2').classList.add('win'); this._top={type:top1,mult:top2}; SoundServer.play('top')} else this._top=null; clearInterval(this._timer); this._timer=setInterval(()=>{this.timeLeft-=0.1; document.getElementById('timer').textContent=`NEXT ${this.timeLeft.toFixed(1)}s`; document.getElementById('phase').textContent=`BETTING ${this.timeLeft.toFixed(1)}s`; if(this.timeLeft<=0){clearInterval(this._timer); this.spin()}},100)},
- spin(){this.incCall(); SoundServer.init(); if(this.phase!=='betting') return; this.phase='spinning'; clearInterval(this._timer); document.getElementById('phase').textContent='SPINNING...'; document.getElementById('spinBtn').disabled=true; SoundServer.play('spin'); const idx=Math.floor(Math.random()*54); const winner=RenderServer.order[idx]; const ang=2*Math.PI/54; const pointerAng=Math.PI/2; const targAng=pointerAng - idx*ang; const extra=5+Math.random()*3; RenderServer.target=RenderServer.current + extra*2*Math.PI + (targAng - (RenderServer.current % (2*Math.PI))); const s=performance.now(); const dur=5000; const start=RenderServer.current; const finish=(w)=>{const topMult=this._top && this._top.type===w ? this._top.mult : 1; const base={'1':1,'2':2,'5':5,'10':10,'CoinFlip':5,'CashHunt':10,'Pachinko':10,'CrazyTime':20}[w]||1; let total=0; this.history.unshift(w); this.renderRecent(); if(this.history.length>30) this.history.pop(); Object.keys(this.bets).forEach(k=>{if(k===w){const win=Math.floor(this.bets[k]*base*topMult); total+=win; this.balance+=win; this.liveBets.forEach(b=>{if(b.on===k) b.win=win})}}); document.getElementById('bal').textContent=this.balance.toLocaleString('en-KE'); document.getElementById('lastWin').textContent=w+(topMult>1?` ${topMult}x`:''); document.getElementById('hub').textContent=`WIN ${w}`; this.addChat(`<b>System:</b> WINNER ${w}${topMult>1?` Top ${topMult}x`:''} - You ${total>0?'won KES '+total:'lost'}`); this.renderFloor(); SoundServer.play('win', total); EventBus.emit('win', {winner:w, total, topMult}); setTimeout(()=>{this.bets={}; document.querySelectorAll('[id^="bet-"]').forEach(e=>e.textContent='0'); document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active')); this.round++; document.getElementById('rnd').textContent=this.round; this.startBetting();}, total>0?2400:1600)}; const anim=(t)=>{const p=Math.min((t-s)/dur,1); const e=1-Math.pow(1-p,4); RenderServer.current=start + (RenderServer.target-start)*e; if(p<1) requestAnimationFrame(anim); else finish(winner)}; requestAnimationFrame(anim)},
- sendChat(){const i=document.getElementById('chatIn'); if(!i.value.trim()) return; this.addChat(`<b>${this.displayName}:</b> ${i.value}`); i.value='';},
- sign(){const n=prompt('Display name:'); if(n){this.displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('signBtn').textContent=n.toUpperCase(); this.addChat(`<b>System:</b> Welcome ${n}! Server ready for imports.`);}}
+ inc(){this.calls++; document.getElementById('calls').textContent=this.calls+' calls';},
+ getState(){this.inc(); return { balance:this.balance, bets:JSON.parse(JSON.stringify(this.bets)), phase:this.phase, mult:this.mult, crash:this.crashPoint, history:this.history };},
+ placeBet(n){
+  this.inc(); SoundServer.init();
+  if(this.phase!=='waiting' && this.phase!=='betting'){ this.addLog('Betting closed'); return; }
+  const input=document.getElementById('bet'+n); let amt=parseInt(input.value)||100;
+  if(this.balance<amt){ this.addLog('Insufficient balance'); return; }
+  if(this.bets[n].active){ this.cashout(n); return; }
+  this.bets[n]={ amount:amt, active:true, cashed:false, cashout:0 };
+  this.balance-=amt; document.getElementById('bal').textContent=this.balance.toLocaleString('en-KE');
+  document.getElementById('card'+n).classList.add('active'); document.getElementById('btn'+n).textContent='CASHOUT'; document.getElementById('btn'+n).classList.add('cashout');
+  document.getElementById('win'+n).textContent='-'; SoundServer.play('bet'); EventBus.emit('bet',{n,amt}); this.genBots();
+ },
+ cashout(n){
+  this.inc();
+  if(!this.bets[n].active || this.bets[n].cashed || this.phase!=='flying') return;
+  const win=Math.floor(this.bets[n].amount * this.mult);
+  this.bets[n].cashed=true; this.bets[n].cashout=this.mult; this.balance+=win;
+  document.getElementById('bal').textContent=this.balance.toLocaleString('en-KE');
+  document.getElementById('card'+n).classList.remove('active'); document.getElementById('card'+n).classList.add('cashed');
+  document.getElementById('btn'+n).textContent='BET'; document.getElementById('btn'+n).classList.remove('cashout');
+  document.getElementById('win'+n).textContent='+' + win + ' ('+this.mult.toFixed(2)+'x)'; SoundServer.play('cashout'); EventBus.emit('cashout',{n,mult:this.mult,win}); this.genBots();
+ },
+ startWaiting(){
+  this.phase='waiting'; this.mult=1; RenderServer.reset();
+  document.getElementById('mult').textContent='1.00x'; document.getElementById('mult').className=''; document.getElementById('status').textContent='WAITING FOR NEXT ROUND';
+  document.getElementById('btn1').textContent='BET '+document.getElementById('bet1').value; document.getElementById('btn2').textContent='BET '+document.getElementById('bet2').value;
+  document.getElementById('btn1').classList.remove('cashout'); document.getElementById('btn2').classList.remove('cashout');
+  document.getElementById('card1').className='betCard'; document.getElementById('card2').className='betCard';
+  // generate crash point (real aviator algo)
+  const r=Math.random(); let crash;
+  if(r<0.05) crash=1.00+Math.random()*0.3; else if(r<0.3) crash=1.1+Math.random()*0.9; else if(r<0.7) crash=2+Math.random()*3; else if(r<0.9) crash=5+Math.random()*5; else crash=10+Math.random()*40;
+  this.crashPoint=crash;
+  let wait=3; const iv=setInterval(()=>{
+    wait-=0.1; document.getElementById('status').textContent=`NEXT ROUND IN ${wait.toFixed(1)}s`; if(wait<=0){clearInterval(iv); this.startFlying();}
+  },100);
+ },
+ startFlying(){
+  this.phase='flying'; this.mult=1; document.getElementById('status').textContent='FLYING...'; this.bets[1].cashed=false; this.bets[2].cashed=false;
+  const start=performance.now(); const crash=this.crashPoint;
+  const loop=(t)=>{
+    const elapsed=(t-start)/1000;
+    // aviator curve: exponential
+    this.mult = Math.pow(1.07, elapsed*2);
+    if(this.mult>=crash){
+      this.mult=crash; this.crash();
+      return;
+    }
+    document.getElementById('mult').textContent=this.mult.toFixed(2)+'x';
+    RenderServer.setMult(this.mult);
+    // auto cashout
+    [1,2].forEach(n=>{ const auto=document.getElementById('auto'+n).value; if(auto && this.bets[n].active && !this.bets[n].cashed){ const target=parseFloat(auto); if(this.mult>=target){ this.cashout(n); } } });
+    if(this.phase==='flying'){ if(Math.floor(this.mult*10)%3===0) SoundServer.play('tick', this.mult); requestAnimationFrame(loop); }
+  };
+  requestAnimationFrame(loop);
+  // graph draw
+  this.graphPoints=[]; this.graphLoop();
+ },
+ graphLoop(){
+  const canvas=document.getElementById('graph'); const ctx=canvas.getContext('2d');
+  const resize=()=>{canvas.width=canvas.clientWidth*2; canvas.height=canvas.clientHeight*2;}; resize();
+  const draw=()=>{
+    if(this.phase!=='flying'){ if(this.phase==='crashed') setTimeout(()=>{ctx.clearRect(0,0,canvas.width,canvas.height);},1000); return; }
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.strokeStyle='rgba(0,240,255,0.8)'; ctx.lineWidth=3; ctx.beginPath();
+    this.graphPoints.push(this.mult);
+    if(this.graphPoints.length>200) this.graphPoints.shift();
+    this.graphPoints.forEach((m,i)=>{
+      const x=(i/200)*canvas.width; const y=canvas.height - (Math.log(m)/Math.log(this.crashPoint+2))*canvas.height*0.8 - 20;
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    // fill
+    ctx.lineTo(canvas.width, canvas.height); ctx.lineTo(0, canvas.height); ctx.closePath();
+    ctx.fillStyle='rgba(0,240,255,0.08)'; ctx.fill();
+    requestAnimationFrame(draw);
+  };
+  draw();
+ },
+ crash(){
+  this.phase='crashed'; document.getElementById('mult').textContent=this.crashPoint.toFixed(2)+'x'; document.getElementById('mult').classList.add('crash'); document.getElementById('status').textContent='CRASHED @ '+this.crashPoint.toFixed(2)+'x';
+  RenderServer.setMult(this.crashPoint,true); SoundServer.play('crash'); EventBus.emit('crash',{crash:this.crashPoint});
+  this.history.unshift(this.crashPoint); if(this.history.length>30) this.history.pop(); this.renderRecent();
+  // reset bets that didn't cashout
+  [1,2].forEach(n=>{ if(this.bets[n].active && !this.bets[n].cashed){ document.getElementById('win'+n).textContent='LOST'; document.getElementById('card'+n).classList.remove('active'); } this.bets[n].active=false; });
+  this.genBots(); setTimeout(()=>this.startWaiting(),3000);
+ },
+ genBots(){ let bots=[]; const names=['Diamond','Mwangi','Otieno','Pesa','Jambo','Kevo','Bonga','Trader']; for(let i=0;i<12;i++){const amt=50+Math.floor(Math.random()*1000); const cash=(Math.random()>0.4)?(1+Math.random()* (this.phase==='flying'?this.mult:5)).toFixed(2)+'x':'-'; bots.push({name:names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*99), bet:amt, cashout: cash});} if(this.bets[1].active) bots.push({name:this.displayName+' (YOU 1)', bet:this.bets[1].amount, cashout: this.bets[1].cashed?this.bets[1].cashout.toFixed(2)+'x':'-'}); if(this.bets[2].active) bots.push({name:this.displayName+' (YOU 2)', bet:this.bets[2].amount, cashout: this.bets[2].cashed?this.bets[2].cashout.toFixed(2)+'x':'-'}); document.getElementById('liveList').innerHTML=bots.map(b=>`<div class="row"><span>${b.name}</span><span>${b.bet}</span><span style="color:${b.cashout!=='-'?'var(--green)':'#888'}">${b.cashout}</span></div>`).join(''); document.getElementById('liveCount').textContent=bots.length; },
+ renderRecent(){ document.getElementById('recent').innerHTML=this.history.slice(0,18).map(v=>{let col=v<2?'#ff3355':v<5?'#ffef00':v<10?'#2a7fff':'#00ff88'; return `<span class="chip" style="background:${col}; color:${v<2||v>=5?'#000':'#fff'}">${v.toFixed(2)}x</span>`}).join(''); document.getElementById('round').textContent='ROUND #'+(181710+this.history.length); },
+ addLog(t){ const log=document.createElement('div'); log.innerHTML=t; },
+ sign(){ const n=prompt('Display name:'); if(n){this.displayName=n; localStorage.setItem('b10f_name',n); document.getElementById('signBtn').textContent=n.toUpperCase();}}
 };
-window.GameServer = GameServer;
-window.bet = (t)=>GameServer.placeBet(t,100);
-window.clearBets = ()=>GameServer.clearBets();
-window.spin = ()=>GameServer.spin();
+window.GameServer=GameServer;
 
-// BOOT WITH PROGRESS
+// helpers
+window.changeBet=(n,d)=>{const i=document.getElementById('bet'+n); let v=parseInt(i.value)||0; v=Math.max(10, v+d); i.value=v; document.getElementById('btn'+n).textContent=(GameServer.bets[n].active?'CASHOUT':'BET ')+v;};
+window.toggleAuto=(n)=>{const btn=document.getElementById('autoBtn'+n); const on=btn.textContent.includes('OFF'); btn.textContent=on?'AUTO ON':'AUTO OFF'; btn.style.background=on?'rgba(0,255,136,0.15)':''; btn.style.borderColor=on?'var(--green)':'';};
+
+// boot loader
 const loader=document.getElementById('loader'), fill=document.getElementById('fill'), pct=document.getElementById('pct'), step=document.getElementById('step');
-function boot(){
- let p=0; const tick=()=>{p+=Math.random()*12; if(p>=30){ // init render server
-   RenderServer.init(document.getElementById('three'), (prog,txt)=>{
-    fill.style.width=prog+'%'; pct.textContent=prog+'%'; step.textContent=txt;
-    if(prog>=100){ setTimeout(()=>{loader.classList.add('hide'); GameServer.init();},400); }
-   });
-   return;
- } fill.style.width=p+'%'; pct.textContent=Math.floor(p)+'%'; step.textContent=p<10?'Booting internal server...':p<20?'Starting EventBus...':'Starting SoundServer...'; setTimeout(tick,80);}; tick();
-}
-boot();
+let p=0; const boot=()=>{p+=Math.random()*14; if(p>=30){ RenderServer.init(document.getElementById('three')); fill.style.width='100%'; pct.textContent='100%'; step.textContent='Ready'; setTimeout(()=>{loader.classList.add('hide'); GameServer.init();},400); return; } fill.style.width=p+'%'; pct.textContent=Math.floor(p)+'%'; step.textContent=p<10?'Booting Aviator server...':p<20?'Loading 3D plane...':'Building futuristic grid...'; setTimeout(boot,90);}; boot();
 let saved=localStorage.getItem('b10f_name'); if(saved){GameServer.displayName=saved; document.getElementById('signBtn').textContent=saved.toUpperCase();}
-
 </script>
 </body>
 </html>

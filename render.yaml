@@ -1,0 +1,15 @@
+services:
+    - type: web
+    name: b10fhonix-stk
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn shamba:app
+    envVars:
+            - key: MPESA_CONSUMER_KEY
+        sync: false
+            - key: MPESA_CONSUMER_SECRET
+        sync: false
+            - key: MPESA_SHORTCODE
+        value: 174379
+            - key: MPESA_PASSKEY
+        sync: false
